@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ExternalLink, GitHub } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 
 type Project = {
   id: number;
@@ -108,7 +108,7 @@ const Projects = () => {
                   <div className="flex space-x-4">
                     {project.github && (
                       <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-code hover:underline flex items-center">
-                        <GitHub className="w-4 h-4 mr-1" />
+                        <Github className="w-4 h-4 mr-1" />
                         <span>Code</span>
                       </a>
                     )}
@@ -130,7 +130,7 @@ const Projects = () => {
             rel="noopener noreferrer"
             className="inline-block px-6 py-3 border border-code text-code rounded-md hover:bg-code/10 transition-colors duration-300"
           >
-            <GitHub className="w-5 h-5 inline mr-2" />
+            <Github className="w-5 h-5 inline mr-2" />
             View More on GitHub
           </a>
         </div>
