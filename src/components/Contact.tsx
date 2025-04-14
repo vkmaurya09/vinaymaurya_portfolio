@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from 'react';
-import { Send, Mail, Phone, MapPin, Linkedin, GitHub } from 'lucide-react';
+import { Send, Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -89,7 +88,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="bg-secondary p-3 rounded-full hover:bg-code/20 transition-colors"
                 >
-                  <GitHub className="w-5 h-5" />
+                  <Github className="w-5 h-5" />
                 </a>
                 <a 
                   href="https://linkedin.com/" 

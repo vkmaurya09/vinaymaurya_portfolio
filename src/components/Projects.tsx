@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { ExternalLink, GitHub } from 'lucide-react';
 

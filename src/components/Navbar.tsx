@@ -1,6 +1,5 @@
-
 import { useState, useEffect } from "react";
-import { Menu, X, GitHub, Linkedin, Mail, FileText } from "lucide-react";
+import { Menu, X, Github, Linkedin, Mail, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
@@ -42,7 +41,7 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center space-x-4">
           <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <GitHub className="w-5 h-5 hover:text-code transition-colors" />
+            <Github className="w-5 h-5 hover:text-code transition-colors" />
           </a>
           <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <Linkedin className="w-5 h-5 hover:text-code transition-colors" />
@@ -77,7 +76,7 @@ const Navbar = () => {
             
             <div className="flex items-center space-x-6 mt-6">
               <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <GitHub className="w-6 h-6" />
+                <Github className="w-6 h-6" />
               </a>
               <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <Linkedin className="w-6 h-6" />
