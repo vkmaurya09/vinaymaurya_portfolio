@@ -4,9 +4,17 @@ import { useEffect, useState } from "react";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
-
+  const [textIndex, setTextIndex] = useState(0);
+  const typingTexts = ["web", "future", "cloud", "systems", "experiences"];
+  
   useEffect(() => {
     setIsVisible(true);
+    
+    const textInterval = setInterval(() => {
+      setTextIndex((prevIndex) => (prevIndex + 1) % typingTexts.length);
+    }, 2000);
+    
+    return () => clearInterval(textInterval);
   }, []);
 
   return (
@@ -23,8 +31,11 @@ const Hero = () => {
           </h1>
           
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8 flex">
-            <span>I build things for the web</span>
-            <span className="text-retro-orange animate-blink ml-1">_</span>
+            <span>I build things for the </span>
+            <div className="overflow-hidden inline-block relative" style={{ width: `${typingTexts[textIndex].length * 0.6}em` }}>
+              <span className="text-retro-orange">{typingTexts[textIndex]}</span>
+              <span className="text-retro-orange animate-blink ml-1 absolute right-[-0.5em]">_</span>
+            </div>
           </h2>
           
           <p className="text-lg text-retro-muted max-w-2xl mb-10 font-mono leading-relaxed border-l-2 border-retro-orange/50 pl-4">
