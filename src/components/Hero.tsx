@@ -71,8 +71,8 @@ const Hero = () => {
             <span className="text-retro-orange">Aditya</span> Raj.
           </h1>
           
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8 flex flex-wrap">
-            <span>I build things for the </span>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8 flex items-center whitespace-nowrap">
+            <span>I build things for the&nbsp;</span>
             <div className="inline-flex relative">
               <span className="text-retro-orange">{displayText}</span>
               <span className="text-retro-orange animate-blink ml-1">_</span>
