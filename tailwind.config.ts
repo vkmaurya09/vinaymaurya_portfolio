@@ -1,5 +1,5 @@
-
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -160,6 +160,10 @@ export default {
         "horizontal-bounce": {
           "0%, 100%": { transform: "translateX(0)" },
           "50%": { transform: "translateX(10px)" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(1440deg)" },
         }
       },
       animation: {
@@ -174,6 +178,7 @@ export default {
         "scanline": "scanline 8s linear infinite",
         "typing": "typing 3.5s steps(40, end)",
         "horizontal-bounce": "horizontal-bounce 1s infinite",
+        "spin-slow": "spin-slow 3s cubic-bezier(0.4, 0.0, 0.2, 1) forwards",
       },
       backgroundImage: {
         'retro-grid': "linear-gradient(to right, #1B1B2277 1px, transparent 1px), linear-gradient(to bottom, #1B1B2277 1px, transparent 1px)",
@@ -181,5 +186,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;

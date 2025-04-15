@@ -34,6 +34,19 @@ const Index = () => {
     const handleKeyPress = (event: KeyboardEvent) => {
       const key = event.key;
       
+      // Check if focus is on an input field, textarea, or other form elements
+      const activeElement = document.activeElement;
+      const isInputField = activeElement instanceof HTMLInputElement || 
+                           activeElement instanceof HTMLTextAreaElement || 
+                           activeElement instanceof HTMLSelectElement ||
+                           activeElement?.tagName === 'TEXTAREA' ||
+                           (activeElement instanceof HTMLElement && activeElement.isContentEditable);
+      
+      // Don't navigate if user is typing in an input field
+      if (isInputField) {
+        return;
+      }
+      
       // Check if the key is a number
       if (/^[0-5]$/.test(key)) {
         const sectionIndex = parseInt(key, 10);

@@ -20,12 +20,11 @@ const Footer = () => {
           
           <div className="flex flex-col items-center md:items-end">
             <p className="font-mono text-xs text-retro-muted mb-2">
-              Built with modern web technologies
+              Built with modern AI technologies
             </p>
             <div className="flex space-x-4">
-              <span className="text-retro-orange font-mono text-xs">React</span>
-              <span className="text-retro-yellow font-mono text-xs">TypeScript</span>
-              <span className="text-retro-purple font-mono text-xs">Tailwind</span>
+              <span className="text-retro-orange font-mono text-xs">Cursor</span>
+              <span className="text-retro-yellow font-mono text-xs">Lovable</span>
             </div>
           </div>
         </div>
