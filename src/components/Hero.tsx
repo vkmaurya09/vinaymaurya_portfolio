@@ -1,61 +1,81 @@
 import { ChevronDown, Terminal, Zap } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
+
+// Define the possible states for our typing animation
+type TypingState = "typing" | "pausing" | "deleting";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [typingState, setTypingState] = useState<TypingState>("typing");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const typingTexts = ["web", "future", "cloud", "systems", "experiences"];
+  const typingTexts = useMemo(() => ["web", "future", "cloud", "systems", "experiences"], []);
   const typingSpeed = 100; // ms per character
   const deletingSpeed = 75; // slightly faster deletion
-  const pauseBeforeDelete = 800; // pause before starting to delete
+  const pauseDuration = 800; // pause before deleting
   
+  // Initialize animation visibility once
   useEffect(() => {
     setIsVisible(true);
+  }, []);
+  
+  // Manage the typing animation with a clean state machine approach
+  useEffect(() => {
+    const currentWord = typingTexts[currentIndex];
+    let timer: NodeJS.Timeout;
     
-    const typeEffect = () => {
-      const currentWord = typingTexts[currentIndex];
-      
-      // If deleting
-      if (isDeleting) {
-        setDisplayText((prev) => prev.substring(0, prev.length - 1));
-        
-        // If done deleting, start typing the next word
-        if (displayText === "") {
-          setIsDeleting(false);
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % typingTexts.length);
-        }
-      } 
-      // If typing
-      else {
-        setDisplayText((prev) => 
-          currentWord.substring(0, prev.length + 1)
-        );
-        
-        // If done typing, pause then start deleting
-        if (displayText === currentWord) {
-          setTimeout(() => {
-            setIsDeleting(true);
-          }, pauseBeforeDelete);
-          return;
-        }
+    const nextStep = () => {
+      // Handle different states in the animation cycle
+      switch (typingState) {
+        case "typing":
+          if (displayText.length < currentWord.length) {
+            // Continue typing the current word
+            setDisplayText(currentWord.substring(0, displayText.length + 1));
+          } else {
+            // Word is complete, transition to pausing state
+            setTypingState("pausing");
+          }
+          break;
+          
+        case "pausing":
+          // After pause, move to deleting state
+          setTypingState("deleting");
+          break;
+          
+        case "deleting":
+          if (displayText.length > 0) {
+            // Continue deleting the current word
+            setDisplayText(displayText.substring(0, displayText.length - 1));
+          } else {
+            // Word is fully deleted, move to the next word and start typing
+            setCurrentIndex((currentIndex + 1) % typingTexts.length);
+            setTypingState("typing");
+          }
+          break;
       }
     };
     
-    // Set initial text
-    if (displayText === "" && !isDeleting) {
-      setDisplayText(typingTexts[0][0]);
+    // Set timer based on current state
+    if (typingState === "pausing") {
+      timer = setTimeout(nextStep, pauseDuration);
+    } else {
+      timer = setTimeout(
+        nextStep, 
+        typingState === "typing" ? typingSpeed : deletingSpeed
+      );
     }
     
-    // Set up the typing interval
-    const interval = setInterval(
-      typeEffect, 
-      isDeleting ? deletingSpeed : typingSpeed
-    );
-    
-    return () => clearInterval(interval);
-  }, [displayText, isDeleting, currentIndex, typingTexts]);
+    // Clean up timer
+    return () => clearTimeout(timer);
+  }, [
+    typingState, 
+    displayText, 
+    currentIndex, 
+    typingTexts, 
+    typingSpeed, 
+    deletingSpeed, 
+    pauseDuration
+  ]);
 
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center relative px-4 retro-container scanlines">
@@ -72,9 +92,11 @@ const Hero = () => {
           
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8">
             <div>I build things for the</div>
-            <div className="inline-flex relative">
-              <span className="text-retro-orange">{displayText}</span>
-              <span className="text-retro-orange animate-blink ml-1">_</span>
+            <div className="relative">
+              <div className="inline-flex items-center">
+                <span className="text-retro-orange min-h-[60px] inline-block">{displayText || '\u00A0'}</span>
+                <span className="text-retro-orange animate-blink inline-block">_</span>
+              </div>
             </div>
           </h2>
           
