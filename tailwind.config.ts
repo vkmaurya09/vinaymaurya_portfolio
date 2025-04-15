@@ -53,24 +53,40 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        code: "#64FFDA",
-        "code-dark": "#58D5BE",
+        code: "#FF7657", // Updated to retro orange
+        "code-dark": "#E06A4E", // Darker retro orange
         highlight: "#FFD166",
         skillbar: {
-          bg: "#1A1F2C",
-          go: "#50B7E0",
-          aws: "#FF9900",
-          kafka: "#231F20",
-          nodejs: "#339933",
-          typescript: "#3178C6",
-          redis: "#DC382D",
-          django: "#092E20",
+          bg: "#1B1B22",
+          go: "#FF7657", // Go - retro orange
+          aws: "#FFC857", // AWS - retro yellow
+          kafka: "#A55EA5", // Kafka - retro purple
+          nodejs: "#3EB489", // Node.js - retro green
+          typescript: "#5FA8D3", // TypeScript - retro blue
+          redis: "#FF7657", // Redis - retro orange
+          django: "#3EB489", // Django - retro green
+        },
+        retro: {
+          orange: "#FF7657",
+          yellow: "#FFC857",
+          purple: "#A55EA5", 
+          green: "#3EB489",
+          blue: "#5FA8D3",
+          bg: "#121217",
+          card: "#1B1B22",
+          text: "#F7F4F3",
+          muted: "#8A8996",
         },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        mono: ['Space Mono', 'monospace'],
+        sans: ['Inter', 'sans-serif'],
+        display: ['VT323', 'monospace'],
       },
       keyframes: {
         "accordion-down": {
@@ -119,6 +135,32 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        blink: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
+        "pixel-in": {
+          "0%": { 
+            opacity: "0",
+            filter: "blur(5px)",
+          },
+          "100%": { 
+            opacity: "1",
+            filter: "blur(0)",
+          },
+        },
+        "scanline": {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(100%)" },
+        },
+        "typing": {
+          "from": { width: "0" },
+          "to": { width: "100%" },
+        },
+        "horizontal-bounce": {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(10px)" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -127,6 +169,15 @@ export default {
         "scale-in": "scale-in 0.3s ease-out forwards",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         shimmer: "shimmer 2s linear infinite",
+        blink: "blink 1s step-start infinite",
+        "pixel-in": "pixel-in 0.4s ease-out forwards",
+        "scanline": "scanline 8s linear infinite",
+        "typing": "typing 3.5s steps(40, end)",
+        "horizontal-bounce": "horizontal-bounce 1s infinite",
+      },
+      backgroundImage: {
+        'retro-grid': "linear-gradient(to right, #1B1B2277 1px, transparent 1px), linear-gradient(to bottom, #1B1B2277 1px, transparent 1px)",
+        'noise': "url('/images/noise.png')",
       },
     },
   },

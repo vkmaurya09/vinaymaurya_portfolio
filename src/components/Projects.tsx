@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
-import { ExternalLink } from 'lucide-react';
 
-// Custom GitHub icon component to replace the deprecated Github from lucide-react
+import { useEffect } from 'react';
+import { ExternalLink, Code as CodeIcon, Monitor, Zap } from 'lucide-react';
+
+// Custom GitHub icon component
 const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -72,52 +73,59 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-20 px-4 bg-secondary/20">
+    <section id="projects" className="py-24 px-4 bg-gradient-to-b from-retro-bg to-retro-bg/90 retro-container">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl font-bold mb-12 flex items-center animate-on-scroll">
-          <span className="text-code font-mono mr-2">04.</span>
-          <span>Projects</span>
-          <span className="h-px bg-muted flex-grow ml-4"></span>
+        <h2 className="text-3xl font-display mb-12 flex items-center animate-on-scroll">
+          <span className="text-retro-orange font-mono mr-2">04.</span>
+          <span className="retro-text-shadow">Projects</span>
+          <span className="h-px bg-white/10 flex-grow ml-4"></span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {projects.map((project, index) => (
             <div 
               key={project.id} 
-              className="glass-card rounded-lg overflow-hidden group animate-on-scroll"
+              className="retro-card animate-on-scroll border-2 border-white/5 overflow-hidden"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-56">
+                <div className="absolute left-0 top-0 z-10 bg-retro-card py-1 px-2 text-xs font-mono flex items-center border-r border-b border-white/10">
+                  <CodeIcon className="w-3 h-3 mr-1 text-retro-orange" />
+                  <span>project_{index + 1}.go</span>
+                </div>
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-70"></div>
-                <div className="absolute bottom-4 left-4 right-4">
-                  <h3 className="text-xl font-bold">{project.title}</h3>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="px-2 py-1 bg-background/50 backdrop-blur-sm rounded-full text-xs">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
               </div>
-              <div className="p-6">
-                <p className="text-muted-foreground mb-4">{project.description}</p>
+              <div className="p-6 bg-retro-card">
+                <h3 className="font-display text-xl mb-1 text-retro-orange">{project.title}</h3>
+                
+                <div className="flex flex-wrap gap-2 mt-2 mb-4">
+                  {project.technologies.map((tech, techIndex) => (
+                    <span key={techIndex} 
+                      className="px-2 py-1 bg-white/5 border border-white/10 font-mono text-xs text-retro-muted">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                
+                <p className="text-retro-muted mb-6 text-sm">{project.description}</p>
+                
                 <div className="flex justify-between items-center">
                   <div className="flex space-x-4">
                     {project.github && (
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-code hover:underline flex items-center">
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" 
+                        className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs">
                         <GitHubIcon className="w-4 h-4 mr-1" />
-                        <span>Code</span>
+                        <span>SOURCE</span>
                       </a>
                     )}
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-code hover:underline flex items-center">
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" 
+                      className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs">
                       <ExternalLink className="w-4 h-4 mr-1" />
-                      <span>Demo</span>
+                      <span>LIVE DEMO</span>
                     </a>
                   </div>
                 </div>
@@ -126,15 +134,15 @@ const Projects = () => {
           ))}
         </div>
 
-        <div className="mt-12 text-center animate-on-scroll">
+        <div className="mt-16 text-center animate-on-scroll">
           <a 
             href="https://github.com/aditya201551" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-block px-6 py-3 border border-code text-code rounded-md hover:bg-code/10 transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 bg-retro-card border border-retro-orange text-retro-orange font-mono hover:bg-retro-orange/10 transition-colors"
           >
-            <GitHubIcon className="w-5 h-5 inline mr-2" />
-            View My GitHub
+            <GitHubIcon className="w-5 h-5 mr-2" />
+            <span>VIEW_ALL_PROJECTS</span>
           </a>
         </div>
       </div>

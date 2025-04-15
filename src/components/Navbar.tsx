@@ -1,5 +1,6 @@
+
 import { useState, useEffect } from "react";
-import { Menu, X, Mail, FileText } from "lucide-react";
+import { Menu, X, Mail, FileText, Terminal, Zap, TerminalSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Custom LinkedIn icon component to replace the deprecated Linkedin from lucide-react
@@ -62,34 +63,74 @@ const Navbar = () => {
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? "bg-background/90 backdrop-blur-sm border-b border-white/10" : "bg-transparent"
+        isScrolled ? "bg-retro-bg/95 backdrop-blur-sm border-b border-retro-orange/10" : "bg-transparent"
       }`}
     >
-      <div className="container flex items-center justify-between py-4">
-        <a href="#hero" className="text-xl font-bold text-gradient">AR.</a>
+      <div className="container max-w-7xl flex items-center justify-between py-4 px-4">
+        <a href="#hero" className="font-display text-2xl retro-text-shadow flex items-center">
+          <TerminalSquare className="w-6 h-6 text-retro-orange mr-2" />
+          <span className="text-retro-orange">AR</span><span className="text-retro-text">.</span>
+        </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          <a href="#about" className="link-underline">About</a>
-          <a href="#experience" className="link-underline">Experience</a>
-          <a href="#skills" className="link-underline">Skills</a>
-          <a href="#projects" className="link-underline">Projects</a>
-          <a href="#contact" className="link-underline">Contact</a>
+        <nav className="hidden md:flex items-center">
+          <ul className="flex font-mono text-sm space-x-1">
+            <li>
+              <a 
+                href="#about" 
+                className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
+              >
+                <span className="text-retro-orange mr-1">01.</span> ABOUT
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#experience" 
+                className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
+              >
+                <span className="text-retro-orange mr-1">02.</span> EXPERIENCE
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#skills" 
+                className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
+              >
+                <span className="text-retro-orange mr-1">03.</span> SKILLS
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#projects" 
+                className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
+              >
+                <span className="text-retro-orange mr-1">04.</span> PROJECTS
+              </a>
+            </li>
+            <li>
+              <a 
+                href="#contact" 
+                className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
+              >
+                <span className="text-retro-orange mr-1">05.</span> CONTACT
+              </a>
+            </li>
+          </ul>
         </nav>
 
-        <div className="hidden md:flex items-center space-x-4">
-          <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <GitHubIcon className="w-5 h-5 hover:text-code transition-colors" />
+        <div className="hidden md:flex items-center space-x-5">
+          <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-retro-muted hover:text-retro-orange transition-colors">
+            <GitHubIcon className="w-5 h-5" />
           </a>
-          <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <LinkedInIcon className="w-5 h-5 hover:text-code transition-colors" />
+          <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-retro-muted hover:text-retro-orange transition-colors">
+            <LinkedInIcon className="w-5 h-5" />
           </a>
-          <a href="mailto:ssh@adityaraj.dev" aria-label="Email">
-            <Mail className="w-5 h-5 hover:text-code transition-colors" />
+          <a href="mailto:ssh@adityaraj.dev" aria-label="Email" className="text-retro-muted hover:text-retro-orange transition-colors">
+            <Mail className="w-5 h-5" />
           </a>
           <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer">
-            <Button variant="outline" size="sm" className="ml-4 border-code text-code hover:bg-code/10">
-              <FileText className="w-4 h-4 mr-2" /> Resume
+            <Button variant="outline" size="sm" className="font-mono text-xs border-retro-orange text-retro-orange hover:bg-retro-orange/10 rounded-none">
+              <FileText className="w-4 h-4 mr-2" /> RESUME
             </Button>
           </a>
         </div>
@@ -97,38 +138,48 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden text-foreground p-2"
+          className="md:hidden text-retro-text p-2 border border-retro-orange/20 bg-retro-card"
           aria-label="Toggle menu"
         >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-background/95 backdrop-blur-md pt-20">
+        <div className="md:hidden fixed inset-0 z-40 bg-retro-bg/95 backdrop-blur-md pt-20 font-mono">
           <nav className="flex flex-col items-center space-y-8 py-8">
-            <a href="#about" className="text-lg" onClick={() => setMobileMenuOpen(false)}>About</a>
-            <a href="#experience" className="text-lg" onClick={() => setMobileMenuOpen(false)}>Experience</a>
-            <a href="#skills" className="text-lg" onClick={() => setMobileMenuOpen(false)}>Skills</a>
-            <a href="#projects" className="text-lg" onClick={() => setMobileMenuOpen(false)}>Projects</a>
-            <a href="#contact" className="text-lg" onClick={() => setMobileMenuOpen(false)}>Contact</a>
+            <a href="#about" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+              <span className="text-retro-orange mr-2">01.</span> ABOUT
+            </a>
+            <a href="#experience" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+              <span className="text-retro-orange mr-2">02.</span> EXPERIENCE
+            </a>
+            <a href="#skills" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+              <span className="text-retro-orange mr-2">03.</span> SKILLS
+            </a>
+            <a href="#projects" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+              <span className="text-retro-orange mr-2">04.</span> PROJECTS
+            </a>
+            <a href="#contact" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+              <span className="text-retro-orange mr-2">05.</span> CONTACT
+            </a>
             
             <div className="flex items-center space-x-6 mt-6">
-              <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-retro-muted hover:text-retro-orange transition-colors">
                 <GitHubIcon className="w-6 h-6" />
               </a>
-              <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-retro-muted hover:text-retro-orange transition-colors">
                 <LinkedInIcon className="w-6 h-6" />
               </a>
-              <a href="mailto:ssh@adityaraj.dev" aria-label="Email">
+              <a href="mailto:ssh@adityaraj.dev" aria-label="Email" className="text-retro-muted hover:text-retro-orange transition-colors">
                 <Mail className="w-6 h-6" />
               </a>
             </div>
             
             <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="sm" className="border-code text-code hover:bg-code/10 mt-4">
-                <FileText className="w-4 h-4 mr-2" /> Resume
+              <Button variant="outline" className="mt-4 border-retro-orange text-retro-orange hover:bg-retro-orange/10 rounded-none font-mono">
+                <FileText className="w-4 h-4 mr-2" /> RESUME
               </Button>
             </a>
           </nav>

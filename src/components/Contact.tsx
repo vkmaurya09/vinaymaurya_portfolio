@@ -1,11 +1,29 @@
+
 import { useState, useEffect } from 'react';
-import { Send, Mail, MapPin, Linkedin } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Send, Mail, MapPin, Terminal, ArrowRight } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
 
-// Custom GitHub icon component to replace the deprecated Github from lucide-react
+// Custom LinkedIn icon component
+const LinkedInIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    fill="none"
+    stroke="currentColor" 
+    strokeWidth="2"
+    strokeLinecap="round" 
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+// Custom GitHub icon component
 const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -31,10 +49,19 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [focused, setFocused] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFocus = (name: string) => {
+    setFocused(name);
+  };
+
+  const handleBlur = () => {
+    setFocused(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -91,112 +118,153 @@ const Contact = () => {
   }, []);
 
   return (
-    <section id="contact" className="py-20 px-4">
+    <section id="contact" className="py-24 px-4 retro-container">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl font-bold mb-12 flex items-center animate-on-scroll">
-          <span className="text-code font-mono mr-2">05.</span>
-          <span>Get In Touch</span>
-          <span className="h-px bg-muted flex-grow ml-4"></span>
+        <h2 className="text-3xl font-display mb-12 flex items-center animate-on-scroll">
+          <span className="text-retro-orange font-mono mr-2">05.</span>
+          <span className="retro-text-shadow">Get In Touch</span>
+          <span className="h-px bg-white/10 flex-grow ml-4"></span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="animate-on-scroll">
-            <h3 className="text-2xl font-semibold mb-6">Let's Connect</h3>
-            <p className="text-muted-foreground mb-8">
-              I'm always interested in new opportunities, collaborations, or just having a chat about technology. Feel free to reach out through the form or any of the channels listed below.
+            <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border-l-2 border-retro-orange">
+              <Terminal className="w-4 h-4 text-retro-orange mr-2" />
+              <p className="font-mono text-xs text-retro-orange">contact.sh</p>
+            </div>
+            
+            <h3 className="text-2xl font-display mb-6 text-retro-text">Let's Connect</h3>
+            
+            <p className="text-retro-muted mb-8 pl-4 border-l border-retro-orange/20">
+              I'm always interested in new opportunities, collaborations, or just having a chat about technology. 
+              Feel free to reach out through the form or any of the channels listed below.
             </p>
             
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <Mail className="w-5 h-5 text-code mr-4" />
-                <span>ssh@adityaraj.dev</span>
+            <div className="space-y-6">
+              <div className="flex items-center group">
+                <div className="w-10 h-10 mr-4 bg-retro-card flex items-center justify-center border border-white/10 group-hover:border-retro-orange/50 transition-colors">
+                  <Mail className="w-5 h-5 text-retro-orange" />
+                </div>
+                <a href="mailto:ssh@adityaraj.dev" className="font-mono text-sm text-retro-muted group-hover:text-retro-orange transition-colors">
+                  ssh@adityaraj.dev
+                </a>
               </div>
-              <div className="flex items-center">
-                <MapPin className="w-5 h-5 text-code mr-4" />
-                <span>Bengaluru, Karnataka, India</span>
+              
+              <div className="flex items-center group">
+                <div className="w-10 h-10 mr-4 bg-retro-card flex items-center justify-center border border-white/10 group-hover:border-retro-orange/50 transition-colors">
+                  <MapPin className="w-5 h-5 text-retro-orange" />
+                </div>
+                <span className="font-mono text-sm text-retro-muted">
+                  Bengaluru, Karnataka, India
+                </span>
               </div>
             </div>
             
-            <div className="mt-8">
-              <h4 className="text-xl font-medium mb-4">Find me on</h4>
+            <div className="mt-12">
+              <h4 className="text-xl font-display mb-6 text-retro-text">Find me on</h4>
               <div className="flex space-x-4">
                 <a 
                   href="https://github.com/aditya201551" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-secondary p-3 rounded-full hover:bg-code/20 transition-colors"
+                  className="w-12 h-12 bg-retro-card flex items-center justify-center border border-white/10 hover:border-retro-orange transition-colors group"
                 >
-                  <GitHubIcon className="w-5 h-5" />
+                  <GitHubIcon className="w-6 h-6 text-retro-muted group-hover:text-retro-orange transition-colors" />
                 </a>
                 <a 
                   href="https://www.linkedin.com/in/aaditya-raaj/" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-secondary p-3 rounded-full hover:bg-code/20 transition-colors"
+                  className="w-12 h-12 bg-retro-card flex items-center justify-center border border-white/10 hover:border-retro-orange transition-colors group"
                 >
-                  <Linkedin className="w-5 h-5" />
+                  <LinkedInIcon className="w-6 h-6 text-retro-muted group-hover:text-retro-orange transition-colors" />
                 </a>
               </div>
             </div>
           </div>
           
           <div className="animate-on-scroll delay-100">
-            <form onSubmit={handleSubmit} className="space-y-6 bg-secondary/20 p-8 rounded-lg border border-border/40 backdrop-blur-sm">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground/80">Name</label>
+            <form onSubmit={handleSubmit} className="retro-card p-8 border-2 border-white/5">
+              <div className="mb-8">
+                <label 
+                  htmlFor="name" 
+                  className={`block text-xs font-mono mb-2 ${focused === 'name' ? 'text-retro-orange' : 'text-retro-muted'}`}
+                >
+                  NAME
+                </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
-                  placeholder="Your Name"
+                  placeholder="_yourName"
                   value={formData.name}
                   onChange={handleChange}
+                  onFocus={() => handleFocus('name')}
+                  onBlur={handleBlur}
                   required
-                  className="w-full rounded-md border border-border/60 bg-background/30 px-4 py-3 text-sm font-normal focus:outline-none focus:ring-1 focus:ring-code focus:border-code transition-all duration-200"
+                  className="w-full bg-retro-bg border-b-2 border-white/20 focus:border-retro-orange px-0 py-2 font-mono text-retro-text focus:outline-none transition-colors"
                 />
               </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground/80">Email</label>
+              
+              <div className="mb-8">
+                <label 
+                  htmlFor="email" 
+                  className={`block text-xs font-mono mb-2 ${focused === 'email' ? 'text-retro-orange' : 'text-retro-muted'}`}
+                >
+                  EMAIL
+                </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="your.email@example.com"
+                  placeholder="_yourEmail@domain.com"
                   value={formData.email}
                   onChange={handleChange}
+                  onFocus={() => handleFocus('email')}
+                  onBlur={handleBlur}
                   required
-                  className="w-full rounded-md border border-border/60 bg-background/30 px-4 py-3 text-sm font-normal focus:outline-none focus:ring-1 focus:ring-code focus:border-code transition-all duration-200"
+                  className="w-full bg-retro-bg border-b-2 border-white/20 focus:border-retro-orange px-0 py-2 font-mono text-retro-text focus:outline-none transition-colors"
                 />
               </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground/80">Message</label>
+              
+              <div className="mb-8">
+                <label 
+                  htmlFor="message" 
+                  className={`block text-xs font-mono mb-2 ${focused === 'message' ? 'text-retro-orange' : 'text-retro-muted'}`}
+                >
+                  MESSAGE
+                </label>
                 <textarea
                   id="message"
                   name="message"
-                  placeholder="Hi! I'd like to talk about..."
+                  placeholder="_yourMessage"
                   value={formData.message}
                   onChange={handleChange}
+                  onFocus={() => handleFocus('message')}
+                  onBlur={handleBlur}
                   required
                   rows={4}
-                  className="w-full rounded-md border border-border/60 bg-background/30 px-4 py-3 text-sm font-normal focus:outline-none focus:ring-1 focus:ring-code focus:border-code transition-all duration-200 resize-none"
+                  className="w-full bg-retro-bg border-b-2 border-white/20 focus:border-retro-orange px-0 py-2 font-mono text-retro-text focus:outline-none transition-colors resize-none"
                 ></textarea>
               </div>
+              
               <button 
                 type="submit" 
-                className="bg-code hover:bg-code/90 text-background px-6 py-3 rounded-md w-full flex items-center justify-center transition-all duration-300 font-medium mt-2"
+                className="w-full bg-retro-orange text-retro-bg hover:bg-retro-orange/90 font-mono py-3 flex items-center justify-center group"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-background" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Processing...
+                    PROCESSING...
                   </span>
                 ) : (
                   <>
-                    <Send className="w-4 h-4 mr-2" /> Send Message
+                    <span>SEND_MESSAGE</span>
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
               </button>

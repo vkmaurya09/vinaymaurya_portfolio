@@ -1,6 +1,6 @@
+
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Briefcase, Calendar, MapPin } from "lucide-react";
+import { Briefcase, Calendar, MapPin, ChevronRight } from "lucide-react";
 
 type Experience = {
   id: number;
@@ -88,18 +88,18 @@ const experiences: Experience[] = [
 
 const ExperienceCard = ({ experience }: { experience: Experience }) => {
   return (
-    <div className="glass-card p-6 rounded-lg">
-      <div className="flex items-start gap-4 mb-6">
-        <img
-          src={experience.logo}
-          alt={`${experience.company} logo`}
-          className={`${
-            experience.company === "FYERS" ? "w-20 h-20" : "w-12 h-12"
-          } object-contain rounded`}
-        />
+    <div className="retro-card p-6">
+      <div className="flex items-start gap-4 mb-8">
+        <div className="bg-retro-card border border-white/10 p-3 flex-shrink-0">
+          <img
+            src={experience.logo}
+            alt={`${experience.company} logo`}
+            className="w-16 h-16 object-contain grayscale hover:grayscale-0 transition-all duration-500"
+          />
+        </div>
         <div className="flex-1">
-          <h3 className="text-2xl font-bold text-foreground">{experience.position}</h3>
-          <p className="text-code text-xl">
+          <h3 className="text-2xl font-display text-retro-text mb-1">{experience.position}</h3>
+          <p className="text-retro-orange font-mono">
             <a 
               href={experience.companyUrl} 
               target="_blank" 
@@ -112,28 +112,28 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
         </div>
       </div>
 
-      <div className="flex flex-wrap items-center mb-8">
-        <div className="flex items-center text-gray-400 px-4 py-1.5 rounded-md mr-8">
-          <Briefcase className="w-5 h-5 mr-2" />
-          <span className="font-medium">{experience.employmentType}</span>
+      <div className="flex flex-wrap items-center mb-8 font-mono text-xs">
+        <div className="flex items-center text-retro-muted px-3 py-1.5 border border-white/10 mr-4 mb-2">
+          <Briefcase className="w-4 h-4 mr-2 text-retro-orange" />
+          <span>{experience.employmentType}</span>
         </div>
         
-        <div className="flex items-center text-gray-400 mr-8">
-          <Calendar className="w-5 h-5 mr-2" />
+        <div className="flex items-center text-retro-muted px-3 py-1.5 border border-white/10 mr-4 mb-2">
+          <Calendar className="w-4 h-4 mr-2 text-retro-orange" />
           <span>{experience.period}</span>
         </div>
         
-        <div className="flex items-center text-gray-400">
-          <MapPin className="w-5 h-5 mr-2" />
+        <div className="flex items-center text-retro-muted px-3 py-1.5 border border-white/10 mb-2">
+          <MapPin className="w-4 h-4 mr-2 text-retro-orange" />
           <span>{experience.location}</span>
         </div>
       </div>
 
-      <ul className="mt-6 space-y-4">
+      <ul className="mt-8 space-y-4">
         {experience.responsibilities.map((responsibility, index) => (
-          <li key={index} className="flex items-start text-gray-400">
-            <span className="text-code mr-3 flex-shrink-0 text-lg">•</span>
-            <span className="text-base">{responsibility}</span>
+          <li key={index} className="flex items-start text-retro-muted">
+            <ChevronRight className="w-4 h-4 text-retro-orange mr-2 flex-shrink-0 mt-1" />
+            <span className="text-sm">{responsibility}</span>
           </li>
         ))}
       </ul>
@@ -142,7 +142,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
         {experience.skills.map((skill, index) => (
           <span
             key={index}
-            className="px-4 py-2 bg-secondary/40 border border-white/5 rounded-full text-sm"
+            className="px-4 py-1.5 bg-retro-card border border-white/10 text-xs font-mono"
           >
             {skill}
           </span>
@@ -191,36 +191,35 @@ const Experience = () => {
   };
 
   return (
-    <section id="experience" className="py-20 px-4 bg-secondary/20">
+    <section id="experience" className="py-24 px-4 bg-gradient-to-b from-retro-bg/90 to-retro-bg retro-container">
       <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl font-bold mb-12 flex items-center animate-on-scroll">
-          <span className="text-code font-mono mr-2">02.</span>
-          <span>Experience</span>
-          <span className="h-px bg-muted flex-grow ml-4"></span>
+        <h2 className="text-3xl font-display mb-12 flex items-center animate-on-scroll">
+          <span className="text-retro-orange font-mono mr-2">02.</span>
+          <span className="retro-text-shadow">Experience</span>
+          <span className="h-px bg-white/10 flex-grow ml-4"></span>
         </h2>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          <div className="lg:w-1/4">
-            <div className="flex lg:flex-col overflow-x-auto lg:overflow-visible gap-2 pb-4 lg:pb-0">
+          <div className="lg:w-1/4 animate-on-scroll">
+            <div className="flex lg:flex-col overflow-x-auto lg:overflow-visible gap-1 pb-4 lg:pb-0 font-mono text-sm">
               {experiences.map((exp) => (
-                <Button
+                <button
                   key={exp.id}
-                  variant={selectedTab === exp.id ? "default" : "ghost"}
-                  className={`justify-start whitespace-nowrap ${
+                  className={`px-4 py-3 text-left border transition-colors whitespace-nowrap ${
                     selectedTab === exp.id
-                      ? "bg-code/10 text-code border-l-2 border-code"
-                      : "hover:bg-secondary/50 hover:text-code"
+                      ? "border-retro-orange text-retro-orange bg-retro-orange/5"
+                      : "border-white/10 text-retro-muted hover:text-retro-orange hover:border-retro-orange/50"
                   }`}
                   onClick={() => handleTabChange(exp.id)}
                 >
-                  <Briefcase className="w-4 h-4 mr-2" />
+                  <Briefcase className="w-4 h-4 inline-block mr-2" />
                   {exp.company}
-                </Button>
+                </button>
               ))}
             </div>
           </div>
 
-          <div className="lg:w-3/4 min-h-[300px] flex items-start">
+          <div className="lg:w-3/4 min-h-[300px] flex items-start animate-on-scroll delay-100">
             {currentExperience && (
               <div className="w-full">
                 <ExperienceCard experience={currentExperience} />
@@ -229,14 +228,15 @@ const Experience = () => {
           </div>
         </div>
 
-        <div className="mt-12 text-center animate-on-scroll">
+        <div className="mt-16 text-center animate-on-scroll">
           <a 
             href="https://flowcv.com/resume/tsc77t6arq" 
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-6 py-3 border border-code text-code rounded-md hover:bg-code/10 transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 bg-retro-card border border-retro-orange text-retro-orange font-mono hover:bg-retro-orange/10 transition-colors"
           >
-            View Full Resume
+            <Calendar className="w-5 h-5 mr-2" />
+            VIEW_FULL_RESUME
           </a>
         </div>
       </div>
