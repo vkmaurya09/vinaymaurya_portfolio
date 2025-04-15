@@ -4,18 +4,59 @@ import { useEffect, useState } from "react";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [textIndex, setTextIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const typingTexts = ["web", "future", "cloud", "systems", "experiences"];
+  const typingSpeed = 100; // ms per character
+  const deletingSpeed = 75; // slightly faster deletion
+  const pauseBeforeDelete = 800; // pause before starting to delete
   
   useEffect(() => {
     setIsVisible(true);
     
-    const textInterval = setInterval(() => {
-      setTextIndex((prevIndex) => (prevIndex + 1) % typingTexts.length);
-    }, 2000);
+    const typeEffect = () => {
+      const currentWord = typingTexts[currentIndex];
+      
+      // If deleting
+      if (isDeleting) {
+        setDisplayText((prev) => prev.substring(0, prev.length - 1));
+        
+        // If done deleting, start typing the next word
+        if (displayText === "") {
+          setIsDeleting(false);
+          setCurrentIndex((prevIndex) => (prevIndex + 1) % typingTexts.length);
+        }
+      } 
+      // If typing
+      else {
+        setDisplayText((prev) => 
+          currentWord.substring(0, prev.length + 1)
+        );
+        
+        // If done typing, pause then start deleting
+        if (displayText === currentWord) {
+          setTimeout(() => {
+            setIsDeleting(true);
+          }, pauseBeforeDelete);
+          return;
+        }
+      }
+    };
     
-    return () => clearInterval(textInterval);
-  }, []);
+    // Set initial text
+    if (displayText === "" && !isDeleting) {
+      setDisplayText(typingTexts[0][0]);
+    }
+    
+    // Set up the typing interval
+    const interval = setInterval(
+      typeEffect, 
+      isDeleting ? deletingSpeed : typingSpeed
+    );
+    
+    return () => clearInterval(interval);
+  }, [displayText, isDeleting, currentIndex, typingTexts]);
 
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center relative px-4 retro-container scanlines">
@@ -30,11 +71,11 @@ const Hero = () => {
             <span className="text-retro-orange">Aditya</span> Raj.
           </h1>
           
-          <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8 flex">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8 flex flex-wrap">
             <span>I build things for the </span>
-            <div className="overflow-hidden inline-block relative" style={{ width: `${typingTexts[textIndex].length * 0.6}em` }}>
-              <span className="text-retro-orange">{typingTexts[textIndex]}</span>
-              <span className="text-retro-orange animate-blink ml-1 absolute right-[-0.5em]">_</span>
+            <div className="inline-flex relative">
+              <span className="text-retro-orange">{displayText}</span>
+              <span className="text-retro-orange animate-blink ml-1">_</span>
             </div>
           </h2>
           
