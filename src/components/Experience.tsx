@@ -1,25 +1,27 @@
-
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { Briefcase, Calendar, MapPin } from "lucide-react";
 
 type Experience = {
   id: number;
   company: string;
   logo: string;
   position: string;
+  employmentType: string;
   period: string;
   location: string;
   responsibilities: string[];
   skills: string[];
+  companyUrl: string;
 };
 
 const experiences: Experience[] = [
   {
     id: 1,
     company: "FYERS",
-    logo: "/lovable-uploads/ebcb6abf-7f72-4276-8637-17d34ac64940.png",
+    logo: "/lovable-uploads/fyers-logo.png",
     position: "Senior Software Engineer",
+    employmentType: "Full-time",
     period: "Aug 2023 - Present",
     location: "Bengaluru, Karnataka, India",
     responsibilities: [
@@ -27,81 +29,121 @@ const experiences: Experience[] = [
       "Created a funds module that lets a user add and withdraw funds from their trading wallet from the app and web.",
       "Automated high-availability setup to serve real-time stock screener data without any downtime using AWS lambda and step function.",
       "Designed a microservice that handles all types of settings (chart, user, order window, etc) across platforms using Kafka, Redis and PostgreSQL.",
-      "Created async APIs using Kafka to scale systems to handle higher loads during peak traffic time"
+      "Created async APIs using Kafka to scale systems to handle higher loads during peak traffic time",
     ],
-    skills: ["Go", "Apache Kafka", "AWS", "Redis", "PostgreSQL"]
+    skills: ["Go", "Apache Kafka", "AWS", "Redis", "PostgreSQL"],
+    companyUrl: "https://app.fyers.in",
   },
   {
     id: 2,
     company: "Plaza",
-    logo: "/lovable-uploads/f6d3650e-00f8-4ffc-9e3e-f6abf81b4520.png",
+    logo: "/lovable-uploads/plaza-logo.jpeg",
     position: "Software Development Engineer - Backend",
+    employmentType: "Full-time",
     period: "Jul 2022 - Jun 2023",
     location: "Bengaluru, Karnataka, India",
     responsibilities: [
       "Integrated creator analytics SDK, displaying content stats from multiple social media platforms, resulting in a comprehensive dashboard.",
       "Developed serverless function for automated data retrieval, ensuring real-time analytics updates and saving 17 hours per week of manual tasks.",
       "Implemented event-driven notification service for timely email, in-app, and push notifications, increasing user engagement by over 15%.",
-      "Contributed to admin-side API development, enabling efficient platform management and achieving over 20% efficiency gain."
+      "Contributed to admin-side API development, enabling efficient platform management and achieving over 20% efficiency gain.",
     ],
-    skills: ["JSON", "AWS", "Node.js", "Python"]
+    skills: ["JSON", "AWS", "Node.js", "Python"],
+    companyUrl: "https://www.linkedin.com/company/plaza-tech/",
   },
   {
     id: 3,
     company: "Quantum Dynamics Corp",
-    logo: "/lovable-uploads/0b8675d7-f217-44f4-9166-109aaf39ea85.png",
+    logo: "/lovable-uploads/qd_corp_logo.jpeg",
     position: "Back End Developer",
+    employmentType: "Internship",
     period: "Apr 2022 - Jun 2022",
     location: "Remote",
     responsibilities: [
       "Implemented GraphQL resolvers to efficiently retrieve and manipulate data from multiple data sources, ensuring streamlined data access and minimizing response time.",
       "Collaborated with the team to continuously improve the GraphQL schema design, ensuring consistency and scalability as new features and requirements were introduced.",
       "Actively participated in code reviews, providing constructive feedback and suggestions to improve code quality, performance, and maintainability.",
-      "Maintained documentation for the GraphQL API, providing clear and comprehensive guidelines for frontend developers to interact with the backend system."
+      "Maintained documentation for the GraphQL API, providing clear and comprehensive guidelines for frontend developers to interact with the backend system.",
     ],
-    skills: ["NestJS", "GraphQL"]
-  }
+    skills: ["NestJS", "GraphQL"],
+    companyUrl: "https://www.qd-corp.com/",
+  },
+  {
+    id: 4,
+    company: "Korazón",
+    logo: "/lovable-uploads/korazon-logo.jpeg",
+    position: "Backend Developer",
+    employmentType: "Internship",
+    period: "Jan 2022 - Mar 2022",
+    location: "Remote",
+    responsibilities: [
+      "Developed and implemented the backend infrastructure for a crypto payment app, using Django and GraphQL technologies.",
+      "Focused on authentication mechanisms using JSON Web Tokens (JWT), ensuring secure user authentication and authorization processes.",
+      "Assisted in the deployment and maintenance of the application on cloud platforms, ensuring high availability and scalability.",
+    ],
+    skills: ["Django", "GraphQL", "JWT", "Python"],
+    companyUrl: "https://www.linkedin.com/company/korazon4world/",
+  },
 ];
 
 const ExperienceCard = ({ experience }: { experience: Experience }) => {
   return (
-    <div className="glass-card p-6 rounded-lg animate-on-scroll">
-      <div className="flex items-start gap-4">
-        <img 
-          src={experience.logo} 
-          alt={`${experience.company} logo`} 
-          className="w-12 h-12 object-contain rounded" 
+    <div className="glass-card p-6 rounded-lg">
+      <div className="flex items-start gap-4 mb-6">
+        <img
+          src={experience.logo}
+          alt={`${experience.company} logo`}
+          className={`${
+            experience.company === "FYERS" ? "w-20 h-20" : "w-12 h-12"
+          } object-contain rounded`}
         />
-        <div>
-          <h3 className="text-xl font-bold">{experience.position}</h3>
-          <p className="text-code">{experience.company}</p>
-          
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-2 text-muted-foreground">
-            <div className="flex items-center">
-              <Calendar className="w-4 h-4 mr-1" />
-              <span>{experience.period}</span>
-            </div>
-            
-            <div className="flex items-center">
-              <MapPin className="w-4 h-4 mr-1" />
-              <span>{experience.location}</span>
-            </div>
-          </div>
+        <div className="flex-1">
+          <h3 className="text-2xl font-bold text-foreground">{experience.position}</h3>
+          <p className="text-code text-xl">
+            <a 
+              href={experience.companyUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              {experience.company}
+            </a>
+          </p>
         </div>
       </div>
-      
-      <ul className="mt-4 space-y-2 text-muted-foreground">
+
+      <div className="flex flex-wrap items-center mb-8">
+        <div className="flex items-center text-gray-400 px-4 py-1.5 rounded-md mr-8">
+          <Briefcase className="w-5 h-5 mr-2" />
+          <span className="font-medium">{experience.employmentType}</span>
+        </div>
+        
+        <div className="flex items-center text-gray-400 mr-8">
+          <Calendar className="w-5 h-5 mr-2" />
+          <span>{experience.period}</span>
+        </div>
+        
+        <div className="flex items-center text-gray-400">
+          <MapPin className="w-5 h-5 mr-2" />
+          <span>{experience.location}</span>
+        </div>
+      </div>
+
+      <ul className="mt-6 space-y-4">
         {experience.responsibilities.map((responsibility, index) => (
-          <li key={index} className="flex items-start">
-            <span className="text-code mr-2">•</span>
-            <span>{responsibility}</span>
+          <li key={index} className="flex items-start text-gray-400">
+            <span className="text-code mr-3 flex-shrink-0 text-lg">•</span>
+            <span className="text-base">{responsibility}</span>
           </li>
         ))}
       </ul>
       
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-8 flex flex-wrap gap-3">
         {experience.skills.map((skill, index) => (
-          <span key={index} className="px-3 py-1 bg-secondary rounded-full text-sm">
+          <span
+            key={index}
+            className="px-4 py-2 bg-secondary/40 border border-white/5 rounded-full text-sm"
+          >
             {skill}
           </span>
         ))}
@@ -112,26 +154,41 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
 
 const Experience = () => {
   const [selectedTab, setSelectedTab] = useState(1);
-  
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
-        }
-      });
-    }, { threshold: 0.1 });
+  const [currentExperience, setCurrentExperience] = useState(
+    experiences.find((exp) => exp.id === 1)
+  );
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll(".animate-on-scroll").forEach((el) => {
       observer.observe(el);
     });
 
     return () => {
-      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      document.querySelectorAll(".animate-on-scroll").forEach((el) => {
         observer.unobserve(el);
       });
     };
   }, []);
+
+  // Update current experience when tab changes
+  const handleTabChange = (tabId: number) => {
+    const newExperience = experiences.find((exp) => exp.id === tabId);
+    if (newExperience) {
+      setSelectedTab(tabId);
+      setCurrentExperience(newExperience);
+    }
+  };
 
   return (
     <section id="experience" className="py-20 px-4 bg-secondary/20">
@@ -141,7 +198,7 @@ const Experience = () => {
           <span>Experience</span>
           <span className="h-px bg-muted flex-grow ml-4"></span>
         </h2>
-        
+
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="lg:w-1/4">
             <div className="flex lg:flex-col overflow-x-auto lg:overflow-visible gap-2 pb-4 lg:pb-0">
@@ -150,11 +207,11 @@ const Experience = () => {
                   key={exp.id}
                   variant={selectedTab === exp.id ? "default" : "ghost"}
                   className={`justify-start whitespace-nowrap ${
-                    selectedTab === exp.id 
-                      ? "bg-code/10 text-code border-l-2 border-code" 
+                    selectedTab === exp.id
+                      ? "bg-code/10 text-code border-l-2 border-code"
                       : "hover:bg-secondary/50 hover:text-code"
                   }`}
-                  onClick={() => setSelectedTab(exp.id)}
+                  onClick={() => handleTabChange(exp.id)}
                 >
                   <Briefcase className="w-4 h-4 mr-2" />
                   {exp.company}
@@ -162,17 +219,21 @@ const Experience = () => {
               ))}
             </div>
           </div>
-          
-          <div className="lg:w-3/4 space-y-6">
-            {experiences.filter(exp => exp.id === selectedTab).map(experience => (
-              <ExperienceCard key={experience.id} experience={experience} />
-            ))}
+
+          <div className="lg:w-3/4 min-h-[300px] flex items-start">
+            {currentExperience && (
+              <div className="w-full">
+                <ExperienceCard experience={currentExperience} />
+              </div>
+            )}
           </div>
         </div>
-        
+
         <div className="mt-12 text-center animate-on-scroll">
           <a 
-            href="#" 
+            href="https://flowcv.com/resume/tsc77t6arq" 
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block px-6 py-3 border border-code text-code rounded-md hover:bg-code/10 transition-colors duration-300"
           >
             View Full Resume

@@ -16,7 +16,7 @@ const Footer = () => {
           
           <div className="flex items-center">
             <span className="text-muted-foreground text-sm">
-              Built with <Heart className="inline-block w-4 h-4 text-red-500 mx-1" /> using React & Tailwind
+              Built with <Heart className="inline-block w-4 h-4 text-red-500 mx-1" /> using Lovable and Cursor
             </span>
           </div>
         </div>
@@ -28,10 +28,10 @@ const Footer = () => {
             </p>
           </div>
           
-          <div className="text-sm text-muted-foreground">
+          {/* <div className="text-sm text-muted-foreground">
             <a href="#" className="hover:text-code mr-4">Privacy Policy</a>
             <a href="#" className="hover:text-code">Terms of Service</a>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

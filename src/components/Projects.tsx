@@ -1,5 +1,23 @@
 import { useEffect } from 'react';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
+
+// Custom GitHub icon component to replace the deprecated Github from lucide-react
+const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width="24"
+    height="24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    {...props}
+  >
+    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+  </svg>
+);
 
 type Project = {
   id: number;
@@ -14,37 +32,22 @@ type Project = {
 const projects: Project[] = [
   {
     id: 1,
-    title: "Funds Module",
-    description: "A module that enables users to add and withdraw funds from their trading wallet across both app and web platforms.",
-    image: "/lovable-uploads/7610f744-6eda-455b-8d59-a7d84bd01f0f.png",
-    link: "#",
-    technologies: ["Go", "AWS", "Kafka", "PostgreSQL"]
+    title: "FIA (FYERS Intelligent Assistant)",
+    description:
+      "A smart assistant that helps you generate screeners on demand!",
+    image: "/lovable-uploads/fia.png",
+    link: "https://app.fyers.in/discover/screeners/fia",
+    technologies: ["Go", "LLM", "AI", "AWS"],
   },
   {
     id: 2,
-    title: "Olive Garden",
-    description: "A restaurant website with Django backend, featuring ordering system and responsive design.",
-    image: "/lovable-uploads/0749b044-3c54-445e-ab26-ca3118500835.png",
-    link: "#",
-    github: "https://github.com",
-    technologies: ["Django", "Python", "HTML/CSS", "JavaScript"]
+    title: "Funds Module",
+    description:
+      "A module that enables users to add and withdraw funds from their trading wallet across both app and web platforms.",
+    image: "/lovable-uploads/funds-module.png",
+    link: "https://app.fyers.in/funds",
+    technologies: ["Go", "AWS", "Kafka", "Redis"],
   },
-  {
-    id: 3,
-    title: "Analytics Dashboard",
-    description: "Comprehensive dashboard displaying content stats from multiple social media platforms with real-time updates.",
-    image: "/lovable-uploads/9c75e9c4-024e-4b09-9efa-0a5445d1a333.png", 
-    link: "#",
-    technologies: ["Node.js", "AWS Lambda", "React", "Redux"]
-  },
-  {
-    id: 4,
-    title: "Koolpeace: Korean Metaverse",
-    description: "Backend infrastructure for a crypto payment app using Django and GraphQL technologies with JWT authentication.",
-    image: "/lovable-uploads/6693e3eb-b522-432e-92b3-856477fcfac6.png",
-    link: "#",
-    technologies: ["Django", "GraphQL", "JWT", "AWS"]
-  }
 ];
 
 const Projects = () => {
@@ -108,7 +111,7 @@ const Projects = () => {
                   <div className="flex space-x-4">
                     {project.github && (
                       <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-code hover:underline flex items-center">
-                        <Github className="w-4 h-4 mr-1" />
+                        <GitHubIcon className="w-4 h-4 mr-1" />
                         <span>Code</span>
                       </a>
                     )}
@@ -125,13 +128,13 @@ const Projects = () => {
 
         <div className="mt-12 text-center animate-on-scroll">
           <a 
-            href="https://github.com/" 
+            href="https://github.com/aditya201551" 
             target="_blank" 
             rel="noopener noreferrer"
             className="inline-block px-6 py-3 border border-code text-code rounded-md hover:bg-code/10 transition-colors duration-300"
           >
-            <Github className="w-5 h-5 inline mr-2" />
-            View More on GitHub
+            <GitHubIcon className="w-5 h-5 inline mr-2" />
+            View My GitHub
           </a>
         </div>
       </div>

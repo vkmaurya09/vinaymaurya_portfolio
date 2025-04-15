@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 
 const About = () => {
@@ -56,7 +55,7 @@ const About = () => {
               <div className="absolute inset-0 rounded-full bg-blue-500/20"></div>
               <div className="absolute inset-2 rounded-full overflow-hidden border-2 border-code">
                 <img 
-                  src="public/lovable-uploads/700a3e7c-9437-4a35-a51a-883789b8f262.png"
+                  src="/images/profile.png"
                   alt="Aditya Raj" 
                   className="w-full h-full object-cover"
                 />
