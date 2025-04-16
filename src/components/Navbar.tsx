@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Menu, X, Mail, FileText, Terminal, Zap, TerminalSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -61,6 +60,19 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  // Add effect to prevent body scrolling when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const handleNavClick = () => {
     if (isMobile) {
@@ -155,7 +167,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-retro-bg/95 backdrop-blur-md pt-20 font-display">
+        <div className="md:hidden fixed inset-0 z-[100] bg-retro-bg pt-20 font-display" style={{ height: '100vh', width: '100vw', overflowY: 'auto' }}>
           <div className="absolute top-4 right-4">
             <button
               onClick={() => setMobileMenuOpen(false)}
@@ -166,19 +178,19 @@ const Navbar = () => {
             </button>
           </div>
           <nav className="flex flex-col items-center space-y-8 py-8">
-            <a href="#about" className="flex items-center text-lg" onClick={handleNavClick}>
+            <a href="#about" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">01.</span> ABOUT
             </a>
-            <a href="#experience" className="flex items-center text-lg" onClick={handleNavClick}>
+            <a href="#experience" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">02.</span> EXPERIENCE
             </a>
-            <a href="#skills" className="flex items-center text-lg" onClick={handleNavClick}>
+            <a href="#skills" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">03.</span> SKILLS
             </a>
-            <a href="#projects" className="flex items-center text-lg" onClick={handleNavClick}>
+            <a href="#projects" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">04.</span> PROJECTS
             </a>
-            <a href="#contact" className="flex items-center text-lg" onClick={handleNavClick}>
+            <a href="#contact" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">05.</span> CONTACT
             </a>
             
@@ -195,7 +207,7 @@ const Navbar = () => {
             </div>
             
             <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="mt-4 border-retro-orange text-retro-orange hover:bg-retro-orange/10 rounded-none font-display">
+              <Button variant="outline" className="mt-4 border-retro-orange text-retro-orange hover:bg-retro-orange/10 rounded-none font-display text-xl tracking-wider">
                 <FileText className="w-4 h-4 mr-2" /> RESUME
               </Button>
             </a>
