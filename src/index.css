@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=VT323&display=swap');
 
 @tailwind base;
@@ -35,7 +36,7 @@
   }
   
   body {
-    @apply bg-retro-bg text-retro-text antialiased bg-noise bg-fixed;
+    @apply bg-retro-bg text-retro-text antialiased bg-fixed;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
 
@@ -91,8 +92,7 @@
 
   .retro-container::before {
     content: '';
-    @apply absolute inset-0 bg-retro-grid opacity-20 z-[-1] pointer-events-none;
-    background-size: 30px 30px;
+    @apply absolute inset-0 opacity-0 z-[-1] pointer-events-none;
   }
   
   .retro-text-shadow {
@@ -118,11 +118,11 @@
   }
 
   .animate-on-scroll {
-    opacity: 1; /* Changed from 0 to remove initial hidden state */
+    opacity: 1;
   }
   
   .animate-on-scroll.animate-fade-in {
-    opacity: 1; /* Ensure full opacity */
+    opacity: 1;
   }
 
   /* Retro cursor effect */
@@ -142,21 +142,7 @@
 
   /* Shimmer effect */
   .shimmer {
-    @apply animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent bg-[length:200%_100%];
-  }
-
-  .scanlines {
-    position: relative;
-    overflow: hidden;
-  }
-  .scanlines:before {
-    content: '';
-    @apply absolute inset-0 bg-[linear-gradient(to_bottom,transparent,transparent_50%,rgba(0,0,0,0.05)_50%,transparent_51%,transparent_100%)];
-    background-size: 100% 4px;
-    z-index: 9999;
-    pointer-events: none;
-    mix-blend-mode: overlay;
-    opacity: 0.05; /* Reduce opacity to minimum */
+    @apply bg-gradient-to-r from-transparent via-white/10 to-transparent bg-[length:200%_100%];
   }
 
   /* Terminal text effect - removed animation */
@@ -164,7 +150,7 @@
     @apply font-mono text-retro-green overflow-hidden whitespace-nowrap;
   }
   
-  /* New Animation Classes */
+  /* Animations */
   .animate-bounce-slow {
     animation: bounce 2s infinite;
   }
@@ -172,40 +158,9 @@
   .animate-pulse-subtle {
     animation: pulse-subtle 2s infinite;
   }
-  
-  .animate-pixel-reveal {
-    animation: pixel-reveal 1s forwards;
-  }
-  
-  .bg-scanline {
-    background: repeating-linear-gradient(
-      to bottom,
-      transparent,
-      transparent 1px,
-      rgba(0, 0, 0, 0.05) 1px,
-      rgba(0, 0, 0, 0.05) 2px
-    );
-    background-size: 100% 4px;
-    animation: scanline-scroll 8s linear infinite;
-  }
-  
-  .glitch-effect {
-    animation: glitch 0.5s cubic-bezier(.25, .46, .45, .94) both;
-  }
-  
-  .typewriter-text {
-    overflow: hidden;
-    white-space: nowrap;
-    letter-spacing: .1em;
-  }
 }
 
 /* Keyframe Animations */
-@keyframes scanline-scroll {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 100%; }
-}
-
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -217,47 +172,8 @@
   100% { opacity: 1; }
 }
 
-@keyframes pixel-reveal {
-  0% {
-    filter: blur(10px) brightness(0.8);
-    transform: scale(1.05);
-  }
-  30% {
-    filter: blur(5px) brightness(0.9);
-  }
-  100% {
-    filter: blur(0) brightness(1);
-    transform: scale(1);
-  }
-}
-
-@keyframes glitch {
-  0% {
-    transform: translate(0);
-  }
-  20% {
-    transform: translate(-2px, 2px);
-  }
-  40% {
-    transform: translate(-2px, -2px);
-  }
-  60% {
-    transform: translate(2px, 2px);
-  }
-  80% {
-    transform: translate(2px, -2px);
-  }
-  100% {
-    transform: translate(0);
-  }
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink-caret {
+@keyframes blink {
   from, to { border-color: transparent }
   50% { border-color: #FF7657 }
 }
+

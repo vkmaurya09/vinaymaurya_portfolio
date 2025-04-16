@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -94,10 +95,10 @@ const Index = () => {
   }, [toast, isMobile, mobileDetectionComplete]);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground" style={{ opacity: 1 }}>
       <Navbar />
       <main className="pt-0">
-        <div ref={heroRef} id="hero">
+        <div ref={heroRef} id="hero" style={{ opacity: 1 }}>
           <Hero />
         </div>
         <div ref={aboutRef} id="about">

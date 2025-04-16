@@ -97,11 +97,8 @@ const Hero = () => {
   return (
     <section 
       id="hero" 
-      className={`min-h-screen flex flex-col justify-center relative px-4 retro-container ${
-        isMobile 
-          ? 'pt-[calc(4rem+3vh)]' 
-          : ''
-      }`}
+      className="min-h-screen flex flex-col justify-center relative px-4"
+      style={{ opacity: 1 }}
     >
       <div className="container mx-auto max-w-5xl">
         <div>

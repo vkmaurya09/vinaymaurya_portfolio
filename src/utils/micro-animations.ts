@@ -63,8 +63,7 @@ export function useTypewriterEffect(
   return elementRef;
 }
 
-// Glitch text effect - refactored to NOT use hooks internally
-// Return a function that can be called to apply the glitch effect
+// Glitch text effect - modified to reduce flashing
 export function createGlitchEffect(
   options: { 
     intensity?: number;
@@ -129,6 +128,7 @@ export function createGlitchEffect(
 }
 
 // Hook version of the glitch effect that properly follows React's rules of hooks
+// Modified to ensure stable rendering
 export function useGlitchEffect(
   options: { 
     intensity?: number;
@@ -142,178 +142,44 @@ export function useGlitchEffect(
     const element = elementRef.current;
     if (!element) return;
     
+    // Ensure the original text is stable by setting it immediately
+    const originalText = element.innerText;
+    
     const glitchEffect = createGlitchEffect(options);
     const cleanup = glitchEffect(element);
     
-    return cleanup;
+    return () => {
+      cleanup();
+      // Restore original text on cleanup
+      if (elementRef.current) {
+        elementRef.current.innerText = originalText;
+      }
+    };
   }, [options.intensity, options.interval, options.duration]);
   
   return elementRef;
 }
 
-// Scanline effect for retro CRT look
+// No-op functions for removed animations
 export function useScanlineEffect() {
-  useEffect(() => {
-    // Already implemented via CSS
-    return () => {};
-  }, []);
+  return () => {};
 }
 
-// Static noise effect that appears/disappears
-export function useStaticNoiseEffect(element: HTMLElement | null) {
-  useEffect(() => {
-    if (!element) return;
-    
-    let noiseContainer: HTMLDivElement | null = null;
-    
-    // Create noise overlay
-    const createNoiseOverlay = () => {
-      noiseContainer = document.createElement('div');
-      noiseContainer.className = 'absolute inset-0 bg-noise opacity-10 pointer-events-none z-10';
-      noiseContainer.style.mixBlendMode = 'overlay';
-      element.style.position = 'relative';
-      element.appendChild(noiseContainer);
-      
-      // Animate noise opacity
-      let increasing = false;
-      const animateNoise = () => {
-        if (!noiseContainer) return;
-        
-        const currentOpacity = parseFloat(noiseContainer.style.opacity || '0.1');
-        
-        if (currentOpacity >= 0.15) increasing = false;
-        else if (currentOpacity <= 0.05) increasing = true;
-        
-        noiseContainer.style.opacity = String(
-          increasing ? currentOpacity + 0.002 : currentOpacity - 0.002
-        );
-        
-        requestAnimationFrame(animateNoise);
-      };
-      
-      requestAnimationFrame(animateNoise);
-    };
-    
-    createNoiseOverlay();
-    
-    return () => {
-      if (noiseContainer && element.contains(noiseContainer)) {
-        element.removeChild(noiseContainer);
-      }
-    };
-  }, [element]);
+export function useStaticNoiseEffect() {
+  return () => {};
 }
 
-// "Loading" pixelation effect
-export function usePixelationEffect(
-  imageElement: HTMLImageElement | null,
-  options: { 
-    duration?: number;
-    startDelay?: number;
-    steps?: number;
-  } = {}
-) {
-  const { 
-    duration = 1000, 
-    startDelay = 0, 
-    steps = 10 
-  } = options;
-  
-  useEffect(() => {
-    if (!imageElement) return;
-    
-    const originalSrc = imageElement.src;
-    let timeoutId: NodeJS.Timeout;
-    
-    const pixelate = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-      
-      // Set dimensions
-      canvas.width = imageElement.width;
-      canvas.height = imageElement.height;
-      
-      // Draw image to canvas
-      ctx.drawImage(imageElement, 0, 0, canvas.width, canvas.height);
-      
-      let currentStep = 1;
-      const stepDuration = duration / steps;
-      
-      const pixelateStep = () => {
-        if (!ctx) return;
-        
-        // Calculate pixel size for this step
-        const pixelSize = Math.max(1, Math.ceil((steps - currentStep) / steps * 16));
-        
-        // Clear canvas and draw pixelated version
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Save original image data
-        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw pixelated image
-        for (let y = 0; y < canvas.height; y += pixelSize) {
-          for (let x = 0; x < canvas.width; x += pixelSize) {
-            // Get the color from the original image
-            const dataIndex = (y * canvas.width + x) * 4;
-            const r = imgData.data[dataIndex];
-            const g = imgData.data[dataIndex + 1];
-            const b = imgData.data[dataIndex + 2];
-            
-            ctx.fillStyle = `rgb(${r},${g},${b})`;
-            ctx.fillRect(x, y, pixelSize, pixelSize);
-          }
-        }
-        
-        // Replace image source with canvas data
-        imageElement.src = canvas.toDataURL();
-        
-        currentStep++;
-        
-        if (currentStep <= steps) {
-          timeoutId = setTimeout(pixelateStep, stepDuration);
-        } else {
-          // Restore original image when done
-          imageElement.src = originalSrc;
-        }
-      };
-      
-      pixelateStep();
-    };
-    
-    // Start after delay
-    timeoutId = setTimeout(pixelate, startDelay);
-    
-    return () => {
-      clearTimeout(timeoutId);
-      imageElement.src = originalSrc;
-    };
-    
-  }, [imageElement, duration, startDelay, steps]);
+export function usePixelationEffect() {
+  return () => {};
 }
 
-// Hover pixel background effect - modified to return a no-op function
+// Simplified to return a no-op function
 export function usePixelHoverEffect() {
   const pixelRef = useRef<HTMLElement | null>(null);
   
-  // This is now a no-op function that doesn't create the pixel trail
-  const handleMouseMove = () => {
-    // No-op function, removing the pixel trail animation
-  };
+  // This is now a no-op function
+  const handleMouseMove = () => {};
   
-  // Effect to initialize the element
-  useEffect(() => {
-    const el = pixelRef.current;
-    if (el) {
-      if (el.style.position !== 'relative') {
-        el.style.position = 'relative';
-      }
-    }
-    return () => {};
-  }, []);
-
   return {
     ref: pixelRef,
     onMouseMove: handleMouseMove
