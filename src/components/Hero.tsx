@@ -1,4 +1,3 @@
-
 import { ChevronDown, Terminal, Zap } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -90,7 +89,14 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex flex-col justify-center relative px-4 retro-container">
+    <section 
+      id="hero" 
+      className={`min-h-screen flex flex-col justify-center relative px-4 retro-container ${
+        isMobile 
+          ? 'pt-[calc(4rem+3vh)]' // Dynamic padding based on viewport height + base navbar height
+          : ''
+      }`}
+    >
       <div className="container mx-auto max-w-5xl scanlines">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30">

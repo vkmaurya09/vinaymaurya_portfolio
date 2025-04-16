@@ -1,5 +1,4 @@
-
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -21,65 +20,78 @@ const Index = () => {
   const contactRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const isMobile = useIsMobile();
+  const [mobileDetectionComplete, setMobileDetectionComplete] = useState(false);
+  
+  // Update when isMobile value changes from undefined
+  useEffect(() => {
+    if (typeof isMobile === 'boolean') {
+      setMobileDetectionComplete(true);
+    }
+  }, [isMobile]);
+  
+  console.log('Is mobile:', isMobile); // Debug log
 
   useEffect(() => {
     // Change page title
     document.title = "Aditya Raj | Senior Software Engineer";
     
-    // Only show toast on desktop, not mobile
-    if (!isMobile) {
-      // Display toast notification about keyboard navigation
-      toast({
-        title: "Keyboard Navigation",
-        description: "Press 0-5 keys to navigate to different sections of the page",
-        duration: 5000,
-      });
-    }
-    
-    // Add keyboard event listener
-    const handleKeyPress = (event: KeyboardEvent) => {
-      const key = event.key;
-      
-      // Check if focus is on an input field, textarea, or other form elements
-      const activeElement = document.activeElement;
-      const isInputField = activeElement instanceof HTMLInputElement || 
-                           activeElement instanceof HTMLTextAreaElement || 
-                           activeElement instanceof HTMLSelectElement ||
-                           activeElement?.tagName === 'TEXTAREA' ||
-                           (activeElement instanceof HTMLElement && activeElement.isContentEditable);
-      
-      // Don't navigate if user is typing in an input field
-      if (isInputField) {
-        return;
-      }
-      
-      // Check if the key is a number
-      if (/^[0-5]$/.test(key)) {
-        const sectionIndex = parseInt(key, 10);
-        const sections = [
-          heroRef.current,
-          aboutRef.current,
-          experienceRef.current,
-          skillsRef.current,
-          projectsRef.current,
-          contactRef.current
-        ];
+    // Only proceed if mobile detection is complete
+    if (mobileDetectionComplete) {
+      // Only show toast on desktop, not mobile
+      if (!isMobile) {
+        // Display toast notification about keyboard navigation
+        toast({
+          title: "Keyboard Navigation",
+          description: "Press 0-5 keys to navigate to different sections of the page",
+          duration: 5000,
+        });
         
-        // Scroll to the selected section
-        if (sections[sectionIndex]) {
-          sections[sectionIndex]?.scrollIntoView({ behavior: 'smooth' });
-        }
+        // Add keyboard event listener - only for desktop
+        const handleKeyPress = (event: KeyboardEvent) => {
+          const key = event.key;
+          
+          // Check if focus is on an input field, textarea, or other form elements
+          const activeElement = document.activeElement;
+          const isInputField = activeElement instanceof HTMLInputElement || 
+                               activeElement instanceof HTMLTextAreaElement || 
+                               activeElement instanceof HTMLSelectElement ||
+                               activeElement?.tagName === 'TEXTAREA' ||
+                               (activeElement instanceof HTMLElement && activeElement.isContentEditable);
+          
+          // Don't navigate if user is typing in an input field
+          if (isInputField) {
+            return;
+          }
+          
+          // Check if the key is a number
+          if (/^[0-5]$/.test(key)) {
+            const sectionIndex = parseInt(key, 10);
+            const sections = [
+              heroRef.current,
+              aboutRef.current,
+              experienceRef.current,
+              skillsRef.current,
+              projectsRef.current,
+              contactRef.current
+            ];
+            
+            // Scroll to the selected section
+            if (sections[sectionIndex]) {
+              sections[sectionIndex]?.scrollIntoView({ behavior: 'smooth' });
+            }
+          }
+        };
+        
+        // Add event listener
+        window.addEventListener('keydown', handleKeyPress);
+        
+        // Cleanup
+        return () => {
+          window.removeEventListener('keydown', handleKeyPress);
+        };
       }
-    };
-    
-    // Add event listener
-    window.addEventListener('keydown', handleKeyPress);
-    
-    // Cleanup
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [toast, isMobile]);
+    }
+  }, [toast, isMobile, mobileDetectionComplete]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
