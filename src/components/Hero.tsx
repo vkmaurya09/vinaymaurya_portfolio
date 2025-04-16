@@ -1,6 +1,6 @@
 
 import { ChevronDown, Terminal, Zap } from "lucide-react";
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // Define the possible states for our typing animation
@@ -10,21 +10,11 @@ const Hero = () => {
   const [displayText, setDisplayText] = useState("");
   const [typingState, setTypingState] = useState<TypingState>("typing");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [glitchActive, setGlitchActive] = useState(false);
   const typingTexts = useMemo(() => ["web", "future", "cloud", "systems", "experiences"], []);
   const typingSpeed = 100; // ms per character
   const deletingSpeed = 75; // slightly faster deletion
   const pauseDuration = 800; // pause before deleting
   const isMobile = useIsMobile();
-  
-  // Start glitch effect after 2 seconds
-  useEffect(() => {
-    const glitchTimer = setTimeout(() => {
-      setGlitchActive(true);
-    }, 2000);
-    
-    return () => clearTimeout(glitchTimer);
-  }, []);
   
   // Manage the typing animation with a clean state machine approach
   useEffect(() => {
@@ -102,15 +92,15 @@ const Hero = () => {
           : ''
       }`}
     >
-      <div className="container mx-auto max-w-5xl scanlines">
-        <div className="opacity-100">
+      <div className="container mx-auto max-w-5xl">
+        <div>
           <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30 hover-btn">
             <Terminal className="w-4 h-4 text-retro-orange mr-2" />
             <p className="text-retro-orange font-mono text-xs">hello_world.sh</p>
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow">
-            <span className={`text-retro-orange ${glitchActive ? 'glitch-text active' : 'pixel-animation'}`}>Aditya</span> Raj.
+            <span className="text-retro-orange">Aditya</span> Raj.
           </h1>
           
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8">
@@ -123,7 +113,7 @@ const Hero = () => {
             </div>
           </h2>
           
-          <p className="text-lg text-retro-muted max-w-2xl mb-10 font-mono leading-relaxed border-l-2 border-retro-orange/50 pl-4 reveal-text">
+          <p className="text-lg text-retro-muted max-w-2xl mb-10 font-mono leading-relaxed border-l-2 border-retro-orange/50 pl-4">
             Senior Software Engineer specializing in backend development and cloud infrastructure. 
             Currently focused on building high-performance trade systems at FYERS.
           </p>
