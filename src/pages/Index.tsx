@@ -84,23 +84,23 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <main>
-        <div ref={heroRef}>
+      <main className="pt-0">
+        <div ref={heroRef} id="hero">
           <Hero />
         </div>
-        <div ref={aboutRef}>
+        <div ref={aboutRef} id="about">
           <About />
         </div>
-        <div ref={experienceRef}>
+        <div ref={experienceRef} id="experience">
           <Experience />
         </div>
-        <div ref={skillsRef}>
+        <div ref={skillsRef} id="skills">
           <Skills />
         </div>
-        <div ref={projectsRef}>
+        <div ref={projectsRef} id="projects">
           <Projects />
         </div>
-        <div ref={contactRef}>
+        <div ref={contactRef} id="contact">
           <Contact />
         </div>
       </main>

@@ -1,6 +1,7 @@
 
 import { ChevronDown, Terminal, Zap } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Define the possible states for our typing animation
 type TypingState = "typing" | "pausing" | "deleting";
@@ -14,6 +15,7 @@ const Hero = () => {
   const typingSpeed = 100; // ms per character
   const deletingSpeed = 75; // slightly faster deletion
   const pauseDuration = 800; // pause before deleting
+  const isMobile = useIsMobile();
   
   // Initialize animation visibility once
   useEffect(() => {
@@ -132,12 +134,15 @@ const Hero = () => {
         </div>
       </div>
       
-      <div className="absolute bottom-10 w-full flex justify-center">
-        <a href="#about" aria-label="Scroll down" className="flex flex-col items-center text-retro-muted hover:text-retro-orange transition-colors duration-300">
-          <span className="font-mono text-xs mb-2">Scroll Down</span>
-          <ChevronDown className="w-5 h-5" />
-        </a>
-      </div>
+      {/* Only show scroll down on desktop */}
+      {!isMobile && (
+        <div className="absolute bottom-10 w-full flex justify-center">
+          <a href="#about" aria-label="Scroll down" className="flex flex-col items-center text-retro-muted hover:text-retro-orange transition-colors duration-300">
+            <span className="font-mono text-xs mb-2">Scroll Down</span>
+            <ChevronDown className="w-5 h-5" />
+          </a>
+        </div>
+      )}
 
       {/* Retro background grid */}
       <div className="absolute right-0 top-1/4 w-1/3 h-1.5 bg-retro-orange/40 animate-pixel-in delay-100"></div>
