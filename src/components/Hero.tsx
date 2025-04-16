@@ -1,4 +1,3 @@
-
 import { ChevronDown, Terminal, Zap } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 
@@ -130,13 +129,13 @@ const Hero = () => {
             </button>
           </div>
         </div>
-        
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <a href="#about" aria-label="Scroll down" className="flex flex-col items-center text-retro-muted hover:text-retro-orange transition-colors duration-300">
-            <span className="font-mono text-xs mb-2">Scroll Down</span>
-            <ChevronDown className="w-5 h-5" />
-          </a>
-        </div>
+      </div>
+      
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <a href="#about" aria-label="Scroll down" className="flex flex-col items-center text-retro-muted hover:text-retro-orange transition-colors duration-300">
+          <span className="font-mono text-xs mb-2">Scroll Down</span>
+          <ChevronDown className="w-5 h-5" />
+        </a>
       </div>
 
       {/* Retro background grid */}
