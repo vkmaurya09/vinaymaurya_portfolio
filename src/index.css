@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=VT323&display=swap');
 @import './styles/micro-animations.css';
 
@@ -34,6 +33,7 @@
 @layer base {
   * {
     @apply border-border selection:bg-retro-orange/30 selection:text-white;
+    cursor: none !important;
   }
   
   body {
@@ -144,19 +144,6 @@
   /* Shimmer effect */
   .shimmer {
     @apply animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent bg-[length:200%_100%];
-  }
-
-  .scanlines {
-    position: relative;
-    overflow: hidden;
-  }
-  .scanlines:before {
-    content: '';
-    @apply absolute inset-0 bg-[linear-gradient(to_bottom,transparent,transparent_50%,rgba(0,0,0,0.05)_50%,transparent_51%,transparent_100%)];
-    background-size: 100% 4px;
-    z-index: 9999;
-    pointer-events: none;
-    mix-blend-mode: overlay;
   }
 
   /* Terminal text effect */
