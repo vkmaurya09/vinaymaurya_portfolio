@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import React, { useEffect, useRef } from "react";
 import { ExternalLink, Code as CodeIcon, Monitor, Zap, Package } from 'lucide-react';
+import { getImagePath } from "@/lib/utils";
 
 // Custom GitHub icon component
 const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -36,7 +37,7 @@ const projects: Project[] = [
     title: "FYERS API v3 Python SDK",
     description:
       "Created FYERS API v3 and Python SDK with 50ms order execution, rapid tick data via enhanced Data Sockets, dedicated WebSockets for market depth, and broader symbol subscription. The SDK has 100,000+ downloads and handles 40,000+ daily order requests.",
-    image: "/images/python_sdk.png",
+    image: getImagePath("/images/python_sdk.png"),
     link: "https://pypi.org/project/fyers-apiv3/",
     technologies: ["Python", "WebSockets", "API Development", "Microservices", "Real-time Data"],
     fileType: "py"
@@ -46,7 +47,7 @@ const projects: Project[] = [
     title: "gRPC User Service",
     description:
       "Scalable gRPC service for user management with search and unit tests.",
-    image: "/images/grpc.png",
+    image: getImagePath("/images/grpc.png"),
     link: "https://github.com/vkmaurya09/grpc-user-service",
     github: "https://github.com/vkmaurya09/grpc-user-service",
     technologies: ["Golang", "gRPC", "Docker", "Protobuf"],
@@ -57,7 +58,7 @@ const projects: Project[] = [
     title: "Smart Trading Systems @ FYERS",
     description:
       "Comprehensive backend system for Smart Trading features including Smart Limit, Smart Trail, and Equity SIP. Developed real-time order processing systems, automated investment scheduling for ETFs, REITs, and equities, and integration with market data feeds for precision execution.",
-    image: "/images/smart_order.png",
+    image: getImagePath("/images/smart_order.png"),
     link: "https://fyers.in/community/announcements-syobm28p/post/smart-orders-changing-the-way-you-trade-HCgB02gxcv6RFjK",
     technologies: ["Golang", "Gin", "Kafka", "Redis", "PostgreSQL", "WebSockets", "AWS"],
     fileType: "go"

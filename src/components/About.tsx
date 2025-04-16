@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Code, BookOpen } from 'lucide-react';
+import { getImagePath } from '@/lib/utils';
 
 const About = () => {
   useEffect(() => {
@@ -73,7 +74,7 @@ const About = () => {
               <div className="border-4 border-retro-orange p-2 bg-retro-bg relative z-10">
                 <div className="overflow-hidden">
                   <img 
-                    src="/vinay.jpg"
+                    src={getImagePath("/images/vinay.jpg")}
                     alt="Vinay Maurya" 
                     className="w-full grayscale hover:grayscale-0 transition-all duration-500 mix-blend-luminosity hover:mix-blend-normal"
                   />
