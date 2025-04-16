@@ -1,4 +1,3 @@
-
 import { ChevronDown, Terminal, Zap } from "lucide-react";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -20,7 +19,7 @@ const Hero = () => {
   // Use the glitch effect hook for the name heading only
   const titleRef = useGlitchEffect({ 
     intensity: 2,
-    interval: 2000, // Changed to 2 seconds as requested
+    interval: 2000, 
     duration: 300
   });
   
@@ -100,13 +99,13 @@ const Hero = () => {
       id="hero" 
       className={`min-h-screen flex flex-col justify-center relative px-4 retro-container ${
         isMobile 
-          ? 'pt-[calc(4rem+3vh)]' // Dynamic padding based on viewport height + base navbar height
+          ? 'pt-[calc(4rem+3vh)]' 
           : ''
       }`}
     >
-      <div className="container mx-auto max-w-5xl scanlines">
+      <div className="container mx-auto max-w-5xl">
         <div>
-          <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30 hover:border-retro-orange transition-colors duration-300">
+          <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30">
             <Terminal className="w-4 h-4 text-retro-orange mr-2" />
             <p className="text-retro-orange font-mono text-xs">hello_world.sh</p>
           </div>
@@ -167,13 +166,6 @@ const Hero = () => {
           </a>
         </div>
       )}
-
-      {/* Retro background grid - animated now */}
-      <div className="absolute right-0 top-1/4 w-1/3 h-1.5 bg-retro-orange/40 animate-pixel-in delay-100"></div>
-      <div className="absolute right-10 top-1/4 mt-8 w-1/4 h-1.5 bg-retro-purple/40 animate-pixel-in delay-200"></div>
-      <div className="absolute right-32 top-1/4 mt-16 w-1/5 h-1.5 bg-retro-blue/40 animate-pixel-in delay-300"></div>
-      <div className="absolute right-5 top-1/4 mt-24 w-1/3 h-1.5 bg-retro-green/40 animate-pixel-in delay-400"></div>
-      <div className="absolute right-20 top-1/4 mt-32 w-1/6 h-1.5 bg-retro-yellow/40 animate-pixel-in delay-500"></div>
     </section>
   );
 };

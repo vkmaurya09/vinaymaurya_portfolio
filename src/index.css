@@ -118,15 +118,11 @@
   }
 
   .animate-on-scroll {
-    opacity: 0;
+    opacity: 1; /* Changed from 0 to remove initial hidden state */
   }
   
   .animate-on-scroll.animate-fade-in {
-    animation: fade-in 0.5s ease-out forwards;
-  }
-  
-  .animate-on-scroll.animate-scale-in {
-    animation: scale-in 0.3s ease-out forwards;
+    opacity: 1; /* Ensure full opacity */
   }
 
   /* Retro cursor effect */
@@ -160,6 +156,7 @@
     z-index: 9999;
     pointer-events: none;
     mix-blend-mode: overlay;
+    opacity: 0.05; /* Reduce opacity to minimum */
   }
 
   /* Terminal text effect - removed animation */
