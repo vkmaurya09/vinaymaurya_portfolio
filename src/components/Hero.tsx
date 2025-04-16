@@ -1,12 +1,12 @@
 import { ChevronDown, Terminal, Zap } from "lucide-react";
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { usePixelHoverEffect, useGlitchEffect } from "@/utils/micro-animations";
 
 // Define the possible states for our typing animation
 type TypingState = "typing" | "pausing" | "deleting";
 
 const Hero = () => {
+  const [isVisible, setIsVisible] = useState(false);
   const [displayText, setDisplayText] = useState("");
   const [typingState, setTypingState] = useState<TypingState>("typing");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,16 +16,10 @@ const Hero = () => {
   const pauseDuration = 800; // pause before deleting
   const isMobile = useIsMobile();
   
-  // Use the glitch effect hook for the name heading only
-  const titleRef = useGlitchEffect({ 
-    intensity: 2,
-    interval: 2000, 
-    duration: 300
-  });
-  
-  // Create refs for the buttons
-  const primaryButtonRef = useRef<HTMLButtonElement>(null);
-  const secondaryButtonRef = useRef<HTMLButtonElement>(null);
+  // Initialize animation visibility once
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
   
   // Manage the typing animation with a clean state machine approach
   useEffect(() => {
@@ -97,20 +91,20 @@ const Hero = () => {
   return (
     <section 
       id="hero" 
-      className="min-h-screen flex flex-col justify-center relative px-4"
-      style={{ opacity: 1 }}
+      className={`min-h-screen flex flex-col justify-center relative px-4 retro-container ${
+        isMobile 
+          ? 'pt-[calc(4rem+3vh)]' // Dynamic padding based on viewport height + base navbar height
+          : ''
+      }`}
     >
-      <div className="container mx-auto max-w-5xl">
-        <div>
+      <div className="container mx-auto max-w-5xl scanlines">
+        <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30">
             <Terminal className="w-4 h-4 text-retro-orange mr-2" />
             <p className="text-retro-orange font-mono text-xs">hello_world.sh</p>
           </div>
 
-          <h1 
-            ref={titleRef as React.RefObject<HTMLHeadingElement>}
-            className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow"
-          >
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow">
             <span className="text-retro-orange">Aditya</span> Raj.
           </h1>
           
@@ -131,20 +125,16 @@ const Hero = () => {
           
           <div className="flex flex-col sm:flex-row gap-4">
             <button 
-              ref={primaryButtonRef}
               onClick={handleScrollToSection("contact")}
               className="px-6 py-3 bg-retro-orange text-retro-bg rounded-none font-mono hover:translate-x-1 hover:-translate-y-1 transition-transform duration-300 pixel-shadow flex items-center justify-center"
             >
-              <span className="relative z-10 flex items-center">
-                <Zap className="w-4 h-4 mr-2 animate-pulse" /> GET_IN_TOUCH
-              </span>
+              <Zap className="w-4 h-4 mr-2" /> GET_IN_TOUCH
             </button>
             <button 
-              ref={secondaryButtonRef}
               onClick={handleScrollToSection("experience")}
               className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center"
             >
-              <span className="relative z-10">SEE_MY_WORK</span>
+              SEE_MY_WORK
             </button>
           </div>
         </div>
@@ -153,16 +143,19 @@ const Hero = () => {
       {/* Only show scroll down on desktop */}
       {!isMobile && (
         <div className="absolute bottom-10 w-full flex justify-center">
-          <a 
-            href="#about" 
-            aria-label="Scroll down" 
-            className="flex flex-col items-center text-retro-muted hover:text-retro-orange transition-colors duration-300 animate-bounce-slow"
-          >
+          <a href="#about" aria-label="Scroll down" className="flex flex-col items-center text-retro-muted hover:text-retro-orange transition-colors duration-300">
             <span className="font-mono text-xs mb-2">Scroll Down</span>
             <ChevronDown className="w-5 h-5" />
           </a>
         </div>
       )}
+
+      {/* Retro background grid */}
+      <div className="absolute right-0 top-1/4 w-1/3 h-1.5 bg-retro-orange/40 animate-pixel-in delay-100"></div>
+      <div className="absolute right-10 top-1/4 mt-8 w-1/4 h-1.5 bg-retro-purple/40 animate-pixel-in delay-200"></div>
+      <div className="absolute right-32 top-1/4 mt-16 w-1/5 h-1.5 bg-retro-blue/40 animate-pixel-in delay-300"></div>
+      <div className="absolute right-5 top-1/4 mt-24 w-1/3 h-1.5 bg-retro-green/40 animate-pixel-in delay-400"></div>
+      <div className="absolute right-20 top-1/4 mt-32 w-1/6 h-1.5 bg-retro-yellow/40 animate-pixel-in delay-500"></div>
     </section>
   );
 };

@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 
@@ -165,74 +164,12 @@ export default {
         "spin-slow": {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(1440deg)" },
-        },
-        // New animations for micro-interactions
-        "text-glitch": {
-          "0%": { 
-            textShadow: "0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), -0.025em 0.05em 0 rgba(0,0,255,0.75)"
-          },
-          "14%": { 
-            textShadow: "0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), -0.025em 0.05em 0 rgba(0,0,255,0.75)"
-          },
-          "15%": {
-            textShadow: "-0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75)"
-          },
-          "49%": {
-            textShadow: "-0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75)"
-          },
-          "50%": {
-            textShadow: "0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75)"
-          },
-          "99%": {
-            textShadow: "0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75)"
-          },
-          "100%": {
-            textShadow: "-0.025em 0 0 rgba(255,0,0,0.75), -0.025em -0.025em 0 rgba(0,255,0,0.75), -0.025em -0.05em 0 rgba(0,0,255,0.75)"
-          }
-        },
-        "crt-flicker": {
-          "0%": { opacity: "0.9" },
-          "10%": { opacity: "1" },
-          "12%": { opacity: "0.95" },
-          "70%": { opacity: "1" },
-          "90%": { opacity: "0.9" },
-          "92%": { opacity: "1" },
-          "98%": { opacity: "0.9" },
-          "100%": { opacity: "1" }
-        },
-        "pixel-drop": {
-          "0%": { 
-            transform: "translateY(-100%)",
-            opacity: "0"
-          },
-          "5%": { 
-            opacity: "1" 
-          },
-          "50%": { 
-            transform: "translateY(0)", 
-            opacity: "1"
-          },
-          "55%": { 
-            transform: "translateY(5px)" 
-          },
-          "60%": { 
-            transform: "translateY(0)" 
-          },
-          "100%": { 
-            transform: "translateY(0)", 
-            opacity: "1"
-          }
-        },
-        "noise": {
-          "0%": { backgroundPosition: "0 0" },
-          "100%": { backgroundPosition: "100% 100%" }
         }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out forwards",
-        "fade-out": "fade-out 0.5s ease-out",
         "scale-in": "scale-in 0.3s ease-out forwards",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         shimmer: "shimmer 2s linear infinite",
@@ -242,17 +179,10 @@ export default {
         "typing": "typing 3.5s steps(40, end)",
         "horizontal-bounce": "horizontal-bounce 1s infinite",
         "spin-slow": "spin-slow 3s cubic-bezier(0.4, 0.0, 0.2, 1) forwards",
-        // New animations
-        "text-glitch": "text-glitch 0.5s linear infinite",
-        "crt-flicker": "crt-flicker 2s linear infinite",
-        "pixel-drop": "pixel-drop 1s cubic-bezier(0.23, 1, 0.32, 1) forwards",
-        "noise": "noise 8s infinite linear",
-        "bounce-slow": "bounce 2s infinite ease-in-out"
       },
       backgroundImage: {
         'retro-grid': "linear-gradient(to right, #1B1B2277 1px, transparent 1px), linear-gradient(to bottom, #1B1B2277 1px, transparent 1px)",
         'noise': "url('/images/noise.png')",
-        'scanlines': "repeating-linear-gradient(to bottom, transparent 0px, transparent 1px, rgba(0, 0, 0, 0.05) 1px, rgba(0, 0, 0, 0.05) 2px)"
       },
     },
   },

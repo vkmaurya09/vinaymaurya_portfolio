@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
+
+import { useEffect } from 'react';
 import { ExternalLink, Code as CodeIcon, Monitor, Zap } from 'lucide-react';
-import { usePixelHoverEffect } from '@/utils/micro-animations';
 
 // Custom GitHub icon component
 const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -52,102 +52,25 @@ const projects: Project[] = [
 ];
 
 const Projects = () => {
-  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const pixelHoverEffectProps = usePixelHoverEffect();
-
   useEffect(() => {
-    // Use Intersection Observer for scroll animations
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // Add animation classes when elements enter viewport
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-            
-            // Add special animation for project cards
-            if (entry.target.classList.contains('project-card')) {
-              // Find the image element inside the project card
-              const img = entry.target.querySelector('img');
-              if (img) {
-                // Apply pixel-in effect to image
-                img.classList.add('animate-pixel-reveal');
-              }
-            }
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+        }
+      });
+    }, { threshold: 0.1 });
 
-    // Observe elements with animate-on-scroll class
-    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
       observer.observe(el);
     });
 
-    // Add special hover effect for project cards
-    const mouseMoveHandlers: { element: HTMLDivElement, handler: (e: MouseEvent) => void }[] = [];
-    const mouseLeaveHandlers: { element: HTMLDivElement, handler: () => void }[] = [];
-
-    projectRefs.current.forEach((projectRef) => {
-      if (!projectRef) return;
-
-      const handleMouseMove = (e: MouseEvent) => {
-        const card = projectRef;
-        if (!card) return;
-        
-        // Get dimensions and position
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        // Calculate rotation based on pointer position
-        const midX = rect.width / 2;
-        const midY = rect.height / 2;
-        
-        // Limit the rotation angle
-        const maxRotation = 2;
-        const rotateX = ((y - midY) / midY) * -maxRotation;
-        const rotateY = ((x - midX) / midX) * maxRotation;
-        
-        // Apply subtle transform
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      };
-      
-      const handleMouseLeave = () => {
-        if (projectRef) {
-          projectRef.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-        }
-      };
-      
-      projectRef.addEventListener('mousemove', handleMouseMove);
-      projectRef.addEventListener('mouseleave', handleMouseLeave);
-
-      mouseMoveHandlers.push({ element: projectRef, handler: handleMouseMove });
-      mouseLeaveHandlers.push({ element: projectRef, handler: handleMouseLeave });
-    });
-
     return () => {
-      observer.disconnect();
-      
-      // Cleanup event listeners
-      mouseMoveHandlers.forEach(({ element, handler }) => {
-        element.removeEventListener('mousemove', handler);
-      });
-      
-      mouseLeaveHandlers.forEach(({ element, handler }) => {
-        element.removeEventListener('mouseleave', handler);
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.unobserve(el);
       });
     };
   }, []);
-
-  // Random glitch effect on hover
-  const triggerGlitch = (e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.currentTarget;
-    target.classList.add('glitch-effect');
-    setTimeout(() => {
-      target.classList.remove('glitch-effect');
-    }, 1000);
-  };
 
   return (
     <section id="projects" className="py-24 px-4 bg-gradient-to-b from-retro-bg to-retro-bg/90 retro-container">
@@ -162,42 +85,27 @@ const Projects = () => {
           {projects.map((project, index) => (
             <div 
               key={project.id} 
-              ref={(el) => (projectRefs.current[index] = el)}
-              className="retro-card animate-on-scroll border-2 border-white/5 overflow-hidden project-card transition-all duration-300"
-              style={{ 
-                animationDelay: `${index * 100}ms`,
-                transformStyle: 'preserve-3d',
-                transformOrigin: 'center center'
-              }}
-              onMouseEnter={triggerGlitch}
+              className="retro-card animate-on-scroll border-2 border-white/5 overflow-hidden"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-56">
                 <div className="absolute left-0 top-0 z-10 bg-retro-card py-1 px-2 text-xs font-mono flex items-center border-r border-b border-white/10">
                   <CodeIcon className="w-3 h-3 mr-1 text-retro-orange" />
-                  <span className="typewriter-text">project_{index + 1}.go</span>
+                  <span>project_{index + 1}.go</span>
                 </div>
                 <img 
                   src={project.image} 
                   alt={project.title} 
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100"
                 />
-                
-                {/* Add a scan line overlay on hover */}
-                <div className="absolute inset-0 bg-scanline opacity-0 hover:opacity-20 transition-opacity duration-300 pointer-events-none"></div>
               </div>
-              <div 
-                className="p-6 bg-retro-card"
-                ref={pixelHoverEffectProps.ref as React.RefObject<HTMLDivElement>}
-                onMouseMove={pixelHoverEffectProps.onMouseMove}
-              >
+              <div className="p-6 bg-retro-card">
                 <h3 className="font-display text-xl mb-1 text-retro-orange">{project.title}</h3>
                 
                 <div className="flex flex-wrap gap-2 mt-2 mb-4">
                   {project.technologies.map((tech, techIndex) => (
-                    <span 
-                      key={techIndex} 
-                      className="px-2 py-1 bg-white/5 border border-white/10 font-mono text-xs text-retro-muted hover:border-retro-orange/30 transition-colors duration-300"
-                    >
+                    <span key={techIndex} 
+                      className="px-2 py-1 bg-white/5 border border-white/10 font-mono text-xs text-retro-muted">
                       {tech}
                     </span>
                   ))}
@@ -208,23 +116,15 @@ const Projects = () => {
                 <div className="flex justify-between items-center">
                   <div className="flex space-x-4">
                     {project.github && (
-                      <a 
-                        href={project.github} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs group"
-                      >
-                        <GitHubIcon className="w-4 h-4 mr-1 group-hover:animate-spin-slow" />
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" 
+                        className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs">
+                        <GitHubIcon className="w-4 h-4 mr-1" />
                         <span>SOURCE</span>
                       </a>
                     )}
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs group"
-                    >
-                      <ExternalLink className="w-4 h-4 mr-1 group-hover:animate-horizontal-bounce" />
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" 
+                      className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs">
+                      <ExternalLink className="w-4 h-4 mr-1" />
                       <span>LIVE DEMO</span>
                     </a>
                   </div>
@@ -239,15 +139,10 @@ const Projects = () => {
             href="https://github.com/aditya201551" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center px-6 py-3 bg-retro-card border border-retro-orange text-retro-orange font-mono hover:bg-retro-orange/10 transition-colors group relative overflow-hidden"
-            ref={pixelHoverEffectProps.ref as React.RefObject<HTMLAnchorElement>}
-            onMouseMove={pixelHoverEffectProps.onMouseMove}
+            className="inline-flex items-center px-6 py-3 bg-retro-card border border-retro-orange text-retro-orange font-mono hover:bg-retro-orange/10 transition-colors"
           >
-            <GitHubIcon className="w-5 h-5 mr-2 group-hover:animate-spin-slow" />
+            <GitHubIcon className="w-5 h-5 mr-2" />
             <span>VIEW_ALL_PROJECTS</span>
-            
-            {/* Add subtle hover effect with pseudo elements */}
-            <span className="absolute inset-0 bg-white/5 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
           </a>
         </div>
       </div>
