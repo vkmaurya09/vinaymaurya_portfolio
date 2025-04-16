@@ -152,7 +152,6 @@ const SkillBar = ({ skill }: { skill: Skill }) => {
     };
   }, []);
 
-  // Convert level to percentage for dots calculation
   const levelValue = getSkillLevelValue(skill.level);
   const totalDots = 10;
   const activeDots = Math.floor(levelValue / 100 * totalDots);
@@ -177,7 +176,6 @@ const SkillBar = ({ skill }: { skill: Skill }) => {
         </Badge>
       </div>
       <div className="relative h-3 w-full overflow-hidden rounded-full bg-secondary">
-        {/* Progress dots/segments instead of a solid bar */}
         <div className="absolute inset-0 flex items-center justify-between px-1">
           {Array.from({ length: totalDots }).map((_, i) => (
             <div 
@@ -189,45 +187,6 @@ const SkillBar = ({ skill }: { skill: Skill }) => {
             />
           ))}
         </div>
-      </div>
-    </div>
-  );
-};
-
-const SkillCard = ({ skill }: { skill: Skill }) => {
-  return (
-    <div 
-      className="retro-card p-3 flex flex-col gap-2 animate-on-scroll group hover:border-retro-orange/50 transition-all"
-    >
-      <div className="flex justify-between items-center">
-        <div className="flex items-center">
-          <div className={`p-1.5 rounded-sm mr-2 text-white ${skill.colorClass}`}>
-            {skill.icon}
-          </div>
-          <span className="font-mono text-sm">{skill.name}</span>
-        </div>
-        <Badge variant="outline" className={`font-mono text-xs ${skill.colorClass.replace('bg-', 'border-')} ${skill.colorClass.replace('bg-', 'text-')}`}>
-          {skill.level}
-        </Badge>
-      </div>
-      
-      {/* Skill level indicator dots */}
-      <div className="flex items-center justify-center gap-1 mt-1">
-        {Array.from({ length: 4 }).map((_, i) => {
-          const levels = ['beginner', 'intermediate', 'advanced', 'expert'];
-          const isActive = levels.indexOf(skill.level) >= i;
-          
-          return (
-            <div 
-              key={i}
-              className={cn(
-                "h-1.5 w-1.5 rounded-full transition-all",
-                isActive ? skill.colorClass : "bg-white/10",
-                isActive && "animate-pulse"
-              )}
-            />
-          );
-        })}
       </div>
     </div>
   );
@@ -272,7 +231,7 @@ const FocusAreaCard = ({ area, index }: { area: FocusArea; index: number }) => {
           <span className="text-xs text-retro-orange font-mono">Related skills:</span>
           <div className="flex flex-wrap gap-2 mt-2">
             {skills
-              .filter((_, skillIndex) => skillIndex % (index + 2) === 0) // Just for demo - showing random related skills
+              .filter((_, skillIndex) => skillIndex % (index + 2) === 0)
               .slice(0, 3)
               .map((skill, i) => (
                 <span 
@@ -290,13 +249,10 @@ const FocusAreaCard = ({ area, index }: { area: FocusArea; index: number }) => {
 };
 
 const Skills = () => {
-  // Use separate state variables for clarity and to prevent unnecessary re-renders
-  const [view, setView] = useState<"detailed" | "compact">("detailed");
   const [category, setCategory] = useState<string>("all");
   const [activeTab, setActiveTab] = useState<"skills" | "focus">("skills");
   const sectionRef = useRef<HTMLElement>(null);
   
-  // Filter skills based on selected category
   const filteredSkills = category === "all" 
     ? skills 
     : skills.filter(skill => skill.category === category);
@@ -309,23 +265,17 @@ const Skills = () => {
     { value: "databases", label: "Databases" }
   ];
 
-  // Load user preferences on initial render only
   useEffect(() => {
-    const savedView = localStorage.getItem('skillsView') as "detailed" | "compact" | null;
     const savedCategory = localStorage.getItem('skillsCategory');
     const savedTab = localStorage.getItem('skillsActiveTab') as "skills" | "focus" | null;
     
-    if (savedView) setView(savedView === 'compact' ? 'compact' : 'detailed');
     if (savedCategory) setCategory(savedCategory);
     if (savedTab) setActiveTab(savedTab === 'focus' ? 'focus' : 'skills');
   }, []);
 
-  // Save preferences individually to avoid unnecessary saves
-  useEffect(() => { localStorage.setItem('skillsView', view); }, [view]);
   useEffect(() => { localStorage.setItem('skillsCategory', category); }, [category]);
   useEffect(() => { localStorage.setItem('skillsActiveTab', activeTab); }, [activeTab]);
 
-  // Setup animation on scroll once
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -355,50 +305,6 @@ const Skills = () => {
           <span className="h-px bg-white/10 flex-grow ml-4"></span>
         </h2>
 
-        <div className="mb-8 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between animate-on-scroll">
-          <ToggleGroup 
-            type="single" 
-            value={category} 
-            onValueChange={(value) => {
-              if (value) setCategory(value);
-            }}
-            className="justify-start"
-          >
-            {categories.map((cat) => (
-              <ToggleGroupItem 
-                key={cat.value} 
-                value={cat.value}
-                aria-label={cat.label}
-                className="data-[state=on]:text-white data-[state=on]:border-retro-orange data-[state=on]:bg-retro-orange/30"
-              >
-                <span className="text-xs">{cat.label}</span>
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-
-          <div className="flex items-center space-x-2 font-mono text-xs">
-            <span>View:</span>
-            <button
-              onClick={() => setView("detailed")}
-              className={`px-2 py-1 flex items-center gap-1 rounded ${
-                view === "detailed" ? "bg-retro-orange/20 text-retro-orange" : "text-retro-muted"
-              }`}
-            >
-              <List className="w-3 h-3" />
-              Detailed
-            </button>
-            <button
-              onClick={() => setView("compact")}
-              className={`px-2 py-1 flex items-center gap-1 rounded ${
-                view === "compact" ? "bg-retro-orange/20 text-retro-orange" : "text-retro-muted"
-              }`}
-            >
-              <Grid2X2 className="w-3 h-3" />
-              Compact
-            </button>
-          </div>
-        </div>
-
         <Tabs 
           value={activeTab}
           onValueChange={(value) => setActiveTab(value as "skills" | "focus")}
@@ -413,30 +319,45 @@ const Skills = () => {
             </TabsTrigger>
           </TabsList>
           
+          <div className="mb-8 animate-on-scroll">
+            <ToggleGroup 
+              type="single" 
+              value={category} 
+              onValueChange={(value) => {
+                if (value) setCategory(value);
+              }}
+              className="justify-start"
+              disabled={activeTab === "focus"}
+            >
+              {categories.map((cat) => (
+                <ToggleGroupItem 
+                  key={cat.value} 
+                  value={cat.value}
+                  aria-label={cat.label}
+                  className={cn(
+                    "data-[state=on]:text-white data-[state=on]:border-retro-orange data-[state=on]:bg-retro-orange/30",
+                    activeTab === "focus" && "opacity-50 cursor-not-allowed"
+                  )}
+                >
+                  <span className="text-xs">{cat.label}</span>
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+          </div>
+          
           <TabsContent value="skills" className="border-none p-0 mt-4">
-            {view === "detailed" ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
-                <div>
-                  {filteredSkills.slice(0, Math.ceil(filteredSkills.length / 2)).map((skill) => (
-                    <SkillBar key={`left-${skill.name}`} skill={skill} />
-                  ))}
-                </div>
-                <div>
-                  {filteredSkills.slice(Math.ceil(filteredSkills.length / 2)).map((skill) => (
-                    <SkillBar key={`right-${skill.name}`} skill={skill} />
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {filteredSkills.map((skill) => (
-                  <SkillCard 
-                    key={`compact-${skill.name}`}
-                    skill={skill}
-                  />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
+              <div>
+                {filteredSkills.slice(0, Math.ceil(filteredSkills.length / 2)).map((skill) => (
+                  <SkillBar key={`left-${skill.name}`} skill={skill} />
                 ))}
               </div>
-            )}
+              <div>
+                {filteredSkills.slice(Math.ceil(filteredSkills.length / 2)).map((skill) => (
+                  <SkillBar key={`right-${skill.name}`} skill={skill} />
+                ))}
+              </div>
+            </div>
           </TabsContent>
           
           <TabsContent value="focus" className="border-none p-0 mt-4">
