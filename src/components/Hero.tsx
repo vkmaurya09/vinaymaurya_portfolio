@@ -1,6 +1,8 @@
+
 import { ChevronDown, Terminal, Zap } from "lucide-react";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useGlitchEffect, usePixelHoverEffect } from "@/utils/micro-animations";
 
 // Define the possible states for our typing animation
 type TypingState = "typing" | "pausing" | "deleting";
@@ -15,11 +17,24 @@ const Hero = () => {
   const deletingSpeed = 75; // slightly faster deletion
   const pauseDuration = 800; // pause before deleting
   const isMobile = useIsMobile();
+  const titleRef = useRef<HTMLHeadingElement>(null);
   
   // Initialize animation visibility once
   useEffect(() => {
     setIsVisible(true);
+    
+    // Apply glitch effect to the title
+    if (titleRef.current) {
+      useGlitchEffect(titleRef.current, { 
+        intensity: 2,
+        interval: 6000,
+        duration: 300
+      });
+    }
   }, []);
+  
+  // Pixel hover effect for buttons
+  const pixelHoverEffectProps = usePixelHoverEffect();
   
   // Manage the typing animation with a clean state machine approach
   useEffect(() => {
@@ -99,12 +114,15 @@ const Hero = () => {
     >
       <div className="container mx-auto max-w-5xl scanlines">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30">
+          <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30 hover:border-retro-orange transition-colors duration-300">
             <Terminal className="w-4 h-4 text-retro-orange mr-2" />
-            <p className="text-retro-orange font-mono text-xs">hello_world.sh</p>
+            <p className="text-retro-orange font-mono text-xs terminal-text">hello_world.sh</p>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow">
+          <h1 
+            ref={titleRef}
+            className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow"
+          >
             <span className="text-retro-orange">Aditya</span> Raj.
           </h1>
           
@@ -126,15 +144,22 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <button 
               onClick={handleScrollToSection("contact")}
-              className="px-6 py-3 bg-retro-orange text-retro-bg rounded-none font-mono hover:translate-x-1 hover:-translate-y-1 transition-transform duration-300 pixel-shadow flex items-center justify-center"
+              className="px-6 py-3 bg-retro-orange text-retro-bg rounded-none font-mono hover:translate-x-1 hover:-translate-y-1 transition-transform duration-300 pixel-shadow flex items-center justify-center relative overflow-hidden group"
+              ref={pixelHoverEffectProps.ref as React.RefObject<HTMLButtonElement>}
+              onMouseMove={pixelHoverEffectProps.onMouseMove}
             >
-              <Zap className="w-4 h-4 mr-2" /> GET_IN_TOUCH
+              <span className="relative z-10 flex items-center">
+                <Zap className="w-4 h-4 mr-2 animate-pulse" /> GET_IN_TOUCH
+              </span>
+              <span className="absolute inset-0 bg-retro-orange group-hover:animate-pulse-subtle"></span>
             </button>
             <button 
               onClick={handleScrollToSection("experience")}
-              className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center"
+              className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center relative overflow-hidden"
+              ref={pixelHoverEffectProps.ref as React.RefObject<HTMLButtonElement>}
+              onMouseMove={pixelHoverEffectProps.onMouseMove}
             >
-              SEE_MY_WORK
+              <span className="relative z-10">SEE_MY_WORK</span>
             </button>
           </div>
         </div>
@@ -143,14 +168,18 @@ const Hero = () => {
       {/* Only show scroll down on desktop */}
       {!isMobile && (
         <div className="absolute bottom-10 w-full flex justify-center">
-          <a href="#about" aria-label="Scroll down" className="flex flex-col items-center text-retro-muted hover:text-retro-orange transition-colors duration-300">
+          <a 
+            href="#about" 
+            aria-label="Scroll down" 
+            className="flex flex-col items-center text-retro-muted hover:text-retro-orange transition-colors duration-300 animate-bounce-slow"
+          >
             <span className="font-mono text-xs mb-2">Scroll Down</span>
             <ChevronDown className="w-5 h-5" />
           </a>
         </div>
       )}
 
-      {/* Retro background grid */}
+      {/* Retro background grid - animated now */}
       <div className="absolute right-0 top-1/4 w-1/3 h-1.5 bg-retro-orange/40 animate-pixel-in delay-100"></div>
       <div className="absolute right-10 top-1/4 mt-8 w-1/4 h-1.5 bg-retro-purple/40 animate-pixel-in delay-200"></div>
       <div className="absolute right-32 top-1/4 mt-16 w-1/5 h-1.5 bg-retro-blue/40 animate-pixel-in delay-300"></div>
