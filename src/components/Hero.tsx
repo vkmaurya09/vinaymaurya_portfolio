@@ -99,7 +99,7 @@ const Hero = () => {
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow">
-            <span className="text-retro-orange">Aditya</span> Raj.
+            <span className="text-retro-orange">Vinay</span> Maurya.
           </h1>
           
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8">
@@ -113,7 +113,7 @@ const Hero = () => {
           </h2>
           
           <p className="text-lg text-retro-muted max-w-2xl mb-10 font-mono leading-relaxed border-l-2 border-retro-orange/50 pl-4">
-            Senior Software Engineer specializing in backend development and cloud infrastructure. 
+            Software Engineer 2 specializing in scalable backend systems, real-time data processing, and cloud-native applications. 
             Currently focused on building high-performance trade systems at FYERS.
           </p>
           

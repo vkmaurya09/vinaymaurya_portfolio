@@ -89,7 +89,7 @@ const Navbar = () => {
       <div className="container max-w-7xl flex items-center justify-between py-4 px-4">
         <a href="#hero" className="font-display text-2xl retro-text-shadow flex items-center">
           <TerminalSquare className="w-6 h-6 text-retro-orange mr-2" />
-          <span className="text-retro-orange">AR</span><span className="text-retro-text">.</span>
+          <span className="text-retro-orange">VM</span><span className="text-retro-text">.</span>
         </a>
 
         {/* Desktop Navigation */}
@@ -139,16 +139,16 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-5">
-          <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-retro-muted hover:text-retro-orange transition-colors">
+          <a href="https://github.com/vkmaurya09" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-retro-muted hover:text-retro-orange transition-colors">
             <GitHubIcon className="w-5 h-5" />
           </a>
-          <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-retro-muted hover:text-retro-orange transition-colors">
+          <a href="https://www.linkedin.com/in/vinaykmaurya/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-retro-muted hover:text-retro-orange transition-colors">
             <LinkedInIcon className="w-5 h-5" />
           </a>
-          <a href="mailto:ssh@adityaraj.dev" aria-label="Email" className="text-retro-muted hover:text-retro-orange transition-colors">
+          <a href="mailto:iamvinay1999@gmail.com" aria-label="Email" className="text-retro-muted hover:text-retro-orange transition-colors">
             <Mail className="w-5 h-5" />
           </a>
-          <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer">
+          <a href="https://drive.google.com/file/d/1MerP_nO__EY9pAtuKOkBkHW8rbtkkEaW/view?usp=sharing" target="_blank" rel="noopener noreferrer">
             <Button variant="outline" size="sm" className="font-mono text-xs border-retro-orange text-retro-orange hover:bg-retro-orange/10 rounded-none">
               <FileText className="w-4 h-4 mr-2" /> RESUME
             </Button>
@@ -195,18 +195,18 @@ const Navbar = () => {
             </a>
             
             <div className="flex items-center space-x-8 mt-6">
-              <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-retro-muted hover:text-retro-orange transition-colors">
+              <a href="https://github.com/vkmaurya09" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-retro-muted hover:text-retro-orange transition-colors">
                 <GitHubIcon className="w-6 h-6" />
               </a>
-              <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-retro-muted hover:text-retro-orange transition-colors">
+              <a href="https://www.linkedin.com/in/vinaykmaurya/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-retro-muted hover:text-retro-orange transition-colors">
                 <LinkedInIcon className="w-6 h-6" />
               </a>
-              <a href="mailto:ssh@adityaraj.dev" aria-label="Email" className="text-retro-muted hover:text-retro-orange transition-colors">
+              <a href="mailto:iamvinay1999@gmail.com" aria-label="Email" className="text-retro-muted hover:text-retro-orange transition-colors">
                 <Mail className="w-6 h-6" />
               </a>
             </div>
             
-            <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer">
+            <a href="https://drive.google.com/file/d/1MerP_nO__EY9pAtuKOkBkHW8rbtkkEaW/view?usp=sharing" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" className="mt-4 border-retro-orange text-retro-orange hover:bg-retro-orange/10 rounded-none font-display text-xl tracking-wider">
                 <FileText className="w-4 h-4 mr-2" /> RESUME
               </Button>

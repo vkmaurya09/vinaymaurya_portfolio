@@ -33,7 +33,7 @@ const Index = () => {
 
   useEffect(() => {
     // Change page title
-    document.title = "Aditya Raj | Senior Software Engineer";
+    document.title = "Vinay Maurya | Software Engineer 2";
     
     // Only proceed if mobile detection is complete
     if (mobileDetectionComplete) {

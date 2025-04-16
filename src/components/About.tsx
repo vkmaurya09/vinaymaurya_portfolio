@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { Code, BookOpen } from 'lucide-react';
 
@@ -42,8 +41,7 @@ const About = () => {
             </div>
             
             <p className="text-retro-muted mb-6 pl-4 border-l border-retro-orange/20">
-              Senior Software Engineer at a trading firm based in Bangalore, working on high-performance 
-              trade systems and fintech solutions.
+              I'm Vinay Maurya, a passionate Software Engineer 2 at FYERS, working on trading systems, real-time data, and cloud-native services.
             </p>
             
             <div className="mb-6 flex items-center">
@@ -54,20 +52,19 @@ const About = () => {
             </div>
             
             <p className="text-retro-muted mb-4 pl-4 border-l border-retro-orange/20">
-              I've worked across multiple domains from Web3 to e-commerce—and I'm currently focused on trade systems and fintech.
+              With experience in building high-performance microservices using Golang, Kafka, Redis, and AWS, I focus on delivering scalable, fault-tolerant systems.
             </p>
             
             <p className="text-retro-muted mb-4 pl-4 border-l border-retro-orange/20">
-              My main expertise lies in backend technologies like distributed systems, Redis, Kafka, AWS, Go, and real-time systems.
+              I've engineered robust APIs for trading platforms, rebuilt legacy systems for better efficiency, and implemented smart features to empower users with precision and automation.
             </p>
             
             <p className="text-retro-muted mb-4 pl-4 border-l border-retro-orange/20">
-              I'm passionate about building backend and cloud services that are efficient, reliable, and easy to maintain. 
-              I believe in keeping things simple and scalable, no matter the complexity of the project.
+              My main expertise lies in Golang, Python, Kafka, Redis, PostgreSQL, AWS, and microservices architecture for high-performance trading systems.
             </p>
             
             <p className="text-retro-muted pl-4 border-l border-retro-orange/20">
-              Always open to meeting new people and collaborating on exciting projects—feel free to connect if you'd like to chat!
+              I enjoy solving complex backend problems and constantly optimizing performance at scale.
             </p>
           </div>
           
@@ -76,8 +73,8 @@ const About = () => {
               <div className="border-4 border-retro-orange p-2 bg-retro-bg relative z-10">
                 <div className="overflow-hidden">
                   <img 
-                    src="/images/profile.png"
-                    alt="Aditya Raj" 
+                    src="/vinay.jpg"
+                    alt="Vinay Maurya" 
                     className="w-full grayscale hover:grayscale-0 transition-all duration-500 mix-blend-luminosity hover:mix-blend-normal"
                   />
                 </div>

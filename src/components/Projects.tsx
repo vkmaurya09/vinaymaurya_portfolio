@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { ExternalLink, Code as CodeIcon, Monitor, Zap } from 'lucide-react';
 
@@ -33,21 +32,31 @@ type Project = {
 const projects: Project[] = [
   {
     id: 1,
-    title: "FIA (FYERS Intelligent Assistant)",
+    title: "gRPC User Service",
     description:
-      "A smart assistant that helps you generate screeners on demand!",
-    image: "/lovable-uploads/fia.png",
-    link: "https://app.fyers.in/discover/screeners/fia",
-    technologies: ["Go", "LLM", "AI", "AWS"],
+      "Scalable gRPC service for user management with search and unit tests.",
+    image: "/lovable-uploads/grpc-project.png",
+    link: "https://github.com/vkmaurya09/grpc-user-service",
+    github: "https://github.com/vkmaurya09/grpc-user-service",
+    technologies: ["Golang", "gRPC", "Docker", "Protobuf"],
   },
   {
     id: 2,
-    title: "Funds Module",
+    title: "Smart Orders @ FYERS",
     description:
-      "A module that enables users to add and withdraw funds from their trading wallet across both app and web platforms.",
-    image: "/lovable-uploads/funds-module.png",
-    link: "https://app.fyers.in/funds",
-    technologies: ["Go", "AWS", "Kafka", "Redis"],
+      "Backend systems for Smart Limit, Smart Trail, and Equity SIP features with real-time processing.",
+    image: "/lovable-uploads/smart-orders.png",
+    link: "https://fyers.in/community/announcements-syobm28p/post/smart-orders-changing-the-way-you-trade-HCgB02gxcv6RFjK",
+    technologies: ["Golang", "Gin", "Kafka", "Redis", "PostgreSQL", "WebSockets", "AWS"],
+  },
+  {
+    id: 3,
+    title: "Smart Equity SIP",
+    description:
+      "Investment system for ETFs, REITs, and equities with automated scheduling.",
+    image: "/lovable-uploads/smart-sip.png",
+    link: "https://fyers.in/community/blogs-gdppin8d/post/smart-equity-sip-a-smarter-way-to-invest-in-equities-etfs-reits-and-Qta8cRzBRHvkgzx",
+    technologies: ["Golang", "Kafka", "Redis", "AWS", "PostgreSQL"],
   },
 ];
 
@@ -136,7 +145,7 @@ const Projects = () => {
 
         <div className="mt-16 text-center animate-on-scroll">
           <a 
-            href="https://github.com/aditya201551" 
+            href="https://github.com/vkmaurya09" 
             target="_blank" 
             rel="noopener noreferrer"
             className="inline-flex items-center px-6 py-3 bg-retro-card border border-retro-orange text-retro-orange font-mono hover:bg-retro-orange/10 transition-colors"

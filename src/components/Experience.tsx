@@ -1,17 +1,18 @@
-
 import { useState, useEffect, useRef } from "react";
-import { Briefcase, Calendar, MapPin, ChevronRight } from "lucide-react";
+import { Briefcase, Calendar, MapPin, ChevronRight, ArrowUp } from "lucide-react";
 
 type Experience = {
   id: number;
   company: string;
   logo: string;
-  position: string;
+  positions: Array<{
+    title: string;
+    period: string;
+    responsibilities: string[];
+    skills: string[];
+  }>;
   employmentType: string;
-  period: string;
   location: string;
-  responsibilities: string[];
-  skills: string[];
   companyUrl: string;
 };
 
@@ -20,70 +21,33 @@ const experiences: Experience[] = [
     id: 1,
     company: "FYERS",
     logo: "/lovable-uploads/fyers-logo.png",
-    position: "Senior Software Engineer",
-    employmentType: "Full-time",
-    period: "Aug 2023 - Present",
-    location: "Bengaluru, Karnataka, India",
-    responsibilities: [
-      "Designed and implemented instant withdrawal to let the user withdraw funds up to 1 Lakhs INR instantly to their bank account.",
-      "Created a funds module that lets a user add and withdraw funds from their trading wallet from the app and web.",
-      "Automated high-availability setup to serve real-time stock screener data without any downtime using AWS lambda and step function.",
-      "Designed a microservice that handles all types of settings (chart, user, order window, etc) across platforms using Kafka, Redis and PostgreSQL.",
-      "Created async APIs using Kafka to scale systems to handle higher loads during peak traffic time",
+    positions: [
+      {
+        title: "Software Engineer 2",
+        period: "Jan 2024 - Present",
+        responsibilities: [
+          "Built producer-consumer microservices for asynchronous data saving (TradingView SaveChart & Drawing APIs).",
+          "Used Redis, Kafka, and S3 with Snappy compression; reduced storage usage by 60%.",
+          "Developed and deployed FYERS Smart Orders & SIP microservices using Go, WebSockets, Kafka, Redis.",
+          "Engineered a settings service managing 100+ types of settings with PostgreSQL, Kafka, Redis & WebSocket updates."
+        ],
+        skills: ["Go", "Apache Kafka", "AWS", "Redis", "PostgreSQL"]
+      },
+      {
+        title: "Software Engineer 1",
+        period: "Dec 2022 - Jan 2024",
+        responsibilities: [
+          "Created FYERS API v3 and Python SDK for algo trading with 50ms order execution.",
+          "Rebuilt charting data service in Go, reducing EC2 usage by 85%.",
+          "Implemented inter-service resource locking with Redis for AWS EFS operations."
+        ],
+        skills: ["Go", "Python", "AWS", "Redis", "Microservices"]
+      }
     ],
-    skills: ["Go", "Apache Kafka", "AWS", "Redis", "PostgreSQL"],
+    employmentType: "Full-time",
+    location: "Bangalore, Karnataka, India",
     companyUrl: "https://app.fyers.in",
-  },
-  {
-    id: 2,
-    company: "Plaza",
-    logo: "/lovable-uploads/plaza-logo.jpeg",
-    position: "Software Development Engineer - Backend",
-    employmentType: "Full-time",
-    period: "Jul 2022 - Jun 2023",
-    location: "Bengaluru, Karnataka, India",
-    responsibilities: [
-      "Integrated creator analytics SDK, displaying content stats from multiple social media platforms, resulting in a comprehensive dashboard.",
-      "Developed serverless function for automated data retrieval, ensuring real-time analytics updates and saving 17 hours per week of manual tasks.",
-      "Implemented event-driven notification service for timely email, in-app, and push notifications, increasing user engagement by over 15%.",
-      "Contributed to admin-side API development, enabling efficient platform management and achieving over 20% efficiency gain.",
-    ],
-    skills: ["JSON", "AWS", "Node.js", "Python"],
-    companyUrl: "https://www.linkedin.com/company/plaza-tech/",
-  },
-  {
-    id: 3,
-    company: "Quantum Dynamics Corp",
-    logo: "/lovable-uploads/qd_corp_logo.jpeg",
-    position: "Back End Developer",
-    employmentType: "Internship",
-    period: "Apr 2022 - Jun 2022",
-    location: "Remote",
-    responsibilities: [
-      "Implemented GraphQL resolvers to efficiently retrieve and manipulate data from multiple data sources, ensuring streamlined data access and minimizing response time.",
-      "Collaborated with the team to continuously improve the GraphQL schema design, ensuring consistency and scalability as new features and requirements were introduced.",
-      "Actively participated in code reviews, providing constructive feedback and suggestions to improve code quality, performance, and maintainability.",
-      "Maintained documentation for the GraphQL API, providing clear and comprehensive guidelines for frontend developers to interact with the backend system.",
-    ],
-    skills: ["NestJS", "GraphQL"],
-    companyUrl: "https://www.qd-corp.com/",
-  },
-  {
-    id: 4,
-    company: "Korazón",
-    logo: "/lovable-uploads/korazon-logo.jpeg",
-    position: "Backend Developer",
-    employmentType: "Internship",
-    period: "Jan 2022 - Mar 2022",
-    location: "Remote",
-    responsibilities: [
-      "Developed and implemented the backend infrastructure for a crypto payment app, using Django and GraphQL technologies.",
-      "Focused on authentication mechanisms using JSON Web Tokens (JWT), ensuring secure user authentication and authorization processes.",
-      "Assisted in the deployment and maintenance of the application on cloud platforms, ensuring high availability and scalability.",
-    ],
-    skills: ["Django", "GraphQL", "JWT", "Python"],
-    companyUrl: "https://www.linkedin.com/company/korazon4world/",
-  },
+  }
 ];
 
 const ExperienceCard = ({ experience }: { experience: Experience }) => {
@@ -98,7 +62,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
           />
         </div>
         <div className="flex-1">
-          <h3 className="text-2xl font-display text-retro-text mb-1">{experience.position}</h3>
+          <h3 className="text-2xl font-display text-retro-text mb-1">{experience.company}</h3>
           <p className="text-retro-orange font-mono">
             <a 
               href={experience.companyUrl} 
@@ -106,7 +70,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
               rel="noopener noreferrer"
               className="hover:underline"
             >
-              {experience.company}
+              {experience.companyUrl.replace('https://', '')}
             </a>
           </p>
         </div>
@@ -120,7 +84,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
         
         <div className="flex items-center text-retro-muted px-3 py-1.5 border border-white/10 mr-4 mb-2">
           <Calendar className="w-4 h-4 mr-2 text-retro-orange" />
-          <span>{experience.period}</span>
+          <span>{experience.positions[experience.positions.length-1].period.split(' - ')[0]} - {experience.positions[0].period.split(' - ')[1]}</span>
         </div>
         
         <div className="flex items-center text-retro-muted px-3 py-1.5 border border-white/10 mb-2">
@@ -129,25 +93,43 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
         </div>
       </div>
 
-      <ul className="mt-8 space-y-4">
-        {experience.responsibilities.map((responsibility, index) => (
-          <li key={index} className="flex items-start text-retro-muted">
-            <ChevronRight className="w-4 h-4 text-retro-orange mr-2 flex-shrink-0 mt-1" />
-            <span className="text-sm">{responsibility}</span>
-          </li>
-        ))}
-      </ul>
-      
-      <div className="mt-8 flex flex-wrap gap-3">
-        {experience.skills.map((skill, index) => (
-          <span
-            key={index}
-            className="px-4 py-1.5 bg-retro-card border border-white/10 text-xs font-mono"
-          >
-            {skill}
-          </span>
-        ))}
-      </div>
+      {experience.positions.map((position, posIndex) => (
+        <div key={`position-${posIndex}`} className={`${posIndex > 0 ? 'mt-10 pt-10 border-t border-white/10' : ''}`}>
+          <div className="flex items-center mb-3">
+            <h4 className="text-xl font-display text-retro-orange flex items-center">
+              {position.title}
+              {posIndex === 0 && (
+                <span className="ml-2 px-2 py-0.5 text-xs bg-retro-orange/20 border border-retro-orange/50 flex items-center">
+                  <ArrowUp className="w-3 h-3 mr-1" /> Promoted
+                </span>
+              )}
+            </h4>
+            <div className="ml-3 px-2 py-0.5 text-xs border border-white/20 text-retro-muted">
+              {position.period}
+            </div>
+          </div>
+          
+          <ul className="space-y-4 mt-4">
+            {position.responsibilities.map((responsibility, index) => (
+              <li key={`resp-${posIndex}-${index}`} className="flex items-start text-retro-muted">
+                <ChevronRight className="w-4 h-4 text-retro-orange mr-2 flex-shrink-0 mt-1" />
+                <span className="text-sm">{responsibility}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <div className="mt-4 flex flex-wrap gap-3">
+            {position.skills.map((skill, index) => (
+              <span
+                key={`skill-${posIndex}-${index}`}
+                className="px-4 py-1.5 bg-retro-card border border-white/10 text-xs font-mono"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
@@ -259,7 +241,7 @@ const Experience = () => {
 
         <div className="mt-16 text-center animate-on-scroll">
           <a 
-            href="https://flowcv.com/resume/tsc77t6arq" 
+            href="https://drive.google.com/file/d/1MerP_nO__EY9pAtuKOkBkHW8rbtkkEaW/view?usp=sharing" 
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-6 py-3 bg-retro-card border border-retro-orange text-retro-orange font-mono hover:bg-retro-orange/10 transition-colors"

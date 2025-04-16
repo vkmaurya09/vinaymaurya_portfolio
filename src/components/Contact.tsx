@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Send, Mail, MapPin, Terminal, ArrowRight } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
@@ -69,11 +68,17 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Use fetch with no-cors mode to bypass CORS issues
-      await fetch('https://script.google.com/macros/s/AKfycbwuWYTO170ZPMpNG-oBpzRNf0FLN6hch_PR5Ny9UcGZoWG5VpMaP0QLTyDnjm-gn-Zr2w/exec', {
+      // After deploying the Apps Script, replace this with your Web App URL
+      const scriptUrl = 'https://script.google.com/macros/s/AKfycbwHbvoxK-j5cngJw8p1rCqr-T6yoWZqDE4vVOmgMfjsihvtWSfWs3d1TVyGpu4NZ-wD/exec'; // Replace with the URL you get after deploying the Apps Script
+      
+      await fetch(scriptUrl, {
         method: 'POST',
-        mode: 'no-cors', // This prevents CORS errors
-        body: JSON.stringify(formData),
+        mode: 'no-cors',
+        body: JSON.stringify({
+          ...formData,
+          timestamp: new Date().toISOString(),
+          phone: '9521575678'
+        }),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -145,8 +150,8 @@ const Contact = () => {
                 <div className="w-10 h-10 mr-4 bg-retro-card flex items-center justify-center border border-white/10 group-hover:border-retro-orange/50 transition-colors">
                   <Mail className="w-5 h-5 text-retro-orange" />
                 </div>
-                <a href="mailto:ssh@adityaraj.dev" className="font-mono text-sm text-retro-muted group-hover:text-retro-orange transition-colors">
-                  ssh@adityaraj.dev
+                <a href="mailto:iamvinay1999@gmail.com" className="font-mono text-sm text-retro-muted group-hover:text-retro-orange transition-colors">
+                  iamvinay1999@gmail.com
                 </a>
               </div>
               
@@ -155,7 +160,7 @@ const Contact = () => {
                   <MapPin className="w-5 h-5 text-retro-orange" />
                 </div>
                 <span className="font-mono text-sm text-retro-muted">
-                  Bengaluru, Karnataka, India
+                  Bangalore, Karnataka, India
                 </span>
               </div>
             </div>
@@ -164,7 +169,7 @@ const Contact = () => {
               <h4 className="text-xl font-display mb-6 text-retro-text">Find me on</h4>
               <div className="flex space-x-4">
                 <a 
-                  href="https://github.com/aditya201551" 
+                  href="https://github.com/vkmaurya09" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-retro-card flex items-center justify-center border border-white/10 hover:border-retro-orange transition-colors group"
@@ -172,7 +177,7 @@ const Contact = () => {
                   <GitHubIcon className="w-6 h-6 text-retro-muted group-hover:text-retro-orange transition-colors" />
                 </a>
                 <a 
-                  href="https://www.linkedin.com/in/aaditya-raaj/" 
+                  href="https://www.linkedin.com/in/vinaykmaurya/" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-retro-card flex items-center justify-center border border-white/10 hover:border-retro-orange transition-colors group"

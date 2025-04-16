@@ -15,7 +15,7 @@ const Footer = () => {
               </span>
             </div>
             <p className="font-mono text-xs text-retro-muted">
-              &copy; {currentYear} Aditya Raj. All rights reserved.
+              &copy; {currentYear} Vinay Maurya. All rights reserved.
             </p>
           </div>
 
@@ -51,8 +51,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-center md:justify-between items-center">
           <div className="mb-4 md:mb-0 text-center md:text-left">
             <p className="text-xs text-retro-muted font-mono">
-              Senior Software Engineer @ FYERS | Trading Systems | Cloud
-              Platform Specialist
+              Software Engineer 2 @ FYERS | Trading Systems | Cloud-Native Backend | Kafka Specialist
             </p>
           </div>
 

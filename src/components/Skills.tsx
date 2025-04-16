@@ -13,7 +13,7 @@ type Skill = {
   icon: JSX.Element;
   level: SkillLevel;
   colorClass: string;
-  category: 'backend' | 'cloud' | 'languages' | 'databases';
+  category: 'backend' | 'cloud' | 'languages' | 'databases' | 'tools' | 'other';
 };
 
 const getSkillLevelValue = (level: SkillLevel): number => {
@@ -27,54 +27,226 @@ const getSkillLevelValue = (level: SkillLevel): number => {
 };
 
 const skills: Skill[] = [
+  // Languages
   { 
-    name: "Go",
+    name: "Golang",
     icon: <Code className="w-4 h-4" />, 
     level: 'expert', 
     colorClass: "bg-retro-orange", 
     category: 'languages'
   },
   { 
-    name: "AWS", 
-    icon: <Cloud className="w-4 h-4" />, 
-    level: 'advanced', 
-    colorClass: "bg-retro-yellow", 
-    category: 'cloud'
+    name: "Python",
+    icon: <Code className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-blue", 
+    category: 'languages'
+  },
+  
+  // Frameworks & Libraries
+  { 
+    name: "Gin",
+    icon: <Server className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-green", 
+    category: 'backend'
   },
   { 
-    name: "Apache Kafka", 
-    icon: <Network className="w-4 h-4" />, 
+    name: "Django",
+    icon: <Server className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-green", 
+    category: 'backend'
+  },
+  { 
+    name: "Gorilla Mux",
+    icon: <Server className="w-4 h-4" />, 
     level: 'advanced', 
     colorClass: "bg-retro-purple", 
     category: 'backend'
   },
+  
+  // Databases & Caches
   { 
-    name: "Node.js", 
-    icon: <Server className="w-4 h-4" />, 
-    level: 'intermediate', 
-    colorClass: "bg-retro-green", 
-    category: 'backend'
-  },
-  { 
-    name: "TypeScript", 
-    icon: <Code className="w-4 h-4" />, 
-    level: 'intermediate', 
-    colorClass: "bg-retro-blue", 
-    category: 'languages'
-  },
-  { 
-    name: "Redis", 
+    name: "MySQL",
     icon: <Database className="w-4 h-4" />, 
-    level: 'advanced', 
-    colorClass: "bg-retro-orange", 
+    level: 'expert', 
+    colorClass: "bg-retro-blue", 
     category: 'databases'
   },
   { 
-    name: "Django", 
+    name: "PostgreSQL",
+    icon: <Database className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-blue", 
+    category: 'databases'
+  },
+  { 
+    name: "Redis",
+    icon: <Database className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-red", 
+    category: 'databases'
+  },
+  { 
+    name: "ScyllaDB",
+    icon: <Database className="w-4 h-4" />, 
+    level: 'intermediate', 
+    colorClass: "bg-retro-yellow", 
+    category: 'databases'
+  },
+  { 
+    name: "MongoDB",
+    icon: <Database className="w-4 h-4" />, 
+    level: 'intermediate', 
+    colorClass: "bg-retro-green", 
+    category: 'databases'
+  },
+  { 
+    name: "ClickHouse",
+    icon: <Database className="w-4 h-4" />, 
+    level: 'intermediate', 
+    colorClass: "bg-retro-yellow", 
+    category: 'databases'
+  },
+  
+  // Cloud Platforms & Services
+  { 
+    name: "AWS EC2", 
+    icon: <Cloud className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-orange", 
+    category: 'cloud'
+  },
+  { 
+    name: "AWS Lambda", 
+    icon: <Cloud className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-orange", 
+    category: 'cloud'
+  },
+  { 
+    name: "AWS S3", 
+    icon: <Cloud className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-orange", 
+    category: 'cloud'
+  },
+  { 
+    name: "AWS RDS", 
+    icon: <Cloud className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-orange", 
+    category: 'cloud'
+  },
+  { 
+    name: "AWS EFS", 
+    icon: <Cloud className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-orange", 
+    category: 'cloud'
+  },
+  
+  // Tools & Technologies
+  { 
+    name: "Kafka", 
+    icon: <Network className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-purple", 
+    category: 'tools'
+  },
+  { 
+    name: "Docker", 
+    icon: <Server className="w-4 h-4" />, 
+    level: 'intermediate', 
+    colorClass: "bg-retro-blue", 
+    category: 'tools'
+  },
+  { 
+    name: "Cron Jobs", 
+    icon: <Cpu className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-green", 
+    category: 'tools'
+  },
+  { 
+    name: "gRPC", 
+    icon: <Network className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-blue", 
+    category: 'tools'
+  },
+  { 
+    name: "Protobuf", 
+    icon: <Code className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-yellow", 
+    category: 'tools'
+  },
+  { 
+    name: "WebSockets", 
+    icon: <Network className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-purple", 
+    category: 'tools'
+  },
+  { 
+    name: "OpenTelemetry", 
     icon: <Cpu className="w-4 h-4" />, 
     level: 'intermediate', 
     colorClass: "bg-retro-green", 
-    category: 'backend'
+    category: 'tools'
+  },
+  { 
+    name: "Vegeta (Load Testing)", 
+    icon: <Server className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-green", 
+    category: 'tools'
+  },
+  { 
+    name: "K6 (Load Testing)", 
+    icon: <Server className="w-4 h-4" />, 
+    level: 'advanced', 
+    colorClass: "bg-retro-green", 
+    category: 'tools'
+  },
+  
+  // Other Skills
+  { 
+    name: "Microservices", 
+    icon: <Network className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-orange", 
+    category: 'other'
+  },
+  { 
+    name: "Asynchronous Processing", 
+    icon: <Cpu className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-blue", 
+    category: 'other'
+  },
+  { 
+    name: "Concurrency", 
+    icon: <Cpu className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-purple", 
+    category: 'other'
+  },
+  { 
+    name: "Real-time Data Streaming", 
+    icon: <Network className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-yellow", 
+    category: 'other'
+  },
+  { 
+    name: "Resource Locking", 
+    icon: <Server className="w-4 h-4" />, 
+    level: 'expert', 
+    colorClass: "bg-retro-green", 
+    category: 'other'
   }
 ];
 
@@ -87,40 +259,40 @@ type FocusArea = {
 
 const focusAreas: FocusArea[] = [
   {
-    title: "Backend Development",
+    title: "Golang & Backend",
     icon: <Server className="w-6 h-6" />,
     color: "text-retro-orange bg-retro-orange/20",
-    description: "Building robust and scalable server-side applications and APIs."
+    description: "Building high-performance microservices and APIs using Golang, Gin, and other modern frameworks."
   },
   {
-    title: "Cloud Infrastructure",
+    title: "Cloud & AWS",
     icon: <Cloud className="w-6 h-6" />,
     color: "text-retro-yellow bg-retro-yellow/20",
-    description: "Designing and implementing cloud-native solutions on AWS."
+    description: "Designing scalable cloud-native solutions using AWS EC2, Lambda, S3, RDS, and other services."
   },
   {
     title: "Distributed Systems",
     icon: <Network className="w-6 h-6" />,
     color: "text-retro-purple bg-retro-purple/20",
-    description: "Creating high-performance, fault-tolerant distributed applications."
+    description: "Developing fault-tolerant distributed applications with asynchronous processing and resource locking."
   },
   {
-    title: "Real-time Processing",
+    title: "Real-time Data",
     icon: <Cpu className="w-6 h-6" />,
     color: "text-retro-green bg-retro-green/20",
-    description: "Building systems for real-time data processing and analytics."
+    description: "Building systems for real-time data streaming, processing, and analytics with Kafka and WebSockets."
   },
   {
-    title: "Microservices",
+    title: "High-Performance",
     icon: <Server className="w-6 h-6" />,
     color: "text-retro-blue bg-retro-blue/20",
-    description: "Architecting and developing microservice-based applications."
+    description: "Optimizing performance for high-throughput applications using concurrency patterns and load testing."
   },
   {
     title: "Database Systems",
     icon: <Database className="w-6 h-6" />,
     color: "text-retro-orange bg-retro-orange/20",
-    description: "Working with SQL, NoSQL, and in-memory databases."
+    description: "Working with SQL, NoSQL, and in-memory databases including PostgreSQL, MySQL, Redis, and MongoDB."
   }
 ];
 
@@ -259,10 +431,12 @@ const Skills = () => {
   
   const categories = [
     { value: "all", label: "All Skills" },
-    { value: "backend", label: "Backend" },
-    { value: "cloud", label: "Cloud" },
     { value: "languages", label: "Languages" },
-    { value: "databases", label: "Databases" }
+    { value: "backend", label: "Backend" },
+    { value: "databases", label: "Databases" },
+    { value: "cloud", label: "Cloud" },
+    { value: "tools", label: "Tools & Tech" },
+    { value: "other", label: "Other Skills" }
   ];
 
   useEffect(() => {
