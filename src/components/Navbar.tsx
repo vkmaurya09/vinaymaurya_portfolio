@@ -74,9 +74,22 @@ const Navbar = () => {
     };
   }, [mobileMenuOpen]);
 
-  const handleNavClick = () => {
-    if (isMobile) {
-      setMobileMenuOpen(false);
+  const handleNavClick = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      if (isMobile) {
+        setMobileMenuOpen(false);
+      }
+    } else {
+      // If element not found, try to navigate to the correct URL
+      // This is needed for GitHub Pages where the base path might be different
+      const isProduction = window.location.href.includes('github.io');
+      if (isProduction) {
+        window.location.href = `/vinaymaurya_portfolio/#${id}`;
+      } else {
+        window.location.href = `/#${id}`;
+      }
     }
   };
 
@@ -87,7 +100,14 @@ const Navbar = () => {
       }`}
     >
       <div className="container max-w-7xl flex items-center justify-between py-4 px-4">
-        <a href="#hero" className="font-display text-2xl retro-text-shadow flex items-center">
+        <a 
+          href="#hero" 
+          onClick={(e) => {
+            e.preventDefault();
+            handleNavClick('hero');
+          }}
+          className="font-display text-2xl retro-text-shadow flex items-center"
+        >
           <TerminalSquare className="w-6 h-6 text-retro-orange mr-2" />
           <span className="text-retro-orange">VM</span><span className="text-retro-text">.</span>
         </a>
@@ -98,6 +118,10 @@ const Navbar = () => {
             <li>
               <a 
                 href="#about" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('about');
+                }}
                 className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
               >
                 <span className="text-retro-orange mr-1">01.</span> ABOUT
@@ -106,6 +130,10 @@ const Navbar = () => {
             <li>
               <a 
                 href="#experience" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('experience');
+                }}
                 className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
               >
                 <span className="text-retro-orange mr-1">02.</span> EXPERIENCE
@@ -114,6 +142,10 @@ const Navbar = () => {
             <li>
               <a 
                 href="#skills" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('skills');
+                }}
                 className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
               >
                 <span className="text-retro-orange mr-1">03.</span> SKILLS
@@ -122,6 +154,10 @@ const Navbar = () => {
             <li>
               <a 
                 href="#projects" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('projects');
+                }}
                 className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
               >
                 <span className="text-retro-orange mr-1">04.</span> PROJECTS
@@ -130,6 +166,10 @@ const Navbar = () => {
             <li>
               <a 
                 href="#contact" 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('contact');
+                }}
                 className="px-3 py-2 hover:text-retro-orange hover:bg-retro-orange/5 transition-colors duration-200 flex items-center"
               >
                 <span className="text-retro-orange mr-1">05.</span> CONTACT
@@ -178,19 +218,34 @@ const Navbar = () => {
             </button>
           </div>
           <nav className="flex flex-col items-center space-y-8 py-8">
-            <a href="#about" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
+            <a href="#about" onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('about');
+              }} className="flex items-center text-2xl font-display tracking-wider retro-text-shadow">
               <span className="text-retro-orange mr-2">01.</span> ABOUT
             </a>
-            <a href="#experience" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
+            <a href="#experience" onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('experience');
+              }} className="flex items-center text-2xl font-display tracking-wider retro-text-shadow">
               <span className="text-retro-orange mr-2">02.</span> EXPERIENCE
             </a>
-            <a href="#skills" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
+            <a href="#skills" onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('skills');
+              }} className="flex items-center text-2xl font-display tracking-wider retro-text-shadow">
               <span className="text-retro-orange mr-2">03.</span> SKILLS
             </a>
-            <a href="#projects" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
+            <a href="#projects" onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('projects');
+              }} className="flex items-center text-2xl font-display tracking-wider retro-text-shadow">
               <span className="text-retro-orange mr-2">04.</span> PROJECTS
             </a>
-            <a href="#contact" className="flex items-center text-2xl font-display tracking-wider retro-text-shadow" onClick={handleNavClick}>
+            <a href="#contact" onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('contact');
+              }} className="flex items-center text-2xl font-display tracking-wider retro-text-shadow">
               <span className="text-retro-orange mr-2">05.</span> CONTACT
             </a>
             
