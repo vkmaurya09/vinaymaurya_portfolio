@@ -1,9 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
+import { Loader, Zap, Sun, Star } from 'lucide-react';
 
 const LoadingScreen = () => {
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentIcon, setCurrentIcon] = useState(0);
+  
+  const icons = [
+    <Zap key="zap" size={24} className="text-retro-orange" />,
+    <Sun key="sun" size={24} className="text-retro-yellow" />,
+    <Star key="star" size={24} className="text-retro-purple" />,
+    <Loader key="loader" size={24} className="text-retro-green" />
+  ];
   
   useEffect(() => {
     // Simulate loading progress
@@ -12,12 +21,15 @@ const LoadingScreen = () => {
         const next = prev + Math.floor(Math.random() * 15 + 5);
         return next > 100 ? 100 : next;
       });
-    }, 100);
+      
+      // Cycle through icons
+      setCurrentIcon(prev => (prev + 1) % icons.length);
+    }, 150);
     
     // Complete loading
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1200); // Short loading time (1.2s)
+    }, 1500);
     
     return () => {
       clearInterval(interval);
@@ -30,24 +42,35 @@ const LoadingScreen = () => {
   
   return (
     <div className="loading-screen">
-      <div className="loading-content">
-        <div className="loading-terminal">
-          <div className="loading-terminal-header">
-            <div className="loading-terminal-button"></div>
-            <div className="loading-terminal-button"></div>
-            <div className="loading-terminal-button"></div>
+      <div className="retro-loading">
+        <div className="retro-loading-card">
+          {/* Decorative patterns */}
+          <div className="retro-loading-pattern top-0"></div>
+          
+          {/* Title */}
+          <h1 className="retro-loading-title">LOADING</h1>
+          
+          {/* Icon Grid */}
+          <div className="retro-loading-grid">
+            {[...Array(9)].map((_, index) => (
+              <div 
+                key={index} 
+                className={`retro-loading-cell ${
+                  index === 4 ? "retro-loading-cell-active" : ""
+                }`}
+              >
+                {index === 4 ? icons[currentIcon] : null}
+              </div>
+            ))}
           </div>
-          <div className="loading-terminal-body">
-            <div className="typing-text">INITIALIZING SYSTEM...</div>
-            <div className="typing-text delay-300">LOADING MODULES...</div>
-            <div className="progress-container">
-              <div className="progress-bar" style={{ width: `${progress}%` }}></div>
-              <div className="progress-text">{progress}%</div>
-            </div>
-            {progress >= 100 && (
-              <div className="typing-text delay-500">SYSTEM READY</div>
-            )}
+          
+          {/* Loading Bar */}
+          <div className="retro-loading-bar-container">
+            <div className="retro-loading-bar" style={{ width: `${progress}%` }}></div>
+            <span className="retro-loading-percentage">{progress}%</span>
           </div>
+          
+          <div className="retro-loading-pattern bottom-0"></div>
         </div>
       </div>
     </div>
