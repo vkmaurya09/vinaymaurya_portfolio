@@ -56,7 +56,7 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" className="saas-section">
+    <section id="projects" className="saas-section bg-saas-bgLight">
       <div className="saas-container">
         <h2 className="mb-3 animate-on-scroll text-center">
           <span className="text-saas-primary font-medium">04.</span>
@@ -123,9 +123,8 @@ const Projects = () => {
             href="https://github.com/aditya201551" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center"
           >
-            <Button variant="outline" className="border-saas-primary text-saas-primary hover:bg-saas-primary/10">
+            <Button variant="outline" className="border-saas-primary text-saas-primary hover:bg-saas-primary/10 rounded-md">
               <Github className="w-5 h-5 mr-2" />
               <span>View All Projects</span>
             </Button>

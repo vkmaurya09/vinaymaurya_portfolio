@@ -101,6 +101,80 @@ const CustomCursor = () => {
           top: `${position.y}px`
         }}
       />
+
+      <style jsx global>{`
+        /* Updated cursor styles to match beige theme */
+        body {
+          cursor: none !important;
+        }
+
+        a, button, input[type="button"], input[type="submit"], input[type="reset"], 
+        select, .hover-btn, [role="button"] {
+          cursor: none !important;
+        }
+
+        .custom-cursor-dot {
+          position: fixed;
+          width: 8px;
+          height: 8px;
+          background-color: #FF7E5F;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          transform: translate(-50%, -50%);
+          transition: width 0.2s, height 0.2s, opacity 0.2s;
+        }
+
+        .custom-cursor-ring {
+          position: fixed;
+          width: 24px;
+          height: 24px;
+          border: 2px solid #FF7E5F;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9998;
+          transform: translate(-50%, -50%);
+          transition: width 0.3s, height 0.3s, opacity 0.3s, transform 0.3s;
+          opacity: 0.5;
+        }
+
+        .custom-cursor-dot.hover {
+          width: 10px;
+          height: 10px;
+          background-color: #FFB74D;
+          opacity: 0.8;
+        }
+
+        .custom-cursor-ring.hover {
+          width: 36px;
+          height: 36px;
+          border-color: #FFB74D;
+          opacity: 0.6;
+        }
+
+        .custom-cursor-dot.clicking {
+          width: 14px;
+          height: 14px;
+          background-color: #FF7E5F;
+          opacity: 1;
+        }
+
+        .custom-cursor-ring.clicking {
+          width: 18px;
+          height: 18px;
+          border-color: #FF7E5F;
+          opacity: 0.8;
+          transform: translate(-50%, -50%) scale(0.8);
+        }
+
+        .custom-cursor-dot.hover.clicking {
+          background-color: #FFB74D;
+        }
+
+        .custom-cursor-ring.hover.clicking {
+          border-color: #FFB74D;
+        }
+      `}</style>
     </>
   );
 };

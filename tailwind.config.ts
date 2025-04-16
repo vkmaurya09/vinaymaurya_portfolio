@@ -56,18 +56,18 @@ export default {
         },
         // Modern SaaS color system
         saas: {
-          primary: "#8B5CF6",    // Vibrant purple
-          secondary: "#0EA5E9",  // Bright blue
-          dark: "#1A1F2C",       // Dark background
+          primary: "#FF7E5F",    // Pop coral color
+          secondary: "#1EAEDB",  // Bright blue for contrast
+          dark: "#3A3A3A",       // Dark gray for text
           light: "#FFFFFF",      // White
-          muted: "#94A3B8",      // Slate gray
-          accent: "#F471B5",     // Accent pink
-          success: "#10B981",    // Green
-          warning: "#FBBF24",    // Yellow
-          danger: "#EF4444",     // Red
-          bgLight: "#F8FAFC",    // Light background
+          muted: "#8A8A8A",      // Medium gray for secondary text
+          accent: "#FFB74D",     // Warm accent orange
+          success: "#4CAF50",    // Green
+          warning: "#FFB900",    // Yellow
+          danger: "#F44336",     // Red
+          bgLight: "#F5F0E8",    // Soft beige background
           cardBg: "#FFFFFF",     // Card background
-          border: "#E2E8F0",     // Border color
+          border: "#E8E0D5",     // Beige border color
         },
       },
       borderRadius: {
@@ -91,8 +91,8 @@ export default {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'gradient-primary': 'linear-gradient(to right, #8B5CF6, #6366F1)',
-        'gradient-secondary': 'linear-gradient(to right, #0EA5E9, #3B82F6)',
+        'gradient-primary': 'linear-gradient(to right, #FF7E5F, #FEB47B)',
+        'gradient-secondary': 'linear-gradient(to right, #1EAEDB, #7DC9E8)',
       },
       keyframes: {
         "accordion-down": {

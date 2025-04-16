@@ -5,12 +5,12 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-saas-bgLight py-16 border-t border-saas-border">
+    <footer className="bg-white py-16 border-t border-saas-border">
       <div className="saas-container">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-8 md:mb-0 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start mb-2">
-              <span className="font-heading text-xl font-bold text-saas-primary">AR.</span>
+              <span className="font-heading text-xl font-bold text-saas-dark">AR<span className="text-saas-primary">.</span></span>
             </div>
             <p className="text-xs text-saas-muted">
               &copy; {currentYear} Aditya Raj. All rights reserved.
@@ -34,7 +34,7 @@ const Footer = () => {
                 href="https://lovable.dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-saas-muted hover:text-saas-secondary transition-colors text-xs"
+                className="text-saas-muted hover:text-saas-primary transition-colors text-xs"
               >
                 Lovable
               </a>
@@ -52,16 +52,16 @@ const Footer = () => {
           </div>
 
           <div className="flex space-x-6">
-            <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-dark">
+            <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-primary">
               <Github className="w-4 h-4" />
             </a>
-            <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-dark">
+            <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-primary">
               <Linkedin className="w-4 h-4" />
             </a>
-            <a href="mailto:ssh@adityaraj.dev" className="text-saas-muted hover:text-saas-dark">
+            <a href="mailto:ssh@adityaraj.dev" className="text-saas-muted hover:text-saas-primary">
               <Mail className="w-4 h-4" />
             </a>
-            <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-dark">
+            <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-primary">
               <FileText className="w-4 h-4" />
             </a>
           </div>

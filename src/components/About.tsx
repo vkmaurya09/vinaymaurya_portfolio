@@ -24,7 +24,7 @@ const About = () => {
   }, []);
 
   return (
-    <section id="about" className="saas-section bg-saas-bgLight">
+    <section id="about" className="saas-section bg-white">
       <div className="saas-container">
         <h2 className="mb-12 animate-on-scroll text-center">
           <span className="text-saas-primary font-medium">01.</span>
@@ -72,7 +72,7 @@ const About = () => {
           
           <div className="animate-on-scroll delay-200 relative">
             <div className="relative max-w-xs mx-auto">
-              <div className="bg-white shadow-saas-md rounded-lg p-2 relative z-10">
+              <div className="bg-white shadow-saas rounded-lg p-2 relative z-10">
                 <div className="overflow-hidden rounded-md">
                   <img 
                     src="/images/profile.png"
@@ -86,7 +86,7 @@ const About = () => {
               {/* Decorative elements */}
               <div className="absolute top-full left-1/2 transform -translate-x-1/2 flex space-x-2 mt-4">
                 <span className="inline-block w-24 h-1 bg-saas-primary rounded-full"></span>
-                <span className="inline-block w-6 h-1 bg-saas-secondary rounded-full"></span>
+                <span className="inline-block w-6 h-1 bg-saas-accent rounded-full"></span>
               </div>
             </div>
           </div>

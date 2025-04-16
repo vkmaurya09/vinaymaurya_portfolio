@@ -69,10 +69,7 @@ const Hero = () => {
     typingState, 
     displayText, 
     currentIndex, 
-    typingTexts, 
-    typingSpeed, 
-    deletingSpeed, 
-    pauseDuration
+    typingTexts
   ]);
 
   // Handle smooth scroll to sections
@@ -87,7 +84,7 @@ const Hero = () => {
   return (
     <section 
       id="hero" 
-      className="min-h-screen flex items-center pt-16 pb-16"
+      className="min-h-screen flex items-center pt-16 pb-16 bg-saas-bgLight"
     >
       <div className="saas-container relative z-10">
         <div className="max-w-3xl">
@@ -98,7 +95,7 @@ const Hero = () => {
           </div>
 
           <h1 className="font-heading font-bold mb-4 text-saas-dark">
-            <span className="saas-gradient-text">Aditya</span> Raj.
+            <span className="text-saas-primary">Aditya</span> Raj.
           </h1>
           
           <h2 className="text-3xl md:text-4xl font-heading font-medium text-saas-dark/80 mb-8">
@@ -117,7 +114,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               onClick={handleScrollToSection("contact")}
-              className="bg-saas-primary hover:bg-saas-primary/90 text-white px-6 py-3 rounded-md font-medium"
+              className="bg-saas-primary hover:bg-saas-primary/90 text-white rounded-md px-6 py-3"
             >
               Get in touch
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -125,7 +122,7 @@ const Hero = () => {
             <Button 
               onClick={handleScrollToSection("experience")}
               variant="outline"
-              className="border border-saas-primary text-saas-primary hover:bg-saas-primary/10 px-6 py-3 rounded-md font-medium"
+              className="border border-saas-primary text-saas-primary bg-transparent hover:bg-saas-primary/10 rounded-md px-6 py-3"
             >
               See my experience
             </Button>
