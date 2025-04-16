@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Loader, Zap, Sun, Star } from 'lucide-react';
 
@@ -18,18 +17,18 @@ const LoadingScreen = () => {
     // Simulate loading progress
     const interval = setInterval(() => {
       setProgress(prev => {
-        const next = prev + Math.floor(Math.random() * 15 + 5);
+        const next = prev + Math.floor(Math.random() * 20 + 8);
         return next > 100 ? 100 : next;
       });
       
       // Cycle through icons
       setCurrentIcon(prev => (prev + 1) % icons.length);
-    }, 150);
+    }, 120);
     
     // Complete loading
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500);
+    }, 1000);
     
     return () => {
       clearInterval(interval);
