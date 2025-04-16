@@ -128,7 +128,7 @@ const Hero = () => {
               onClick={handleScrollToSection("experience")}
               className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center hover-btn"
             >
-              SEE_MY_WORK
+              SEE_MY_EXPERIENCE
             </button>
           </div>
         </div>
