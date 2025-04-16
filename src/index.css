@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=VT323&display=swap');
-@import './styles/micro-animations.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,46 +7,78 @@
 
 @layer base {
   :root {
-    --background: 240 10% 7%;
-    --foreground: 0 0% 95%;
-    --card: 240 10% 10%;
-    --card-foreground: 0 0% 95%;
-    --popover: 240 10% 10%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 15 100% 67%;
-    --primary-foreground: 240 10% 7%;
-    --secondary: 240 5% 15%;
-    --secondary-foreground: 0 0% 95%;
-    --muted: 240 5% 15%;
-    --muted-foreground: 240 5% 65%;
-    --accent: 40 100% 67%;
-    --accent-foreground: 240 10% 7%;
+    --background: 210 20% 98%;
+    --foreground: 224 71% 4%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+    --primary: 255 92% 76%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 255 92% 76%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 210 40% 98%;
+    --card: 224 71% 4%;
+    --card-foreground: 210 40% 98%;
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 263 70% 50%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 95%;
-    --border: 240 5% 20%;
-    --input: 240 5% 20%;
-    --ring: 240 5% 65%;
-    --radius: 0.125rem;
+    --destructive-foreground: 210 40% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 263 70% 50%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border selection:bg-retro-orange/30 selection:text-white;
-    cursor: none !important;
+    @apply border-border;
   }
   
   body {
-    @apply bg-retro-bg text-retro-text antialiased bg-noise bg-fixed;
-    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+    @apply bg-background text-foreground font-sans antialiased;
   }
 
   html {
     @apply scroll-smooth;
   }
 
-  h1, h2, h3 {
-    @apply font-display tracking-wider;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
   }
 
   p, span, a, li {
@@ -78,42 +110,6 @@
     animation-delay: 600ms;
   }
 
-  .retro-card {
-    @apply bg-retro-card border border-white/5 shadow-md rounded-sm hover:shadow-lg transition-all duration-300;
-  }
-  
-  .retro-container {
-    @apply relative overflow-hidden z-0;
-  }
-
-  .retro-container::before {
-    content: '';
-    @apply absolute inset-0 bg-retro-grid opacity-20 z-[-1] pointer-events-none;
-    background-size: 30px 30px;
-  }
-  
-  .retro-text-shadow {
-    text-shadow: 2px 2px 0px rgba(0,0,0,0.2);
-  }
-  
-  .glass-card {
-    @apply backdrop-blur-sm bg-white/5 border border-white/10 shadow-lg;
-  }
-  
-  .text-gradient {
-    @apply bg-gradient-to-r from-retro-orange via-retro-yellow to-retro-purple bg-clip-text text-transparent;
-  }
-  
-  .link-underline {
-    @apply relative after:absolute after:bottom-0 after:left-0 after:bg-retro-orange 
-           after:h-[2px] after:w-0 after:transition-all after:duration-300 
-           hover:after:w-full cursor-pointer;
-  }
-  
-  .skill-bar {
-    @apply relative h-2 rounded-none bg-retro-card overflow-hidden border border-white/10;
-  }
-
   .animate-on-scroll {
     opacity: 0;
   }
@@ -126,29 +122,32 @@
     animation: scale-in 0.3s ease-out forwards;
   }
 
-  /* Retro cursor effect */
-  .retro-cursor::after {
-    content: '|';
-    @apply text-retro-orange animate-blink;
+  /* Modern SaaS utility classes */
+  .saas-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  .pixel-shadow {
-    box-shadow: 5px 5px 0px rgb(0 0 0 / 15%);
+  .saas-card {
+    @apply bg-white rounded-lg border border-saas-border shadow-saas transition-all duration-200;
   }
 
-  .retro-separator {
-    @apply h-px w-full bg-white/10 my-6;
-    background-image: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+  .saas-btn-primary {
+    @apply bg-saas-primary text-white font-medium rounded-md px-4 py-2 hover:bg-opacity-90 transition-all;
   }
 
-  /* Shimmer effect */
-  .shimmer {
-    @apply animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent bg-[length:200%_100%];
+  .saas-btn-secondary {
+    @apply bg-white text-saas-primary border border-saas-primary font-medium rounded-md px-4 py-2 hover:bg-saas-primary/5 transition-all;
   }
 
-  /* Terminal text effect */
-  .terminal-text {
-    @apply font-mono text-retro-green overflow-hidden whitespace-nowrap border-r-2 border-retro-green;
-    animation: typing 3.5s steps(40, end), blink 0.75s step-end infinite;
+  .saas-heading {
+    @apply text-saas-dark font-heading font-semibold tracking-tight;
+  }
+
+  .saas-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-primary;
+  }
+
+  .saas-section {
+    @apply py-16 md:py-24;
   }
 }

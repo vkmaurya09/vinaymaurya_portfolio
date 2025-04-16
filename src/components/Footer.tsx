@@ -1,64 +1,69 @@
-import { Terminal } from "lucide-react";
+
+import { Github, Linkedin, Mail, FileText } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="py-12 px-4 border-t border-retro-orange/10 retro-container">
-      <div className="container mx-auto max-w-5xl">
+    <footer className="bg-saas-bgLight py-16 border-t border-saas-border">
+      <div className="saas-container">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-8 md:mb-0 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start mb-2">
-              <Terminal className="w-5 h-5 text-retro-orange mr-2" />
-              <span className="font-display text-xl text-retro-text">
-                &lt;/&gt;
-              </span>
+              <span className="font-heading text-xl font-bold text-saas-primary">AR.</span>
             </div>
-            <p className="font-mono text-xs text-retro-muted">
+            <p className="text-xs text-saas-muted">
               &copy; {currentYear} Aditya Raj. All rights reserved.
             </p>
           </div>
 
           <div className="flex flex-col items-center md:items-end">
-            <p className="font-mono text-xs text-retro-muted mb-2">
-              Built with modern AI technologies
+            <p className="text-xs text-saas-muted mb-2">
+              Built with modern technologies
             </p>
             <div className="flex space-x-4">
               <a
                 href="https://cursor.sh"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative text-retro-orange font-mono text-xs group"
+                className="text-saas-muted hover:text-saas-primary transition-colors text-xs"
               >
                 Cursor
-                <span className="absolute left-0 bottom-0 w-0 h-px bg-retro-orange transition-all duration-300 group-hover:w-[60%]"></span>
               </a>
               <a
                 href="https://lovable.dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative text-retro-yellow font-mono text-xs group"
+                className="text-saas-muted hover:text-saas-secondary transition-colors text-xs"
               >
                 Lovable
-                <span className="absolute left-0 bottom-0 w-0 h-px bg-retro-yellow transition-all duration-300 group-hover:w-[60%]"></span>
               </a>
             </div>
           </div>
         </div>
 
-        <div className="retro-separator mt-8 mb-8"></div>
+        <div className="h-px w-full bg-saas-border my-8"></div>
 
         <div className="flex flex-col md:flex-row justify-center md:justify-between items-center">
           <div className="mb-4 md:mb-0 text-center md:text-left">
-            <p className="text-xs text-retro-muted font-mono">
-              Senior Software Engineer @ FYERS | Trading Systems | Cloud
-              Platform Specialist
+            <p className="text-xs text-saas-muted">
+              Senior Software Engineer @ FYERS | Trading Systems | Cloud Platform Specialist
             </p>
           </div>
 
-          <div className="text-xs font-mono">
-            <span className="text-retro-orange">$</span>{" "}
-            <span className="text-retro-muted">Thank you for visiting</span>
+          <div className="flex space-x-6">
+            <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-dark">
+              <Github className="w-4 h-4" />
+            </a>
+            <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-dark">
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a href="mailto:ssh@adityaraj.dev" className="text-saas-muted hover:text-saas-dark">
+              <Mail className="w-4 h-4" />
+            </a>
+            <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-dark">
+              <FileText className="w-4 h-4" />
+            </a>
           </div>
         </div>
       </div>

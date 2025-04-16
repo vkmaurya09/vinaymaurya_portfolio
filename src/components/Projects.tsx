@@ -1,24 +1,7 @@
 
 import { useEffect } from 'react';
-import { ExternalLink, Code as CodeIcon, Monitor, Zap } from 'lucide-react';
-
-// Custom GitHub icon component
-const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    width="24"
-    height="24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
-    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-  </svg>
-);
+import { ExternalLink, Github } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 type Project = {
   id: number;
@@ -73,59 +56,60 @@ const Projects = () => {
   }, []);
 
   return (
-    <section id="projects" className="py-24 px-4 bg-gradient-to-b from-retro-bg to-retro-bg/90 retro-container">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl font-display mb-12 flex items-center animate-on-scroll">
-          <span className="text-retro-orange font-mono mr-2">04.</span>
-          <span className="retro-text-shadow">Projects</span>
-          <span className="h-px bg-white/10 flex-grow ml-4"></span>
+    <section id="projects" className="saas-section">
+      <div className="saas-container">
+        <h2 className="mb-3 animate-on-scroll text-center">
+          <span className="text-saas-primary font-medium">04.</span>
+          <span className="font-semibold ml-2">Projects</span>
         </h2>
+        
+        <p className="text-saas-muted text-center max-w-2xl mx-auto mb-12">
+          A showcase of my recent work and projects I've built for companies and personal exploration.
+        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <div 
               key={project.id} 
-              className="retro-card animate-on-scroll border-2 border-white/5 overflow-hidden"
+              className="animate-on-scroll bg-white rounded-lg shadow-saas overflow-hidden hover:shadow-saas-md transition-all duration-300"
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="relative h-56">
-                <div className="absolute left-0 top-0 z-10 bg-retro-card py-1 px-2 text-xs font-mono flex items-center border-r border-b border-white/10">
-                  <CodeIcon className="w-3 h-3 mr-1 text-retro-orange" />
-                  <span>project_{index + 1}.go</span>
-                </div>
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100"
+                  className="w-full h-full object-cover"
                 />
-              </div>
-              <div className="p-6 bg-retro-card">
-                <h3 className="font-display text-xl mb-1 text-retro-orange">{project.title}</h3>
-                
-                <div className="flex flex-wrap gap-2 mt-2 mb-4">
-                  {project.technologies.map((tech, techIndex) => (
-                    <span key={techIndex} 
-                      className="px-2 py-1 bg-white/5 border border-white/10 font-mono text-xs text-retro-muted">
-                      {tech}
-                    </span>
-                  ))}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end">
+                  <div className="p-4 text-white">
+                    <h4 className="font-semibold">{project.title}</h4>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {project.technologies.map((tech, i) => (
+                        <span key={i} className="text-xs bg-white/20 px-2 py-0.5 rounded">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                
-                <p className="text-retro-muted mb-6 text-sm">{project.description}</p>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2 text-saas-dark">{project.title}</h3>
+                <p className="text-saas-muted mb-6">{project.description}</p>
                 
                 <div className="flex justify-between items-center">
                   <div className="flex space-x-4">
                     {project.github && (
                       <a href={project.github} target="_blank" rel="noopener noreferrer" 
-                        className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs">
-                        <GitHubIcon className="w-4 h-4 mr-1" />
-                        <span>SOURCE</span>
+                        className="text-saas-muted hover:text-saas-dark transition-colors flex items-center text-sm">
+                        <Github className="w-4 h-4 mr-1" />
+                        <span>Source</span>
                       </a>
                     )}
                     <a href={project.link} target="_blank" rel="noopener noreferrer" 
-                      className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs">
+                      className="text-saas-primary hover:text-saas-primary/80 transition-colors flex items-center text-sm">
                       <ExternalLink className="w-4 h-4 mr-1" />
-                      <span>LIVE DEMO</span>
+                      <span>Live Demo</span>
                     </a>
                   </div>
                 </div>
@@ -139,10 +123,12 @@ const Projects = () => {
             href="https://github.com/aditya201551" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center px-6 py-3 bg-retro-card border border-retro-orange text-retro-orange font-mono hover:bg-retro-orange/10 transition-colors"
+            className="inline-flex items-center"
           >
-            <GitHubIcon className="w-5 h-5 mr-2" />
-            <span>VIEW_ALL_PROJECTS</span>
+            <Button variant="outline" className="border-saas-primary text-saas-primary hover:bg-saas-primary/10">
+              <Github className="w-5 h-5 mr-2" />
+              <span>View All Projects</span>
+            </Button>
           </a>
         </div>
       </div>
