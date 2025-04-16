@@ -155,7 +155,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-retro-bg/95 backdrop-blur-md pt-20 font-mono">
+        <div className="md:hidden fixed inset-0 z-40 bg-retro-bg/95 backdrop-blur-md pt-20 font-display">
           <div className="absolute top-4 right-4">
             <button
               onClick={() => setMobileMenuOpen(false)}
@@ -166,19 +166,19 @@ const Navbar = () => {
             </button>
           </div>
           <nav className="flex flex-col items-center space-y-8 py-8">
-            <a href="#about" className="flex items-center" onClick={handleNavClick}>
+            <a href="#about" className="flex items-center text-lg" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">01.</span> ABOUT
             </a>
-            <a href="#experience" className="flex items-center" onClick={handleNavClick}>
+            <a href="#experience" className="flex items-center text-lg" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">02.</span> EXPERIENCE
             </a>
-            <a href="#skills" className="flex items-center" onClick={handleNavClick}>
+            <a href="#skills" className="flex items-center text-lg" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">03.</span> SKILLS
             </a>
-            <a href="#projects" className="flex items-center" onClick={handleNavClick}>
+            <a href="#projects" className="flex items-center text-lg" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">04.</span> PROJECTS
             </a>
-            <a href="#contact" className="flex items-center" onClick={handleNavClick}>
+            <a href="#contact" className="flex items-center text-lg" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">05.</span> CONTACT
             </a>
             
@@ -195,10 +195,17 @@ const Navbar = () => {
             </div>
             
             <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="mt-4 border-retro-orange text-retro-orange hover:bg-retro-orange/10 rounded-none font-mono">
+              <Button variant="outline" className="mt-4 border-retro-orange text-retro-orange hover:bg-retro-orange/10 rounded-none font-display">
                 <FileText className="w-4 h-4 mr-2" /> RESUME
               </Button>
             </a>
+
+            {/* Added a decorative element to enhance the retro feel */}
+            <div className="absolute bottom-10 left-0 right-0 flex justify-center opacity-20 pointer-events-none">
+              <div className="text-retro-orange font-mono">
+                &lt;/ menu &gt;
+              </div>
+            </div>
           </nav>
         </div>
       )}
