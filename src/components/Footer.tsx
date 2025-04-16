@@ -33,6 +33,15 @@ const Footer = () => {
                 Cursor
                 <span className="absolute left-0 bottom-0 w-0 h-px bg-retro-orange transition-all duration-300 group-hover:w-[60%]"></span>
               </a>
+              <a
+                href="https://lovable.dev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative text-retro-yellow font-mono text-xs group"
+              >
+                Lovable
+                <span className="absolute left-0 bottom-0 w-0 h-px bg-retro-yellow transition-all duration-300 group-hover:w-[60%]"></span>
+              </a>
             </div>
           </div>
         </div>
