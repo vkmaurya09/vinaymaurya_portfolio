@@ -1,3 +1,4 @@
+
 import { ChevronDown, Terminal, Zap } from "lucide-react";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -102,7 +103,7 @@ const Hero = () => {
             <p className="text-retro-orange font-mono text-xs">hello_world.sh</p>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow">
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow animate-fade-in">
             <span className="text-retro-orange">Aditya</span> Raj.
           </h1>
           
@@ -111,12 +112,12 @@ const Hero = () => {
             <div className="relative">
               <div className="inline-flex items-center">
                 <span className="text-retro-orange min-h-[60px] inline-block">{displayText || '\u00A0'}</span>
-                <span className="text-retro-orange animate-blink inline-block">_</span>
+                <span className="text-retro-orange animate-pulse-cursor inline-block">_</span>
               </div>
             </div>
           </h2>
           
-          <p className="text-lg text-retro-muted max-w-2xl mb-10 font-mono leading-relaxed border-l-2 border-retro-orange/50 pl-4">
+          <p className="text-lg text-retro-muted max-w-2xl mb-10 font-mono leading-relaxed border-l-2 border-retro-orange/50 pl-4 scan-line-text">
             Senior Software Engineer specializing in backend development and cloud infrastructure. 
             Currently focused on building high-performance trade systems at FYERS.
           </p>
@@ -124,13 +125,13 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <button 
               onClick={handleScrollToSection("contact")}
-              className="px-6 py-3 bg-retro-orange text-retro-bg rounded-none font-mono hover:translate-x-1 hover:-translate-y-1 transition-transform duration-300 pixel-shadow flex items-center justify-center hover-btn"
+              className="px-6 py-3 bg-retro-orange text-retro-bg rounded-none font-mono hover:translate-x-1 hover:-translate-y-1 transition-transform duration-300 pixel-shadow flex items-center justify-center hover-btn button-glitch"
             >
               <Zap className="w-4 h-4 mr-2" /> GET_IN_TOUCH
             </button>
             <button 
               onClick={handleScrollToSection("experience")}
-              className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center hover-btn"
+              className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center hover-btn button-glitch"
             >
               SEE_MY_WORK
             </button>
@@ -143,7 +144,7 @@ const Hero = () => {
         <div className="absolute bottom-10 w-full flex justify-center">
           <a href="#about" aria-label="Scroll down" className="flex flex-col items-center text-retro-muted hover:text-retro-orange transition-colors duration-300 float-animation">
             <span className="font-mono text-xs mb-2">Scroll Down</span>
-            <ChevronDown className="w-5 h-5" />
+            <ChevronDown className="w-5 h-5 animate-bounce-slow" />
           </a>
         </div>
       )}

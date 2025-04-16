@@ -429,3 +429,322 @@ select, .hover-btn, [role="button"] {
   filter: blur(1px);
   animation: textDisplacement 0.3s ease-in-out infinite alternate;
 }
+
+/* NEW ANIMATIONS BELOW */
+
+/* Pulsing cursor animation */
+@keyframes pulse-cursor {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animate-pulse-cursor {
+  animation: pulse-cursor 1.1s step-end infinite;
+}
+
+/* Scan line effect for text */
+.scan-line-text {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line-text::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 118, 87, 0.15);
+  animation: scan-line 2s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(500%);
+  }
+}
+
+/* Scan line animation for dividers */
+.scan-line-animation {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line-animation::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 30px;
+  background: linear-gradient(to right, rgba(255, 118, 87, 0.1), transparent);
+  animation: scan-line-horizontal 3s infinite linear;
+}
+
+@keyframes scan-line-horizontal {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(1000%);
+  }
+}
+
+/* Button glitch effect */
+.button-glitch {
+  position: relative;
+  overflow: hidden;
+}
+
+.button-glitch::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: button-glitch 3s infinite;
+}
+
+@keyframes button-glitch {
+  0% {
+    left: -100%;
+  }
+  50%, 100% {
+    left: 100%;
+  }
+}
+
+/* Glitch text effect */
+.glitch-text {
+  position: relative;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text:hover::before {
+  animation: glitch-before 1s cubic-bezier(.25, .46, .45, .94) both infinite;
+  color: #FF7657;
+  z-index: -1;
+}
+
+.glitch-text:hover::after {
+  animation: glitch-after 1.5s cubic-bezier(.25, .46, .45, .94) reverse both infinite;
+  color: #FFC857;
+  z-index: -2;
+}
+
+@keyframes glitch-before {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+@keyframes glitch-after {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(2px, -2px);
+  }
+  40% {
+    transform: translate(2px, 2px);
+  }
+  60% {
+    transform: translate(-2px, -2px);
+  }
+  80% {
+    transform: translate(-2px, 2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Glitch number animation */
+.glitch-number {
+  display: inline-block;
+}
+
+.glitch-number:hover {
+  animation: number-glitch 0.8s steps(1) infinite;
+}
+
+@keyframes number-glitch {
+  0%, 100% {
+    transform: translate(0);
+    opacity: 1;
+  }
+  25% {
+    transform: translate(1px, -1px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-1px, 1px);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(1px, 1px);
+    opacity: 0.9;
+  }
+}
+
+/* Retro glow effect */
+.retro-glow {
+  text-shadow: 0 0 5px rgba(255, 118, 87, 0.5), 0 0 10px rgba(255, 118, 87, 0.3);
+  transition: text-shadow 0.3s ease;
+}
+
+.retro-glow:hover {
+  text-shadow: 0 0 5px rgba(255, 118, 87, 0.8), 0 0 15px rgba(255, 118, 87, 0.5), 0 0 20px rgba(255, 118, 87, 0.3);
+}
+
+/* Technology badge animation */
+.tech-badge {
+  transition: all 0.3s ease;
+}
+
+.tech-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Link hover effect */
+.link-hover {
+  position: relative;
+}
+
+.link-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.link-hover:hover::after {
+  width: 100%;
+}
+
+/* Scan image effect */
+.scan-image {
+  position: relative;
+}
+
+.scan-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, transparent, rgba(255, 118, 87, 0.5), transparent);
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scan-image:hover::before {
+  animation: image-scan 2s ease-in-out infinite;
+  opacity: 1;
+}
+
+@keyframes image-scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(1000%);
+  }
+}
+
+/* Icon pulse effect */
+.icon-pulse {
+  transition: all 0.3s ease;
+}
+
+.icon-pulse:hover {
+  animation: icon-pulse 1.5s infinite;
+}
+
+@keyframes icon-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Hover card effect */
+.hover-card-effect {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.hover-card-effect:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Slower bounce animation */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s ease-in-out infinite;
+}
+
+/* Skill percentage counter animation */
+.skill-percentage {
+  counter-reset: percentage var(--percentage);
+}
