@@ -1,3 +1,4 @@
+
 /* Retro cursor */
 body {
   cursor: none !important; /* Hide default cursor */
@@ -9,32 +10,71 @@ select, .hover-btn, [role="button"] {
   cursor: none !important;
 }
 
-.custom-cursor {
-  width: 12px;
-  height: 12px;
-  background-color: #FF7657;
+/* Main dot cursor */
+.custom-cursor-dot {
   position: fixed;
-  border-radius: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #FF7657;
+  border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
 }
 
-.custom-cursor::after {
-  content: '';
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background-color: transparent;
-  border: 1px solid #FF7657;
-  border-radius: 0;
+/* Ring cursor */
+.custom-cursor-ring {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #FF7657;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, opacity 0.3s, transform 0.3s;
   opacity: 0.5;
-  transform: translate(-4px, -4px);
-  transition: transform 0.1s ease-out;
 }
 
-.custom-cursor.hover {
-  transform: translate(-50%, -50%) scale(1.5);
+/* Hover state */
+.custom-cursor-dot.hover {
+  width: 10px;
+  height: 10px;
+  background-color: #FFC857;
+  opacity: 0.8;
+}
+
+.custom-cursor-ring.hover {
+  width: 36px;
+  height: 36px;
+  border-color: #FFC857;
+  opacity: 0.6;
+}
+
+/* Clicking state */
+.custom-cursor-dot.clicking {
+  width: 14px;
+  height: 14px;
+  background-color: #FF7657;
+  opacity: 1;
+}
+
+.custom-cursor-ring.clicking {
+  width: 18px;
+  height: 18px;
+  border-color: #FF7657;
+  opacity: 0.8;
+  transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* Combined states */
+.custom-cursor-dot.hover.clicking {
+  background-color: #FFC857;
+}
+
+.custom-cursor-ring.hover.clicking {
+  border-color: #FFC857;
 }
 
 /* Hover effects for buttons and links */

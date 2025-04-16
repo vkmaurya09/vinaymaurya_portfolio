@@ -1,8 +1,10 @@
+
 import React, { useEffect, useState } from 'react';
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [isHovering, setIsHovering] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -33,6 +35,14 @@ const CustomCursor = () => {
       setIsHovering(false);
     };
 
+    const handleMouseDown = () => {
+      setIsClicking(true);
+    };
+
+    const handleMouseUp = () => {
+      setIsClicking(false);
+    };
+
     // Force cursor: none on all interactive elements
     const applyNoDefaultCursor = () => {
       const interactiveElements = document.querySelectorAll('a, button, input[type="button"], input[type="submit"], .hover-btn, [role="button"]');
@@ -44,6 +54,8 @@ const CustomCursor = () => {
     window.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseover', handleMouseOver);
     document.addEventListener('mouseout', handleMouseOut);
+    document.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mouseup', handleMouseUp);
     
     // Apply no cursor to all elements immediately and on DOM changes
     applyNoDefaultCursor();
@@ -63,6 +75,8 @@ const CustomCursor = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mouseout', handleMouseOut);
+      document.removeEventListener('mousedown', handleMouseDown);
+      document.removeEventListener('mouseup', handleMouseUp);
       document.body.classList.remove('custom-cursor-active');
       observer.disconnect();
       document.documentElement.style.cursor = '';
@@ -72,13 +86,22 @@ const CustomCursor = () => {
   if (!isVisible) return null;
 
   return (
-    <div 
-      className={`custom-cursor ${isHovering ? 'hover' : ''}`}
-      style={{ 
-        left: `${position.x}px`,
-        top: `${position.y}px`
-      }}
-    />
+    <>
+      <div 
+        className={`custom-cursor-dot ${isHovering ? 'hover' : ''} ${isClicking ? 'clicking' : ''}`}
+        style={{ 
+          left: `${position.x}px`,
+          top: `${position.y}px`
+        }}
+      />
+      <div 
+        className={`custom-cursor-ring ${isHovering ? 'hover' : ''} ${isClicking ? 'clicking' : ''}`}
+        style={{ 
+          left: `${position.x}px`,
+          top: `${position.y}px`
+        }}
+      />
+    </>
   );
 };
 
