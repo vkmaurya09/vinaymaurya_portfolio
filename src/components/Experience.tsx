@@ -66,7 +66,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
           <p className="text-retro-orange font-mono">
             <a 
               href={experience.companyUrl} 
-              target="_blank" 
+              target="_blank"
               rel="noopener noreferrer"
               className="hover:underline"
             >
@@ -135,11 +135,7 @@ const ExperienceCard = ({ experience }: { experience: Experience }) => {
 };
 
 const Experience = () => {
-  const [selectedTab, setSelectedTab] = useState(1);
-  const [currentExperience, setCurrentExperience] = useState(
-    experiences.find((exp) => exp.id === 1)
-  );
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [currentExperience] = useState(experiences[0]);
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -165,39 +161,6 @@ const Experience = () => {
     };
   }, []);
 
-  // Update current experience when tab changes with animation
-  const handleTabChange = (tabId: number) => {
-    if (tabId === selectedTab || isAnimating) return;
-    
-    setIsAnimating(true);
-    
-    // Slide out animation
-    if (cardRef.current) {
-      cardRef.current.classList.add('animate-card-exit');
-      
-      setTimeout(() => {
-        const newExperience = experiences.find((exp) => exp.id === tabId);
-        if (newExperience) {
-          setSelectedTab(tabId);
-          setCurrentExperience(newExperience);
-        }
-        
-        // Slide in animation
-        if (cardRef.current) {
-          cardRef.current.classList.remove('animate-card-exit');
-          cardRef.current.classList.add('animate-card-enter');
-          
-          setTimeout(() => {
-            if (cardRef.current) {
-              cardRef.current.classList.remove('animate-card-enter');
-              setIsAnimating(false);
-            }
-          }, 300);
-        }
-      }, 300);
-    }
-  };
-
   return (
     <section id="experience" className="py-24 px-4 bg-gradient-to-b from-retro-bg/90 to-retro-bg retro-container">
       <div className="container mx-auto max-w-5xl">
@@ -207,30 +170,8 @@ const Experience = () => {
           <span className="h-px bg-white/10 flex-grow ml-4"></span>
         </h2>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="lg:w-1/4 animate-on-scroll">
-            <div className="flex lg:flex-col overflow-x-auto lg:overflow-visible gap-1 pb-4 lg:pb-0 font-mono text-sm">
-              {experiences.map((exp) => (
-                <button
-                  key={exp.id}
-                  className={`px-4 py-3 text-left border transition-all duration-300 whitespace-nowrap ${
-                    selectedTab === exp.id
-                      ? "border-retro-orange text-retro-orange bg-retro-orange/5"
-                      : "border-white/10 text-retro-muted hover:text-retro-orange hover:border-retro-orange/50"
-                  }`}
-                  onClick={() => handleTabChange(exp.id)}
-                  disabled={isAnimating}
-                >
-                  <Briefcase className={`w-4 h-4 inline-block mr-2 transition-transform duration-300 ${
-                    selectedTab === exp.id ? "rotate-12" : ""
-                  }`} />
-                  {exp.company}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="lg:w-3/4 min-h-[300px] flex items-start animate-on-scroll delay-100">
+        <div className="flex flex-col gap-8">
+          <div className="min-h-[300px] flex items-start animate-on-scroll">
             {currentExperience && (
               <div className="w-full relative perspective-500" ref={cardRef}>
                 <ExperienceCard experience={currentExperience} />

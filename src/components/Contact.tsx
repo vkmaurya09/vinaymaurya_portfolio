@@ -68,8 +68,9 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // After deploying the Apps Script, replace this with your Web App URL
-      const scriptUrl = 'https://script.google.com/macros/s/AKfycbwHbvoxK-j5cngJw8p1rCqr-T6yoWZqDE4vVOmgMfjsihvtWSfWs3d1TVyGpu4NZ-wD/exec'; // Replace with the URL you get after deploying the Apps Script
+      // Replace this with your actual Google Apps Script Web App URL after deployment
+      // The URL should look something like: https://script.google.com/macros/s/AKfycb...../exec
+      const scriptUrl = 'https://script.google.com/macros/library/d/1-jIby01Hve0Nb_xTdQPQnC6ZwB7yAOIJ1335UH2oMpAe-jhawNx0tzt0/1';
       
       await fetch(scriptUrl, {
         method: 'POST',
