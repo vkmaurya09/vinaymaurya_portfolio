@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 import animate from "tailwindcss-animate";
 
@@ -54,45 +53,40 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Modern SaaS color system
-        saas: {
-          primary: "#FF7E5F",    // Pop coral color
-          secondary: "#1EAEDB",  // Bright blue for contrast
-          dark: "#3A3A3A",       // Dark gray for text
-          light: "#FFFFFF",      // White
-          muted: "#8A8A8A",      // Medium gray for secondary text
-          accent: "#FFB74D",     // Warm accent orange
-          success: "#4CAF50",    // Green
-          warning: "#FFB900",    // Yellow
-          danger: "#F44336",     // Red
-          bgLight: "#F5F0E8",    // Soft beige background
-          cardBg: "#FFFFFF",     // Card background
-          border: "#E8E0D5",     // Beige border color
+        code: "#FF7657", // Updated to retro orange
+        "code-dark": "#E06A4E", // Darker retro orange
+        highlight: "#FFD166",
+        skillbar: {
+          bg: "#1B1B22",
+          go: "#FF7657", // Go - retro orange
+          aws: "#FFC857", // AWS - retro yellow
+          kafka: "#A55EA5", // Kafka - retro purple
+          nodejs: "#3EB489", // Node.js - retro green
+          typescript: "#5FA8D3", // TypeScript - retro blue
+          redis: "#FF7657", // Redis - retro orange
+          django: "#3EB489", // Django - retro green
+        },
+        retro: {
+          orange: "#FF7657",
+          yellow: "#FFC857",
+          purple: "#A55EA5", 
+          green: "#3EB489",
+          blue: "#5FA8D3",
+          bg: "#121217",
+          card: "#1B1B22",
+          text: "#F7F4F3",
+          muted: "#8A8996",
         },
       },
       borderRadius: {
-        lg: "0.75rem",
-        md: "0.5rem", 
-        sm: "0.25rem",
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        // Modern SaaS typography
+        mono: ['Space Mono', 'monospace'],
         sans: ['Inter', 'sans-serif'],
-        heading: ['Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
-      },
-      boxShadow: {
-        'saas-sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-        'saas': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-        'saas-md': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
-        'saas-lg': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-        'saas-xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'gradient-primary': 'linear-gradient(to right, #FF7E5F, #FEB47B)',
-        'gradient-secondary': 'linear-gradient(to right, #1EAEDB, #7DC9E8)',
+        display: ['VT323', 'monospace'],
       },
       keyframes: {
         "accordion-down": {
@@ -141,6 +135,36 @@ export default {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        blink: {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        },
+        "pixel-in": {
+          "0%": { 
+            opacity: "0",
+            filter: "blur(5px)",
+          },
+          "100%": { 
+            opacity: "1",
+            filter: "blur(0)",
+          },
+        },
+        "scanline": {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(100%)" },
+        },
+        "typing": {
+          "from": { width: "0" },
+          "to": { width: "100%" },
+        },
+        "horizontal-bounce": {
+          "0%, 100%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(10px)" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(1440deg)" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -149,6 +173,16 @@ export default {
         "scale-in": "scale-in 0.3s ease-out forwards",
         pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         shimmer: "shimmer 2s linear infinite",
+        blink: "blink 1s step-start infinite",
+        "pixel-in": "pixel-in 0.4s ease-out forwards",
+        "scanline": "scanline 8s linear infinite",
+        "typing": "typing 3.5s steps(40, end)",
+        "horizontal-bounce": "horizontal-bounce 1s infinite",
+        "spin-slow": "spin-slow 3s cubic-bezier(0.4, 0.0, 0.2, 1) forwards",
+      },
+      backgroundImage: {
+        'retro-grid': "linear-gradient(to right, #1B1B2277 1px, transparent 1px), linear-gradient(to bottom, #1B1B2277 1px, transparent 1px)",
+        'noise': "url('/images/noise.png')",
       },
     },
   },

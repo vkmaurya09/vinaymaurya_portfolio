@@ -1,61 +1,419 @@
+/* Retro cursor */
+body {
+  cursor: none !important; /* Hide default cursor */
+}
 
-/* Update custom cursor styles to improve visibility */
+/* Ensure cursor is hidden on all interactive elements */
+a, button, input[type="button"], input[type="submit"], input[type="reset"], 
+select, .hover-btn, [role="button"] {
+  cursor: none !important;
+}
+
+/* Main dot cursor */
 .custom-cursor-dot {
   position: fixed;
-  width: 10px;  /* Slightly larger */
-  height: 10px; /* Slightly larger */
-  background-color: #FF7E5F;  /* Brighter color */
+  width: 8px;
+  height: 8px;
+  background-color: #FF7657;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: all 0.2s ease;
-  opacity: 0.8;  /* Add some opacity */
-  box-shadow: 0 0 5px rgba(255, 126, 95, 0.5);  /* Add a soft glow */
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
 }
 
+/* Ring cursor */
 .custom-cursor-ring {
   position: fixed;
-  width: 30px;  /* Larger ring */
-  height: 30px; /* Larger ring */
-  border: 2px solid #FF7E5F;  /* Brighter border */
+  width: 24px;
+  height: 24px;
+  border: 2px solid #FF7657;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  transition: all 0.3s ease;
-  opacity: 0.6;
-  box-shadow: 0 0 10px rgba(255, 126, 95, 0.3);  /* Add a soft glow */
+  transition: width 0.3s, height 0.3s, opacity 0.3s, transform 0.3s;
+  opacity: 0.5;
 }
 
 /* Hover state */
 .custom-cursor-dot.hover {
-  width: 15px;
-  height: 15px;
-  background-color: #FFB74D;
-  opacity: 1;
+  width: 10px;
+  height: 10px;
+  background-color: #FFC857;
+  opacity: 0.8;
 }
 
 .custom-cursor-ring.hover {
-  width: 45px;
-  height: 45px;
-  border-color: #FFB74D;
-  opacity: 0.7;
+  width: 36px;
+  height: 36px;
+  border-color: #FFC857;
+  opacity: 0.6;
 }
 
 /* Clicking state */
 .custom-cursor-dot.clicking {
-  width: 20px;
-  height: 20px;
-  background-color: #FF7E5F;
+  width: 14px;
+  height: 14px;
+  background-color: #FF7657;
   opacity: 1;
 }
 
 .custom-cursor-ring.clicking {
-  width: 35px;
-  height: 35px;
-  border-color: #FF7E5F;
+  width: 18px;
+  height: 18px;
+  border-color: #FF7657;
   opacity: 0.8;
-  transform: translate(-50%, -50%) scale(0.9);
+  transform: translate(-50%, -50%) scale(0.8);
 }
 
+/* Combined states */
+.custom-cursor-dot.hover.clicking {
+  background-color: #FFC857;
+}
+
+.custom-cursor-ring.hover.clicking {
+  border-color: #FFC857;
+}
+
+/* Hover effects for buttons and links */
+.hover-btn {
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 0;
+  width: 100%;
+  background-color: rgba(255, 118, 87, 0.1);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.hover-btn:hover::before {
+  height: 100%;
+}
+
+/* Retro float animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float-animation {
+  animation: float 8s ease-in-out infinite; /* Changed from 4s to 8s - 50% slower */
+}
+
+/* Skill bar fill animation */
+@keyframes fill-bar {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: var(--fill-percent);
+  }
+}
+
+.skill-bar-fill {
+  animation: fill-bar 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+}
+
+/* Experience card transition animations */
+.perspective-500 {
+  perspective: 500px;
+}
+
+@keyframes card-exit {
+  0% {
+    opacity: 1;
+    transform: translateX(0) rotateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-20px) rotateY(-5deg);
+  }
+}
+
+@keyframes card-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(20px) rotateY(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotateY(0);
+  }
+}
+
+.animate-card-exit {
+  animation: card-exit 0.3s ease forwards;
+}
+
+.animate-card-enter {
+  animation: card-enter 0.3s ease forwards;
+}
+
+/* CRT flickering effect */
+@keyframes flicker {
+  0% {
+    opacity: 0.9;
+  }
+  5% {
+    opacity: 0.85;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  25% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0.9;
+  }
+  35% {
+    opacity: 0.8;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  45% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+  55% {
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+.crt-effect {
+  animation: flicker 5s infinite;
+}
+
+/* Retro reveal animation */
+@keyframes reveal-text {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.reveal-text {
+  animation: reveal-text 0.8s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+/* Pixels animation */
+@keyframes pixelate {
+  0% {
+    letter-spacing: -0.1em;
+    filter: blur(5px);
+  }
+  50% {
+    filter: blur(1px);
+  }
+  100% {
+    letter-spacing: normal;
+    filter: blur(0);
+  }
+}
+
+.pixel-animation {
+  animation: pixelate 1s ease forwards;
+}
+
+/* Card hover effect */
+.retro-card {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.retro-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 118, 87, 0.3);
+}
+
+/* New Retro Loading Screen */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #121217;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.retro-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(rgba(255, 118, 87, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.retro-loading-card {
+  width: 240px;
+  background-color: #1B1B22;
+  border: 3px solid #FF7657;
+  box-shadow: 8px 8px 0px #000000;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.retro-loading-pattern {
+  position: absolute;
+  left: 0;
+  height: 8px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    #FF7657,
+    #FF7657 10px,
+    #FFC857 10px,
+    #FFC857 20px
+  );
+}
+
+.retro-loading-pattern.top-0 {
+  top: 0;
+}
+
+.retro-loading-pattern.bottom-0 {
+  bottom: 0;
+}
+
+.retro-loading-title {
+  font-family: 'VT323', monospace;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #FFC857;
+  letter-spacing: 4px;
+  text-shadow: 3px 3px 0px #000000;
+}
+
+.retro-loading-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.retro-loading-cell {
+  background-color: #121217;
+  border: 2px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.retro-loading-cell-active {
+  border-color: #FF7657;
+  background-color: #23232D;
+  animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+  0% {
+    border-color: #FF7657;
+  }
+  50% {
+    border-color: #FFC857;
+  }
+  100% {
+    border-color: #FF7657;
+  }
+}
+
+.retro-loading-bar-container {
+  height: 20px;
+  background-color: #121217;
+  border: 2px solid #FF7657;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.retro-loading-bar {
+  height: 100%;
+  background: linear-gradient(45deg, #FF7657, #FFC857);
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+.retro-loading-percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'VT323', monospace;
+  color: white;
+  font-size: 14px;
+  mix-blend-mode: difference;
+}
+
+/* Progress dots animation */
+@keyframes pulse-dot {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+}
+
+.progress-dot {
+  animation: pulse-dot 1.5s infinite;
+}
+
+.progress-dot:nth-child(1) { animation-delay: 0.1s; }
+.progress-dot:nth-child(2) { animation-delay: 0.2s; }
+.progress-dot:nth-child(3) { animation-delay: 0.3s; }
+.progress-dot:nth-child(4) { animation-delay: 0.4s; }
+.progress-dot:nth-child(5) { animation-delay: 0.5s; }
+.progress-dot:nth-child(6) { animation-delay: 0.6s; }
+.progress-dot:nth-child(7) { animation-delay: 0.7s; }
+.progress-dot:nth-child(8) { animation-delay: 0.8s; }
+.progress-dot:nth-child(9) { animation-delay: 0.9s; }
+.progress-dot:nth-child(10) { animation-delay: 1.0s; }

@@ -1,78 +1,64 @@
-
-import { Github, Linkedin, Mail, FileText } from "lucide-react";
+import { Terminal } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="py-16 border-t border-saas-border relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.01)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30"></div>
-      
-      <div className="saas-container relative z-10">
+    <footer className="py-12 px-4 border-t border-retro-orange/10 retro-container">
+      <div className="container mx-auto max-w-5xl">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-8 md:mb-0 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start mb-2">
-              <span className="font-heading text-xl font-bold text-saas-dark">AR<span className="text-saas-primary">.</span></span>
+              <Terminal className="w-5 h-5 text-retro-orange mr-2" />
+              <span className="font-display text-xl text-retro-text">
+                &lt;/&gt;
+              </span>
             </div>
-            <p className="text-xs text-saas-muted">
+            <p className="font-mono text-xs text-retro-muted">
               &copy; {currentYear} Aditya Raj. All rights reserved.
             </p>
           </div>
 
           <div className="flex flex-col items-center md:items-end">
-            <p className="text-xs text-saas-muted mb-2">
-              Built with modern technologies
+            <p className="font-mono text-xs text-retro-muted mb-2">
+              Built with modern AI technologies
             </p>
             <div className="flex space-x-4">
               <a
                 href="https://cursor.sh"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-saas-muted hover:text-saas-primary transition-colors text-xs relative group"
+                className="relative text-retro-orange font-mono text-xs group"
               >
                 Cursor
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-saas-primary transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute left-0 bottom-0 w-0 h-px bg-retro-orange transition-all duration-300 group-hover:w-[60%]"></span>
               </a>
               <a
                 href="https://lovable.dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-saas-muted hover:text-saas-primary transition-colors text-xs relative group"
+                className="relative text-retro-yellow font-mono text-xs group"
               >
                 Lovable
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-saas-primary transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute left-0 bottom-0 w-0 h-px bg-retro-yellow transition-all duration-300 group-hover:w-[60%]"></span>
               </a>
             </div>
           </div>
         </div>
 
-        <div className="h-px w-full bg-saas-border my-8"></div>
+        <div className="retro-separator mt-8 mb-8"></div>
 
         <div className="flex flex-col md:flex-row justify-center md:justify-between items-center">
           <div className="mb-4 md:mb-0 text-center md:text-left">
-            <p className="text-xs text-saas-muted">
-              Senior Software Engineer @ FYERS | Trading Systems | Cloud Platform Specialist
+            <p className="text-xs text-retro-muted font-mono">
+              Senior Software Engineer @ FYERS | Trading Systems | Cloud
+              Platform Specialist
             </p>
           </div>
 
-          <div className="flex space-x-6">
-            <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" 
-               className="text-saas-muted hover:text-saas-primary transform transition-all hover:-translate-y-1">
-              <Github className="w-5 h-5" />
-            </a>
-            <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" 
-               className="text-saas-muted hover:text-saas-primary transform transition-all hover:-translate-y-1">
-              <Linkedin className="w-5 h-5" />
-            </a>
-            <a href="mailto:ssh@adityaraj.dev" 
-               className="text-saas-muted hover:text-saas-primary transform transition-all hover:-translate-y-1">
-              <Mail className="w-5 h-5" />
-            </a>
-            <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer" 
-               className="text-saas-muted hover:text-saas-primary transform transition-all hover:-translate-y-1">
-              <FileText className="w-5 h-5" />
-            </a>
+          <div className="text-xs font-mono">
+            <span className="text-retro-orange">$</span>{" "}
+            <span className="text-retro-muted">Thank you for visiting</span>
           </div>
         </div>
       </div>

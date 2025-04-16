@@ -1,7 +1,6 @@
 
 import { useEffect } from 'react';
-import { BookOpen, Code } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+import { Code, BookOpen } from 'lucide-react';
 
 const About = () => {
   useEffect(() => {
@@ -25,83 +24,71 @@ const About = () => {
   }, []);
 
   return (
-    <section id="about" className="saas-section bg-white relative">
-      {/* Decorative grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.01)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30"></div>
-      
-      <div className="saas-container relative z-10">
-        <h2 className="mb-12 animate-on-scroll text-center">
-          <span className="text-saas-primary font-medium">01.</span>
-          <span className="font-semibold ml-2 relative inline-block">
-            About Me
-            <span className="absolute -bottom-2 left-0 w-1/3 h-1 bg-saas-primary"></span>
-          </span>
+    <section id="about" className="py-24 px-4 retro-container">
+      <div className="container mx-auto max-w-5xl">
+        <h2 className="text-3xl font-display mb-12 flex items-center animate-on-scroll">
+          <span className="text-retro-orange font-mono mr-2">01.</span>
+          <span className="retro-text-shadow">About Me</span>
+          <span className="h-px bg-white/10 flex-grow ml-4"></span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="md:col-span-2 animate-on-scroll delay-100">
             <div className="mb-6 flex items-center">
-              <div className="bg-saas-primary/10 p-2 mr-4 rounded-none border-l-2 border-saas-primary">
-                <BookOpen className="w-5 h-5 text-saas-primary" />
+              <div className="bg-retro-card p-2 mr-4">
+                <BookOpen className="w-5 h-5 text-retro-orange" />
               </div>
-              <h3 className="text-xl font-semibold text-saas-dark">My Background</h3>
+              <h3 className="text-xl font-display text-retro-orange">My Background</h3>
             </div>
             
-            <p className="text-saas-muted mb-6">
+            <p className="text-retro-muted mb-6 pl-4 border-l border-retro-orange/20">
               Senior Software Engineer at a trading firm based in Bangalore, working on high-performance 
               trade systems and fintech solutions.
             </p>
             
             <div className="mb-6 flex items-center">
-              <div className="bg-saas-primary/10 p-2 mr-4 rounded-none border-l-2 border-saas-primary">
-                <Code className="w-5 h-5 text-saas-primary" />
+              <div className="bg-retro-card p-2 mr-4">
+                <Code className="w-5 h-5 text-retro-orange" />
               </div>
-              <h3 className="text-xl font-semibold text-saas-dark">My Expertise</h3>
+              <h3 className="text-xl font-display text-retro-orange">My Expertise</h3>
             </div>
             
-            <p className="text-saas-muted mb-4">
+            <p className="text-retro-muted mb-4 pl-4 border-l border-retro-orange/20">
               I've worked across multiple domains from Web3 to e-commerce—and I'm currently focused on trade systems and fintech.
             </p>
             
-            <p className="text-saas-muted mb-4">
+            <p className="text-retro-muted mb-4 pl-4 border-l border-retro-orange/20">
               My main expertise lies in backend technologies like distributed systems, Redis, Kafka, AWS, Go, and real-time systems.
             </p>
             
-            <p className="text-saas-muted mb-4">
+            <p className="text-retro-muted mb-4 pl-4 border-l border-retro-orange/20">
               I'm passionate about building backend and cloud services that are efficient, reliable, and easy to maintain. 
               I believe in keeping things simple and scalable, no matter the complexity of the project.
             </p>
             
-            <p className="text-saas-muted">
+            <p className="text-retro-muted pl-4 border-l border-retro-orange/20">
               Always open to meeting new people and collaborating on exciting projects—feel free to connect if you'd like to chat!
             </p>
-            
-            <div className="mt-8">
-              <Button variant="edgy" size="edgy-md" className="btn-noise">
-                View Resume
-              </Button>
-            </div>
           </div>
           
           <div className="animate-on-scroll delay-200 relative">
             <div className="relative max-w-xs mx-auto">
-              <div className="card-edgy bg-white shadow-saas p-2 relative z-10">
+              <div className="border-4 border-retro-orange p-2 bg-retro-bg relative z-10">
                 <div className="overflow-hidden">
                   <img 
                     src="/images/profile.png"
                     alt="Aditya Raj" 
-                    className="w-full transition-all duration-500"
+                    className="w-full grayscale hover:grayscale-0 transition-all duration-500 mix-blend-luminosity hover:mix-blend-normal"
                   />
                 </div>
               </div>
+              <div className="absolute inset-0 bg-retro-purple/20 -translate-x-4 translate-y-4 -z-10"></div>
               
-              {/* Decorative elements */}
-              <div className="absolute -bottom-4 -right-4 w-full h-full border-2 border-saas-primary z-0"></div>
-              
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 flex space-x-2 mt-6">
-                <span className="inline-block w-8 h-1 bg-saas-primary"></span>
-                <span className="inline-block w-16 h-1 bg-saas-dark"></span>
-                <span className="inline-block w-8 h-1 bg-saas-accent"></span>
+              {/* Retro decorative elements */}
+              <div className="absolute top-full left-1/2 transform -translate-x-1/2 flex space-x-2 mt-4">
+                <span className="inline-block w-6 h-1.5 bg-retro-orange"></span>
+                <span className="inline-block w-2 h-1.5 bg-retro-purple"></span>
+                <span className="inline-block w-4 h-1.5 bg-retro-yellow"></span>
               </div>
             </div>
           </div>
