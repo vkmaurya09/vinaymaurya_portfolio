@@ -88,8 +88,8 @@ const Hero = () => {
   };
 
   return (
-    <section id="hero" className="min-h-screen flex flex-col justify-center relative px-4 retro-container scanlines">
-      <div className="container mx-auto max-w-5xl">
+    <section id="hero" className="min-h-screen flex flex-col justify-center relative px-4 retro-container">
+      <div className="container mx-auto max-w-5xl scanlines">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30">
             <Terminal className="w-4 h-4 text-retro-orange mr-2" />
