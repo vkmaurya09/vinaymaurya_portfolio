@@ -8,7 +8,6 @@ import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
-
 const Index = () => {
   // Create refs for each section
   const heroRef = useRef<HTMLDivElement>(null);
@@ -17,69 +16,59 @@ const Index = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
-  const { toast } = useToast();
-
+  const {
+    toast
+  } = useToast();
   useEffect(() => {
     // Change page title
     document.title = "Aditya Raj | Senior Software Engineer";
-    
+
     // Display toast notification about keyboard navigation
     toast({
       title: "Keyboard Navigation",
       description: "Press 0-5 keys to navigate to different sections of the page",
-      duration: 5000,
+      duration: 5000
     });
-    
+
     // Add keyboard event listener
     const handleKeyPress = (event: KeyboardEvent) => {
       const key = event.key;
-      
+
       // Check if focus is on an input field, textarea, or other form elements
       const activeElement = document.activeElement;
-      const isInputField = activeElement instanceof HTMLInputElement || 
-                           activeElement instanceof HTMLTextAreaElement || 
-                           activeElement instanceof HTMLSelectElement ||
-                           activeElement?.tagName === 'TEXTAREA' ||
-                           (activeElement instanceof HTMLElement && activeElement.isContentEditable);
-      
+      const isInputField = activeElement instanceof HTMLInputElement || activeElement instanceof HTMLTextAreaElement || activeElement instanceof HTMLSelectElement || activeElement?.tagName === 'TEXTAREA' || activeElement instanceof HTMLElement && activeElement.isContentEditable;
+
       // Don't navigate if user is typing in an input field
       if (isInputField) {
         return;
       }
-      
+
       // Check if the key is a number
       if (/^[0-5]$/.test(key)) {
         const sectionIndex = parseInt(key, 10);
-        const sections = [
-          heroRef.current,
-          aboutRef.current,
-          experienceRef.current,
-          skillsRef.current,
-          projectsRef.current,
-          contactRef.current
-        ];
-        
+        const sections = [heroRef.current, aboutRef.current, experienceRef.current, skillsRef.current, projectsRef.current, contactRef.current];
+
         // Scroll to the selected section
         if (sections[sectionIndex]) {
-          sections[sectionIndex]?.scrollIntoView({ behavior: 'smooth' });
+          sections[sectionIndex]?.scrollIntoView({
+            behavior: 'smooth'
+          });
         }
       }
     };
-    
+
     // Add event listener
     window.addEventListener('keydown', handleKeyPress);
-    
+
     // Cleanup
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
   }, [toast]);
-
-  return (
-    <div className="min-h-screen bg-background text-foreground">
+  return <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <main>
-        <div ref={heroRef}>
+        <div ref={heroRef} className="the GET_IN_TOUCH and SEE_MY_WORK button in the hero section is not working while clicking. Please fix it">
           <Hero />
         </div>
         <div ref={aboutRef}>
@@ -99,8 +88,6 @@ const Index = () => {
         </div>
       </main>
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
