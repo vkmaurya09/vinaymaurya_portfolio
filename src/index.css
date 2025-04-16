@@ -55,13 +55,9 @@
     @apply font-mono;
   }
 
-  /* Custom cursor */
+  /* Custom cursor - standard pixel cursor for body */
   body {
     cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><rect width='8' height='8' x='0' y='0' fill='%23FF7657' /><rect width='8' height='8' x='8' y='8' fill='%23FF7657' /></svg>"), auto;
-  }
-  
-  a, button, [role="button"], input, select, textarea, label, summary {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><rect width='12' height='12' x='2' y='2' fill='%23FF7657' /></svg>"), auto;
   }
 }
 

@@ -8,7 +8,6 @@ import { usePixelHoverEffect, useGlitchEffect } from "@/utils/micro-animations";
 type TypingState = "typing" | "pausing" | "deleting";
 
 const Hero = () => {
-  const [isVisible, setIsVisible] = useState(true); // Changed to true by default to remove flashing
   const [displayText, setDisplayText] = useState("");
   const [typingState, setTypingState] = useState<TypingState>("typing");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -21,7 +20,7 @@ const Hero = () => {
   // Use the glitch effect hook for the name heading only
   const titleRef = useGlitchEffect({ 
     intensity: 2,
-    interval: 6000,
+    interval: 2000, // Changed to 2 seconds as requested
     duration: 300
   });
   
@@ -106,7 +105,7 @@ const Hero = () => {
       }`}
     >
       <div className="container mx-auto max-w-5xl scanlines">
-        <div className="transition-all duration-1000">
+        <div>
           <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30 hover:border-retro-orange transition-colors duration-300">
             <Terminal className="w-4 h-4 text-retro-orange mr-2" />
             <p className="text-retro-orange font-mono text-xs">hello_world.sh</p>
