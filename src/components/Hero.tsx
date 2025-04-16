@@ -2,7 +2,7 @@
 import { ChevronDown, Terminal, Zap } from "lucide-react";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useGlitchEffect, usePixelHoverEffect } from "@/utils/micro-animations";
+import { usePixelHoverEffect, useGlitchEffect } from "@/utils/micro-animations";
 
 // Define the possible states for our typing animation
 type TypingState = "typing" | "pausing" | "deleting";
@@ -17,7 +17,13 @@ const Hero = () => {
   const deletingSpeed = 75; // slightly faster deletion
   const pauseDuration = 800; // pause before deleting
   const isMobile = useIsMobile();
-  const titleRef = useRef<HTMLHeadingElement>(null);
+  
+  // Use the glitch effect hook which now returns a ref
+  const titleRef = useGlitchEffect({ 
+    intensity: 2,
+    interval: 6000,
+    duration: 300
+  });
   
   // Create refs for the buttons
   const primaryButtonRef = useRef<HTMLButtonElement>(null);
@@ -29,15 +35,6 @@ const Hero = () => {
   // Initialize animation visibility once
   useEffect(() => {
     setIsVisible(true);
-    
-    // Apply glitch effect to the title
-    if (titleRef.current) {
-      useGlitchEffect(titleRef.current, { 
-        intensity: 2,
-        interval: 6000,
-        duration: 300
-      });
-    }
   }, []);
   
   // Manage the typing animation with a clean state machine approach

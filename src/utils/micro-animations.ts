@@ -64,9 +64,9 @@ export function useTypewriterEffect(
   return elementRef;
 }
 
-// Glitch text effect
-export function useGlitchEffect(
-  element: HTMLElement | null, 
+// Glitch text effect - refactored to NOT use hooks internally
+// Return a function that can be called to apply the glitch effect
+export function createGlitchEffect(
   options: { 
     intensity?: number;
     interval?: number;
@@ -79,8 +79,9 @@ export function useGlitchEffect(
     duration = 200
   } = options;
 
-  useEffect(() => {
-    if (!element) return;
+  // Return a function that will set up the glitch effect
+  return (element: HTMLElement | null) => {
+    if (!element) return () => {}; // Return noop cleanup if no element
     
     const originalText = element.innerText;
     const glitchChars = "!<>-_\\/[]{}—=+*^?#________";
@@ -120,11 +121,35 @@ export function useGlitchEffect(
     // Start the effect periodically
     intervalId = setInterval(glitch, interval);
     
+    // Return a cleanup function
     return () => {
       clearTimeout(timeoutId);
       clearInterval(intervalId);
     };
-  }, [element, intensity, interval, duration]);
+  };
+}
+
+// Hook version of the glitch effect that properly follows React's rules of hooks
+export function useGlitchEffect(
+  options: { 
+    intensity?: number;
+    interval?: number;
+    duration?: number;
+  } = {}
+) {
+  const elementRef = useRef<HTMLElement | null>(null);
+  
+  useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+    
+    const glitchEffect = createGlitchEffect(options);
+    const cleanup = glitchEffect(element);
+    
+    return cleanup;
+  }, [options.intensity, options.interval, options.duration]);
+  
+  return elementRef;
 }
 
 // Scanline effect for retro CRT look
