@@ -10,7 +10,19 @@
     <meta property="og:title" content="Vinay Maurya Portfolio" />
     <meta property="og:description" content="Software Engineer 2 specializing in scalable backend systems" />
     <meta property="og:type" content="website" />
-    <script type="module" crossorigin src="/vinaymaurya_portfolio/assets/index-CfeUiU-r.js"></script>
+    <script>
+      // Set base path for assets
+      window.basePath = window.location.href.includes('github.io') ? '/vinaymaurya_portfolio' : '';
+      
+      // Update favicon dynamically
+      if (window.location.href.includes('github.io')) {
+        const faviconLink = document.querySelector('link[rel="icon"]');
+        if (faviconLink) {
+          faviconLink.href = '/vinaymaurya_portfolio/vite.svg';
+        }
+      }
+    </script>
+    <script type="module" crossorigin src="/vinaymaurya_portfolio/assets/index-CFZMLpld.js"></script>
     <link rel="stylesheet" crossorigin href="/vinaymaurya_portfolio/assets/index-DgcKeVEp.css">
   </head>
 
