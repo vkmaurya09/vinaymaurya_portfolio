@@ -1,5 +1,5 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { ExternalLink, Code as CodeIcon, Monitor, Zap } from 'lucide-react';
 
 // Custom GitHub icon component
@@ -52,107 +52,78 @@ const projects: Project[] = [
 ];
 
 const Projects = () => {
-  // Reference for the section
-  const sectionRef = useRef<HTMLElement>(null);
-  
   useEffect(() => {
-    // Animation on scroll with more refined approach
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
+      entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Add different animation classes based on element type
-          const element = entry.target;
-          if (element.classList.contains('project-card')) {
-            // Add staggered animation to cards
-            const delay = parseInt(element.getAttribute('data-index') || '0') * 150;
-            setTimeout(() => {
-              element.classList.add('animate-fade-in');
-              element.classList.add('animate-scale-in');
-            }, delay);
-          } else {
-            // Regular fade in for other elements
-            element.classList.add('animate-fade-in');
-          }
+          entry.target.classList.add('animate-fade-in');
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' });
+    }, { threshold: 0.1 });
 
-    // Observe heading and view all projects button
-    if (sectionRef.current) {
-      const heading = sectionRef.current.querySelector('h2');
-      const viewAllButton = sectionRef.current.querySelector('.view-all-button');
-      
-      if (heading) observer.observe(heading);
-      if (viewAllButton) observer.observe(viewAllButton);
-      
-      // Observe all project cards with staggered delay
-      sectionRef.current.querySelectorAll('.project-card').forEach((card) => {
-        observer.observe(card);
-      });
-    }
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
 
     return () => {
-      observer.disconnect();
+      document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.unobserve(el);
+      });
     };
   }, []);
 
   return (
-    <section 
-      ref={sectionRef}
-      id="projects" 
-      className="py-24 px-4 bg-gradient-to-b from-retro-bg to-retro-bg/90 retro-container"
-    >
+    <section id="projects" className="py-24 px-4 bg-gradient-to-b from-retro-bg to-retro-bg/90 retro-container">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl font-display mb-12 flex items-center animate-on-scroll">
           <span className="text-retro-orange font-mono mr-2">04.</span>
-          <span className="retro-text-shadow glitch-text" data-text="Projects">Projects</span>
-          <span className="h-px bg-white/10 flex-grow ml-4 scan-line-animation"></span>
+          <span className="retro-text-shadow">Projects</span>
+          <span className="h-px bg-white/10 flex-grow ml-4"></span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {projects.map((project, index) => (
             <div 
               key={project.id} 
-              data-index={index}
-              className="project-card retro-card animate-on-scroll border-2 border-white/5 overflow-hidden transition-all duration-500 hover:border-retro-orange/30"
+              className="retro-card animate-on-scroll border-2 border-white/5 overflow-hidden"
+              style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="relative h-56">
                 <div className="absolute left-0 top-0 z-10 bg-retro-card py-1 px-2 text-xs font-mono flex items-center border-r border-b border-white/10">
                   <CodeIcon className="w-3 h-3 mr-1 text-retro-orange" />
                   <span>project_{index + 1}.go</span>
                 </div>
-                <div className="terminal-overlay absolute inset-0 bg-gradient-to-b from-transparent to-retro-bg/20 pointer-events-none"></div>
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100 scan-image"
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500 opacity-80 hover:opacity-100"
                 />
               </div>
               <div className="p-6 bg-retro-card">
-                <h3 className="font-display text-xl mb-1 text-retro-orange retro-glow">{project.title}</h3>
+                <h3 className="font-display text-xl mb-1 text-retro-orange">{project.title}</h3>
                 
                 <div className="flex flex-wrap gap-2 mt-2 mb-4">
                   {project.technologies.map((tech, techIndex) => (
                     <span key={techIndex} 
-                      className="px-2 py-1 bg-white/5 border border-white/10 font-mono text-xs text-retro-muted hover:text-retro-orange hover:border-retro-orange/30 transition-colors tech-badge">
+                      className="px-2 py-1 bg-white/5 border border-white/10 font-mono text-xs text-retro-muted">
                       {tech}
                     </span>
                   ))}
                 </div>
                 
-                <p className="text-retro-muted mb-6 text-sm scan-line-text">{project.description}</p>
+                <p className="text-retro-muted mb-6 text-sm">{project.description}</p>
                 
                 <div className="flex justify-between items-center">
                   <div className="flex space-x-4">
                     {project.github && (
                       <a href={project.github} target="_blank" rel="noopener noreferrer" 
-                        className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs link-hover">
+                        className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs">
                         <GitHubIcon className="w-4 h-4 mr-1" />
                         <span>SOURCE</span>
                       </a>
                     )}
                     <a href={project.link} target="_blank" rel="noopener noreferrer" 
-                      className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs link-hover">
+                      className="text-retro-muted hover:text-retro-orange transition-colors flex items-center font-mono text-xs">
                       <ExternalLink className="w-4 h-4 mr-1" />
                       <span>LIVE DEMO</span>
                     </a>
@@ -163,12 +134,12 @@ const Projects = () => {
           ))}
         </div>
 
-        <div className="mt-16 text-center">
+        <div className="mt-16 text-center animate-on-scroll">
           <a 
             href="https://github.com/aditya201551" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="view-all-button inline-flex items-center px-6 py-3 bg-retro-card border border-retro-orange text-retro-orange font-mono hover:bg-retro-orange/10 transition-colors button-glitch"
+            className="inline-flex items-center px-6 py-3 bg-retro-card border border-retro-orange text-retro-orange font-mono hover:bg-retro-orange/10 transition-colors"
           >
             <GitHubIcon className="w-5 h-5 mr-2" />
             <span>VIEW_ALL_PROJECTS</span>
