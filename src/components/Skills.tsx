@@ -1,8 +1,7 @@
-
 import { useEffect, useState } from 'react';
-import { Cpu, Database, Code, Cloud, Network, Server, Plus, Minus, ChevronRight } from 'lucide-react';
+import { Cpu, Database, Code, Cloud, Network, Server, ChevronRight } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Slider } from "@/components/ui/slider";
+import { Progress } from "@/components/ui/progress";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
@@ -115,16 +114,16 @@ const focusAreas: FocusArea[] = [
 
 const SkillBar = ({ skill, animate = false }: { skill: Skill; animate?: boolean }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [sliderValue, setSliderValue] = useState([0]);
+  const [progressValue, setProgressValue] = useState(0);
   
   useEffect(() => {
     if (animate) {
       const timer = setTimeout(() => {
-        setSliderValue([skill.level]);
+        setProgressValue(skill.level);
       }, 300);
       return () => clearTimeout(timer);
     } else {
-      setSliderValue([skill.level]);
+      setProgressValue(skill.level);
     }
   }, [skill.level, animate]);
   
@@ -168,21 +167,14 @@ const SkillBar = ({ skill, animate = false }: { skill: Skill; animate?: boolean 
           <span className="font-medium">{skill.name}</span>
         </div>
         <span className={`font-mono text-sm ${skill.colorClass.replace('bg-', 'text-')}`}>
-          {sliderValue[0]}%
+          {progressValue}%
         </span>
       </div>
       <div className="relative">
-        <Slider
-          value={sliderValue}
-          min={0}
-          max={100}
-          step={1}
-          className={cn(
-            "cursor-default",
-            `[&>[role=slider]]:${skill.colorClass}`,
-            `[&>div>div]:${skill.colorClass}`
-          )}
-          disabled
+        <Progress
+          value={progressValue}
+          className="h-3"
+          colorClass={skill.colorClass}
         />
       </div>
     </div>
