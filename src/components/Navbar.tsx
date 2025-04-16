@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Mail, FileText, Terminal, Zap, TerminalSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Custom LinkedIn icon component to replace the deprecated Linkedin from lucide-react
 const LinkedInIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -44,6 +45,7 @@ const GitHubIcon = (props: React.SVGProps<SVGSVGElement>) => (
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,6 +61,12 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  const handleNavClick = () => {
+    if (isMobile) {
+      setMobileMenuOpen(false);
+    }
+  };
 
   return (
     <header
@@ -139,33 +147,42 @@ const Navbar = () => {
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden text-retro-text p-2 border border-retro-orange/20 bg-retro-card"
-          aria-label="Toggle menu"
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
         >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          {mobileMenuOpen ? <X className="w-5 h-5 text-retro-orange" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-40 bg-retro-bg/95 backdrop-blur-md pt-20 font-mono">
+          <div className="absolute top-4 right-4">
+            <button
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2 text-retro-orange border border-retro-orange/20 bg-retro-card"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
           <nav className="flex flex-col items-center space-y-8 py-8">
-            <a href="#about" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+            <a href="#about" className="flex items-center" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">01.</span> ABOUT
             </a>
-            <a href="#experience" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+            <a href="#experience" className="flex items-center" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">02.</span> EXPERIENCE
             </a>
-            <a href="#skills" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+            <a href="#skills" className="flex items-center" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">03.</span> SKILLS
             </a>
-            <a href="#projects" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+            <a href="#projects" className="flex items-center" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">04.</span> PROJECTS
             </a>
-            <a href="#contact" className="flex items-center" onClick={() => setMobileMenuOpen(false)}>
+            <a href="#contact" className="flex items-center" onClick={handleNavClick}>
               <span className="text-retro-orange mr-2">05.</span> CONTACT
             </a>
             
-            <div className="flex items-center space-x-6 mt-6">
+            <div className="flex items-center space-x-8 mt-6">
               <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-retro-muted hover:text-retro-orange transition-colors">
                 <GitHubIcon className="w-6 h-6" />
               </a>

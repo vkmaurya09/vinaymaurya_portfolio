@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -8,6 +9,7 @@ import Projects from "@/components/Projects";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
   // Create refs for each section
@@ -18,17 +20,21 @@ const Index = () => {
   const projectsRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Change page title
     document.title = "Aditya Raj | Senior Software Engineer";
     
-    // Display toast notification about keyboard navigation
-    toast({
-      title: "Keyboard Navigation",
-      description: "Press 0-5 keys to navigate to different sections of the page",
-      duration: 5000,
-    });
+    // Only show toast on desktop, not mobile
+    if (!isMobile) {
+      // Display toast notification about keyboard navigation
+      toast({
+        title: "Keyboard Navigation",
+        description: "Press 0-5 keys to navigate to different sections of the page",
+        duration: 5000,
+      });
+    }
     
     // Add keyboard event listener
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -73,7 +79,7 @@ const Index = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [toast]);
+  }, [toast, isMobile]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
