@@ -19,6 +19,13 @@ const Hero = () => {
   const isMobile = useIsMobile();
   const titleRef = useRef<HTMLHeadingElement>(null);
   
+  // Create refs for the buttons
+  const primaryButtonRef = useRef<HTMLButtonElement>(null);
+  const secondaryButtonRef = useRef<HTMLButtonElement>(null);
+  
+  // Get the pixel hover effect
+  const pixelHoverEffect = usePixelHoverEffect();
+  
   // Initialize animation visibility once
   useEffect(() => {
     setIsVisible(true);
@@ -32,9 +39,6 @@ const Hero = () => {
       });
     }
   }, []);
-  
-  // Pixel hover effect for buttons
-  const pixelHoverEffectProps = usePixelHoverEffect();
   
   // Manage the typing animation with a clean state machine approach
   useEffect(() => {
@@ -102,6 +106,20 @@ const Hero = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  
+  // Apply pixel effects to button refs
+  useEffect(() => {
+    // Transfer the ref value to the buttons
+    if (primaryButtonRef.current) {
+      primaryButtonRef.current.style.position = 'relative';
+      primaryButtonRef.current.style.overflow = 'hidden';
+    }
+    
+    if (secondaryButtonRef.current) {
+      secondaryButtonRef.current.style.position = 'relative';
+      secondaryButtonRef.current.style.overflow = 'hidden';
+    }
+  }, []);
 
   return (
     <section 
@@ -143,10 +161,10 @@ const Hero = () => {
           
           <div className="flex flex-col sm:flex-row gap-4">
             <button 
+              ref={primaryButtonRef}
               onClick={handleScrollToSection("contact")}
               className="px-6 py-3 bg-retro-orange text-retro-bg rounded-none font-mono hover:translate-x-1 hover:-translate-y-1 transition-transform duration-300 pixel-shadow flex items-center justify-center relative overflow-hidden group"
-              ref={pixelHoverEffectProps.ref as React.RefObject<HTMLButtonElement>}
-              onMouseMove={pixelHoverEffectProps.onMouseMove}
+              onMouseMove={pixelHoverEffect.onMouseMove}
             >
               <span className="relative z-10 flex items-center">
                 <Zap className="w-4 h-4 mr-2 animate-pulse" /> GET_IN_TOUCH
@@ -154,10 +172,10 @@ const Hero = () => {
               <span className="absolute inset-0 bg-retro-orange group-hover:animate-pulse-subtle"></span>
             </button>
             <button 
+              ref={secondaryButtonRef}
               onClick={handleScrollToSection("experience")}
               className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center relative overflow-hidden"
-              ref={pixelHoverEffectProps.ref as React.RefObject<HTMLButtonElement>}
-              onMouseMove={pixelHoverEffectProps.onMouseMove}
+              onMouseMove={pixelHoverEffect.onMouseMove}
             >
               <span className="relative z-10">SEE_MY_WORK</span>
             </button>

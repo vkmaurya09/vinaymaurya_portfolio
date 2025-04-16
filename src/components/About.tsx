@@ -5,7 +5,11 @@ import { usePixelHoverEffect } from '@/utils/micro-animations';
 
 const About = () => {
   const profileImgRef = useRef<HTMLImageElement>(null);
-  const pixelHoverEffectProps = usePixelHoverEffect();
+  
+  // Create refs for pixel hover effect
+  const firstSectionRef = useRef<HTMLDivElement>(null);
+  const secondSectionRef = useRef<HTMLDivElement>(null);
+  const pixelHoverEffect = usePixelHoverEffect();
 
   useEffect(() => {
     // Create an intersection observer for animation triggers
@@ -83,10 +87,10 @@ const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="md:col-span-2">
             <div 
+              ref={firstSectionRef}
               className="mb-6 flex items-center animate-on-scroll" 
               data-delay="100"
-              ref={pixelHoverEffectProps.ref as React.RefObject<HTMLDivElement>}
-              onMouseMove={pixelHoverEffectProps.onMouseMove}
+              onMouseMove={pixelHoverEffect.onMouseMove}
             >
               <div className="bg-retro-card p-2 mr-4 hover:bg-retro-card/80 transition-colors duration-300">
                 <BookOpen className="w-5 h-5 text-retro-orange" />
@@ -100,10 +104,10 @@ const About = () => {
             </p>
             
             <div 
+              ref={secondSectionRef}
               className="mb-6 flex items-center animate-on-scroll" 
               data-delay="300"
-              ref={pixelHoverEffectProps.ref as React.RefObject<HTMLDivElement>}
-              onMouseMove={pixelHoverEffectProps.onMouseMove}
+              onMouseMove={pixelHoverEffect.onMouseMove}
             >
               <div className="bg-retro-card p-2 mr-4 hover:bg-retro-card/80 transition-colors duration-300">
                 <Code className="w-5 h-5 text-retro-orange" />

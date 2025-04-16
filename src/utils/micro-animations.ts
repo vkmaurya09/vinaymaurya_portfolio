@@ -270,44 +270,53 @@ export function usePixelationEffect(
   }, [imageElement, duration, startDelay, steps]);
 }
 
-// Hover pixel background effect - returns event handlers
+// Hover pixel background effect - modified to correctly return types for React refs
 export function usePixelHoverEffect() {
-  return {
-    onMouseMove: (e: React.MouseEvent<HTMLElement>) => {
-      const element = e.currentTarget;
-      const rect = element.getBoundingClientRect();
-      
-      // Calculate relative position in element
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      // Create pixel trail effect
-      const pixel = document.createElement('div');
-      pixel.className = 'absolute w-1 h-1 bg-retro-orange opacity-70 pointer-events-none';
-      pixel.style.left = `${x}px`;
-      pixel.style.top = `${y}px`;
-      element.appendChild(pixel);
-      
-      // Animate and remove
-      setTimeout(() => {
-        pixel.style.transition = 'all 500ms ease';
-        pixel.style.opacity = '0';
-        pixel.style.transform = 'scale(3)';
-        
-        setTimeout(() => {
-          if (element.contains(pixel)) {
-            element.removeChild(pixel);
-          }
-        }, 500);
-      }, 10);
-    },
+  const pixelRef = useRef<HTMLElement | null>(null);
+  
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const element = e.currentTarget;
+    const rect = element.getBoundingClientRect();
     
-    // Initialize the element with proper positioning
-    ref: (el: HTMLElement | null) => {
-      if (el && el.style.position !== 'relative') {
+    // Calculate relative position in element
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Create pixel trail effect
+    const pixel = document.createElement('div');
+    pixel.className = 'absolute w-1 h-1 bg-retro-orange opacity-70 pointer-events-none';
+    pixel.style.left = `${x}px`;
+    pixel.style.top = `${y}px`;
+    element.appendChild(pixel);
+    
+    // Animate and remove
+    setTimeout(() => {
+      pixel.style.transition = 'all 500ms ease';
+      pixel.style.opacity = '0';
+      pixel.style.transform = 'scale(3)';
+      
+      setTimeout(() => {
+        if (element.contains(pixel)) {
+          element.removeChild(pixel);
+        }
+      }, 500);
+    }, 10);
+  };
+  
+  // Effect to initialize the element
+  useEffect(() => {
+    const el = pixelRef.current;
+    if (el) {
+      if (el.style.position !== 'relative') {
         el.style.position = 'relative';
         el.style.overflow = 'hidden';
       }
     }
+    return () => {};
+  }, []);
+
+  return {
+    ref: pixelRef,
+    onMouseMove: handleMouseMove
   };
 }

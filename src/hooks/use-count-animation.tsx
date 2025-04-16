@@ -13,7 +13,7 @@ interface CountAnimationOptions {
 export const useCountAnimation = (
   targetValue: number, 
   options: CountAnimationOptions = {}
-) => {
+): { value: number; isAnimating: boolean } => {
   const { 
     duration = 1000, 
     delay = 0,
