@@ -1,5 +1,4 @@
-
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Cpu, Database, Code, Cloud, Network, Server, ChevronRight, Grid2X2, List } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -125,8 +124,9 @@ const focusAreas: FocusArea[] = [
   }
 ];
 
-const SkillBar = ({ skill, animate = false }: { skill: Skill; animate?: boolean }) => {
+const SkillBar = ({ skill }: { skill: Skill }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const elementRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -139,8 +139,8 @@ const SkillBar = ({ skill, animate = false }: { skill: Skill; animate?: boolean 
       { threshold: 0.1 }
     );
     
-    // Find the element to observe
-    const currentElement = document.getElementById(`skill-${skill.name.replace(/\s+/g, '-').toLowerCase()}`);
+    const currentElement = elementRef.current;
+    
     if (currentElement) {
       observer.observe(currentElement);
     }
@@ -150,7 +150,7 @@ const SkillBar = ({ skill, animate = false }: { skill: Skill; animate?: boolean 
         observer.unobserve(currentElement);
       }
     };
-  }, [skill.name]);
+  }, []);
 
   // Convert level to percentage for dots calculation
   const levelValue = getSkillLevelValue(skill.level);
@@ -159,7 +159,7 @@ const SkillBar = ({ skill, animate = false }: { skill: Skill; animate?: boolean 
 
   return (
     <div 
-      id={`skill-${skill.name.replace(/\s+/g, '-').toLowerCase()}`}
+      ref={elementRef}
       className={cn(
         "mb-6 transition-all duration-500",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -290,15 +290,11 @@ const FocusAreaCard = ({ area, index }: { area: FocusArea; index: number }) => {
 };
 
 const Skills = () => {
-  // Use a single state object for better state management
-  const [skillsState, setSkillsState] = useState({
-    view: "detailed" as "detailed" | "compact",
-    category: "all" as string,
-    activeTab: "skills" as "skills" | "focus"
-  });
-  
-  // Destructure for convenience
-  const { view, category, activeTab } = skillsState;
+  // Use separate state variables for clarity and to prevent unnecessary re-renders
+  const [view, setView] = useState<"detailed" | "compact">("detailed");
+  const [category, setCategory] = useState<string>("all");
+  const [activeTab, setActiveTab] = useState<"skills" | "focus">("skills");
+  const sectionRef = useRef<HTMLElement>(null);
   
   // Filter skills based on selected category
   const filteredSkills = category === "all" 
@@ -313,52 +309,45 @@ const Skills = () => {
     { value: "databases", label: "Databases" }
   ];
 
-  // Store states in localStorage to persist between tab changes
+  // Load user preferences on initial render only
   useEffect(() => {
-    // Load preferences from localStorage if available
-    const savedView = localStorage.getItem('skillsView');
+    const savedView = localStorage.getItem('skillsView') as "detailed" | "compact" | null;
     const savedCategory = localStorage.getItem('skillsCategory');
-    const savedTab = localStorage.getItem('skillsActiveTab');
+    const savedTab = localStorage.getItem('skillsActiveTab') as "skills" | "focus" | null;
     
-    if (savedView || savedCategory || savedTab) {
-      setSkillsState(prev => ({
-        view: savedView === 'compact' || savedView === 'detailed' ? savedView : prev.view,
-        category: savedCategory || prev.category,
-        activeTab: savedTab === 'skills' || savedTab === 'focus' ? savedTab : prev.activeTab
-      }));
-    }
+    if (savedView) setView(savedView === 'compact' ? 'compact' : 'detailed');
+    if (savedCategory) setCategory(savedCategory);
+    if (savedTab) setActiveTab(savedTab === 'focus' ? 'focus' : 'skills');
   }, []);
 
-  // Save state changes to localStorage
-  useEffect(() => {
-    localStorage.setItem('skillsView', view);
-    localStorage.setItem('skillsCategory', category);
-    localStorage.setItem('skillsActiveTab', activeTab);
-  }, [view, category, activeTab]);
+  // Save preferences individually to avoid unnecessary saves
+  useEffect(() => { localStorage.setItem('skillsView', view); }, [view]);
+  useEffect(() => { localStorage.setItem('skillsCategory', category); }, [category]);
+  useEffect(() => { localStorage.setItem('skillsActiveTab', activeTab); }, [activeTab]);
 
+  // Setup animation on scroll once
   useEffect(() => {
-    // Animation on scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in');
+          observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-      observer.observe(el);
-    });
-
-    return () => {
-      document.querySelectorAll('.animate-on-scroll').forEach(el => {
-        observer.unobserve(el);
+    if (sectionRef.current) {
+      const animatedElements = sectionRef.current.querySelectorAll('.animate-on-scroll');
+      animatedElements.forEach(el => {
+        observer.observe(el);
       });
-    };
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="skills" className="py-24 px-4 retro-container">
+    <section ref={sectionRef} id="skills" className="py-24 px-4 retro-container">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl font-display mb-12 flex items-center animate-on-scroll">
           <span className="text-retro-orange font-mono mr-2">03.</span>
@@ -371,7 +360,7 @@ const Skills = () => {
             type="single" 
             value={category} 
             onValueChange={(value) => {
-              if (value) setSkillsState(prev => ({ ...prev, category: value }));
+              if (value) setCategory(value);
             }}
             className="justify-start"
           >
@@ -390,7 +379,7 @@ const Skills = () => {
           <div className="flex items-center space-x-2 font-mono text-xs">
             <span>View:</span>
             <button
-              onClick={() => setSkillsState(prev => ({ ...prev, view: "detailed" }))}
+              onClick={() => setView("detailed")}
               className={`px-2 py-1 flex items-center gap-1 rounded ${
                 view === "detailed" ? "bg-retro-orange/20 text-retro-orange" : "text-retro-muted"
               }`}
@@ -399,7 +388,7 @@ const Skills = () => {
               Detailed
             </button>
             <button
-              onClick={() => setSkillsState(prev => ({ ...prev, view: "compact" }))}
+              onClick={() => setView("compact")}
               className={`px-2 py-1 flex items-center gap-1 rounded ${
                 view === "compact" ? "bg-retro-orange/20 text-retro-orange" : "text-retro-muted"
               }`}
@@ -411,9 +400,8 @@ const Skills = () => {
         </div>
 
         <Tabs 
-          key={`tabs-container-${activeTab}`} // Force re-render on tab change
-          defaultValue={activeTab} // Use the current activeTab as default
-          onValueChange={(value) => setSkillsState(prev => ({ ...prev, activeTab: value as "skills" | "focus" }))}
+          value={activeTab}
+          onValueChange={(value) => setActiveTab(value as "skills" | "focus")}
           className="animate-on-scroll"
         >
           <TabsList className="bg-retro-card border border-white/10 w-full justify-start mb-6">
@@ -428,22 +416,22 @@ const Skills = () => {
           <TabsContent value="skills" className="border-none p-0 mt-4">
             {view === "detailed" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
-                <div className="animate-on-scroll">
-                  {filteredSkills.slice(0, Math.ceil(filteredSkills.length / 2)).map((skill, index) => (
-                    <SkillBar key={`left-${index}-${skill.name}`} skill={skill} animate={true} />
+                <div>
+                  {filteredSkills.slice(0, Math.ceil(filteredSkills.length / 2)).map((skill) => (
+                    <SkillBar key={`left-${skill.name}`} skill={skill} />
                   ))}
                 </div>
-                <div className="animate-on-scroll">
-                  {filteredSkills.slice(Math.ceil(filteredSkills.length / 2)).map((skill, index) => (
-                    <SkillBar key={`right-${index}-${skill.name}`} skill={skill} animate={true} />
+                <div>
+                  {filteredSkills.slice(Math.ceil(filteredSkills.length / 2)).map((skill) => (
+                    <SkillBar key={`right-${skill.name}`} skill={skill} />
                   ))}
                 </div>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {filteredSkills.map((skill, index) => (
+                {filteredSkills.map((skill) => (
                   <SkillCard 
-                    key={`compact-${index}-${skill.name}`}
+                    key={`compact-${skill.name}`}
                     skill={skill}
                   />
                 ))}
@@ -454,7 +442,7 @@ const Skills = () => {
           <TabsContent value="focus" className="border-none p-0 mt-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
               {focusAreas.map((area, index) => (
-                <FocusAreaCard key={`area-${index}-${area.title}`} area={area} index={index} />
+                <FocusAreaCard key={`area-${area.title}`} area={area} index={index} />
               ))}
             </div>
           </TabsContent>
