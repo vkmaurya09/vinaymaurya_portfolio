@@ -1,66 +1,79 @@
+
 import { useEffect, useState } from 'react';
-import { Cpu, Database, Code, Cloud, Network, Server, ChevronRight } from 'lucide-react';
+import { Cpu, Database, Code, Cloud, Network, Server, ChevronRight, Grid2X2, List } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Progress } from "@/components/ui/progress";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
+
+type SkillLevel = 'beginner' | 'intermediate' | 'advanced' | 'expert';
 
 type Skill = {
   name: string;
   icon: JSX.Element;
-  level: number;
+  level: SkillLevel;
   colorClass: string;
   category: 'backend' | 'cloud' | 'languages' | 'databases';
+};
+
+const getSkillLevelValue = (level: SkillLevel): number => {
+  switch (level) {
+    case 'beginner': return 25;
+    case 'intermediate': return 50;
+    case 'advanced': return 75;
+    case 'expert': return 100;
+    default: return 0;
+  }
 };
 
 const skills: Skill[] = [
   { 
     name: "Go",
     icon: <Code className="w-4 h-4" />, 
-    level: 90, 
+    level: 'expert', 
     colorClass: "bg-retro-orange", 
     category: 'languages'
   },
   { 
     name: "AWS", 
     icon: <Cloud className="w-4 h-4" />, 
-    level: 85, 
+    level: 'advanced', 
     colorClass: "bg-retro-yellow", 
     category: 'cloud'
   },
   { 
     name: "Apache Kafka", 
     icon: <Network className="w-4 h-4" />, 
-    level: 80, 
+    level: 'advanced', 
     colorClass: "bg-retro-purple", 
     category: 'backend'
   },
   { 
     name: "Node.js", 
     icon: <Server className="w-4 h-4" />, 
-    level: 75, 
+    level: 'intermediate', 
     colorClass: "bg-retro-green", 
     category: 'backend'
   },
   { 
     name: "TypeScript", 
     icon: <Code className="w-4 h-4" />, 
-    level: 70, 
+    level: 'intermediate', 
     colorClass: "bg-retro-blue", 
     category: 'languages'
   },
   { 
     name: "Redis", 
     icon: <Database className="w-4 h-4" />, 
-    level: 85, 
+    level: 'advanced', 
     colorClass: "bg-retro-orange", 
     category: 'databases'
   },
   { 
     name: "Django", 
     icon: <Cpu className="w-4 h-4" />, 
-    level: 65, 
+    level: 'intermediate', 
     colorClass: "bg-retro-green", 
     category: 'backend'
   }
@@ -114,18 +127,6 @@ const focusAreas: FocusArea[] = [
 
 const SkillBar = ({ skill, animate = false }: { skill: Skill; animate?: boolean }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [progressValue, setProgressValue] = useState(0);
-  
-  useEffect(() => {
-    if (animate) {
-      const timer = setTimeout(() => {
-        setProgressValue(skill.level);
-      }, 300);
-      return () => clearTimeout(timer);
-    } else {
-      setProgressValue(skill.level);
-    }
-  }, [skill.level, animate]);
   
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -151,6 +152,11 @@ const SkillBar = ({ skill, animate = false }: { skill: Skill; animate?: boolean 
     };
   }, [skill.name]);
 
+  // Convert level to percentage for dots calculation
+  const levelValue = getSkillLevelValue(skill.level);
+  const totalDots = 10;
+  const activeDots = Math.floor(levelValue / 100 * totalDots);
+
   return (
     <div 
       id={`skill-${skill.name.replace(/\s+/g, '-').toLowerCase()}`}
@@ -166,31 +172,62 @@ const SkillBar = ({ skill, animate = false }: { skill: Skill; animate?: boolean 
           </div>
           <span className="font-medium">{skill.name}</span>
         </div>
-        <span className={`font-mono text-sm ${skill.colorClass.replace('bg-', 'text-')}`}>
-          {progressValue}%
-        </span>
+        <Badge variant="outline" className={`font-mono text-xs ${skill.colorClass.replace('bg-', 'border-')} ${skill.colorClass.replace('bg-', 'text-')}`}>
+          {skill.level}
+        </Badge>
       </div>
-      <div className="relative">
-        <Progress
-          value={progressValue}
-          className="h-3"
-          colorClass={skill.colorClass}
-        />
+      <div className="relative h-3 w-full overflow-hidden rounded-full bg-secondary">
+        {/* Progress dots/segments instead of a solid bar */}
+        <div className="absolute inset-0 flex items-center justify-between px-1">
+          {Array.from({ length: totalDots }).map((_, i) => (
+            <div 
+              key={i}
+              className={cn(
+                "h-2 w-2 rounded-full transition-all",
+                i < activeDots ? skill.colorClass : "bg-white/10"
+              )}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-const SkillsCategory = ({ category, skills }: { category: string; skills: Skill[] }) => {
+const SkillCard = ({ skill }: { skill: Skill }) => {
   return (
-    <div className="space-y-6">
-      <h3 className="text-xl font-display mb-8 text-retro-orange retro-text-shadow">
-        {category}
-      </h3>
-      <div className="space-y-6">
-        {skills.map((skill, index) => (
-          <SkillBar key={`${category}-${index}`} skill={skill} animate={true} />
-        ))}
+    <div 
+      className="retro-card p-3 flex flex-col gap-2 animate-on-scroll group hover:border-retro-orange/50 transition-all"
+    >
+      <div className="flex justify-between items-center">
+        <div className="flex items-center">
+          <div className={`p-1.5 rounded-sm mr-2 text-white ${skill.colorClass}`}>
+            {skill.icon}
+          </div>
+          <span className="font-mono text-sm">{skill.name}</span>
+        </div>
+        <Badge variant="outline" className={`font-mono text-xs ${skill.colorClass.replace('bg-', 'border-')} ${skill.colorClass.replace('bg-', 'text-')}`}>
+          {skill.level}
+        </Badge>
+      </div>
+      
+      {/* Skill level indicator dots */}
+      <div className="flex items-center justify-center gap-1 mt-1">
+        {Array.from({ length: 4 }).map((_, i) => {
+          const levels = ['beginner', 'intermediate', 'advanced', 'expert'];
+          const isActive = levels.indexOf(skill.level) >= i;
+          
+          return (
+            <div 
+              key={i}
+              className={cn(
+                "h-1.5 w-1.5 rounded-full transition-all",
+                isActive ? skill.colorClass : "bg-white/10",
+                isActive && "animate-pulse"
+              )}
+            />
+          );
+        })}
       </div>
     </div>
   );
@@ -253,12 +290,19 @@ const FocusAreaCard = ({ area, index }: { area: FocusArea; index: number }) => {
 };
 
 const Skills = () => {
-  const [selectedView, setSelectedView] = useState<"detailed" | "compact">("detailed");
-  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  // Use a single state object for better state management
+  const [skillsState, setSkillsState] = useState({
+    view: "detailed" as "detailed" | "compact",
+    category: "all" as string,
+    activeTab: "skills" as "skills" | "focus"
+  });
   
-  const filteredSkills = selectedCategory === "all" 
+  // Destructure for convenience
+  const { view, category, activeTab } = skillsState;
+  
+  const filteredSkills = category === "all" 
     ? skills 
-    : skills.filter(skill => skill.category === selectedCategory);
+    : skills.filter(skill => skill.category === category);
   
   const categories = [
     { value: "all", label: "All Skills" },
@@ -301,20 +345,20 @@ const Skills = () => {
         <div className="mb-8 flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between animate-on-scroll">
           <ToggleGroup 
             type="single" 
-            value={selectedCategory} 
+            value={category} 
             onValueChange={(value) => {
-              if (value) setSelectedCategory(value);
+              if (value) setSkillsState(prev => ({ ...prev, category: value }));
             }}
             className="justify-start"
           >
-            {categories.map((category) => (
+            {categories.map((cat) => (
               <ToggleGroupItem 
-                key={category.value} 
-                value={category.value}
-                aria-label={category.label}
+                key={cat.value} 
+                value={cat.value}
+                aria-label={cat.label}
                 className="data-[state=on]:text-white data-[state=on]:border-retro-orange data-[state=on]:bg-retro-orange/30"
               >
-                <span className="text-xs">{category.label}</span>
+                <span className="text-xs">{cat.label}</span>
               </ToggleGroupItem>
             ))}
           </ToggleGroup>
@@ -322,25 +366,31 @@ const Skills = () => {
           <div className="flex items-center space-x-2 font-mono text-xs">
             <span>View:</span>
             <button
-              onClick={() => setSelectedView("detailed")}
-              className={`px-2 py-1 ${
-                selectedView === "detailed" ? "bg-retro-orange/20 text-retro-orange" : "text-retro-muted"
+              onClick={() => setSkillsState(prev => ({ ...prev, view: "detailed" }))}
+              className={`px-2 py-1 flex items-center gap-1 ${
+                view === "detailed" ? "bg-retro-orange/20 text-retro-orange" : "text-retro-muted"
               }`}
             >
+              <List className="w-3 h-3" />
               Detailed
             </button>
             <button
-              onClick={() => setSelectedView("compact")}
-              className={`px-2 py-1 ${
-                selectedView === "compact" ? "bg-retro-orange/20 text-retro-orange" : "text-retro-muted"
+              onClick={() => setSkillsState(prev => ({ ...prev, view: "compact" }))}
+              className={`px-2 py-1 flex items-center gap-1 ${
+                view === "compact" ? "bg-retro-orange/20 text-retro-orange" : "text-retro-muted"
               }`}
             >
+              <Grid2X2 className="w-3 h-3" />
               Compact
             </button>
           </div>
         </div>
 
-        <Tabs defaultValue="skills" className="animate-on-scroll">
+        <Tabs 
+          value={activeTab} 
+          onValueChange={(value) => setSkillsState(prev => ({ ...prev, activeTab: value as "skills" | "focus" }))}
+          className="animate-on-scroll"
+        >
           <TabsList className="bg-retro-card border border-white/10 w-full justify-start mb-6">
             <TabsTrigger 
               value="skills"
@@ -357,7 +407,7 @@ const Skills = () => {
           </TabsList>
           
           <TabsContent value="skills" className="border-none p-0">
-            {selectedView === "detailed" ? (
+            {view === "detailed" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
                 <div className="animate-on-scroll">
                   {filteredSkills.slice(0, Math.ceil(filteredSkills.length / 2)).map((skill, index) => (
@@ -373,21 +423,10 @@ const Skills = () => {
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {filteredSkills.map((skill, index) => (
-                  <div 
+                  <SkillCard 
                     key={`compact-${index}`}
-                    className="retro-card p-3 flex items-center justify-between animate-on-scroll"
-                    style={{ animationDelay: `${index * 50}ms` }}
-                  >
-                    <div className="flex items-center">
-                      <div className={`p-1.5 rounded-sm mr-2 text-white ${skill.colorClass}`}>
-                        {skill.icon}
-                      </div>
-                      <span className="font-mono text-sm">{skill.name}</span>
-                    </div>
-                    <span className={`font-mono text-sm ${skill.colorClass.replace('bg-', 'text-')}`}>
-                      {skill.level}%
-                    </span>
-                  </div>
+                    skill={skill}
+                  />
                 ))}
               </div>
             )}
