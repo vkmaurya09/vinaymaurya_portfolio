@@ -8,7 +8,7 @@ import { usePixelHoverEffect, useGlitchEffect } from "@/utils/micro-animations";
 type TypingState = "typing" | "pausing" | "deleting";
 
 const Hero = () => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Changed to true by default to remove flashing
   const [displayText, setDisplayText] = useState("");
   const [typingState, setTypingState] = useState<TypingState>("typing");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,7 +18,7 @@ const Hero = () => {
   const pauseDuration = 800; // pause before deleting
   const isMobile = useIsMobile();
   
-  // Use the glitch effect hook which now returns a ref
+  // Use the glitch effect hook for the name heading only
   const titleRef = useGlitchEffect({ 
     intensity: 2,
     interval: 6000,
@@ -28,14 +28,6 @@ const Hero = () => {
   // Create refs for the buttons
   const primaryButtonRef = useRef<HTMLButtonElement>(null);
   const secondaryButtonRef = useRef<HTMLButtonElement>(null);
-  
-  // Get the pixel hover effect
-  const pixelHoverEffect = usePixelHoverEffect();
-  
-  // Initialize animation visibility once
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
   
   // Manage the typing animation with a clean state machine approach
   useEffect(() => {
@@ -103,20 +95,6 @@ const Hero = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  
-  // Apply pixel effects to button refs
-  useEffect(() => {
-    // Transfer the ref value to the buttons
-    if (primaryButtonRef.current) {
-      primaryButtonRef.current.style.position = 'relative';
-      primaryButtonRef.current.style.overflow = 'hidden';
-    }
-    
-    if (secondaryButtonRef.current) {
-      secondaryButtonRef.current.style.position = 'relative';
-      secondaryButtonRef.current.style.overflow = 'hidden';
-    }
-  }, []);
 
   return (
     <section 
@@ -128,14 +106,14 @@ const Hero = () => {
       }`}
     >
       <div className="container mx-auto max-w-5xl scanlines">
-        <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'}`}>
+        <div className="transition-all duration-1000">
           <div className="inline-flex items-center mb-6 px-2 py-1 bg-retro-card border border-retro-orange/30 hover:border-retro-orange transition-colors duration-300">
             <Terminal className="w-4 h-4 text-retro-orange mr-2" />
-            <p className="text-retro-orange font-mono text-xs terminal-text">hello_world.sh</p>
+            <p className="text-retro-orange font-mono text-xs">hello_world.sh</p>
           </div>
 
           <h1 
-            ref={titleRef}
+            ref={titleRef as React.RefObject<HTMLHeadingElement>}
             className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow"
           >
             <span className="text-retro-orange">Aditya</span> Raj.
@@ -160,19 +138,16 @@ const Hero = () => {
             <button 
               ref={primaryButtonRef}
               onClick={handleScrollToSection("contact")}
-              className="px-6 py-3 bg-retro-orange text-retro-bg rounded-none font-mono hover:translate-x-1 hover:-translate-y-1 transition-transform duration-300 pixel-shadow flex items-center justify-center relative overflow-hidden group"
-              onMouseMove={pixelHoverEffect.onMouseMove}
+              className="px-6 py-3 bg-retro-orange text-retro-bg rounded-none font-mono hover:translate-x-1 hover:-translate-y-1 transition-transform duration-300 pixel-shadow flex items-center justify-center"
             >
               <span className="relative z-10 flex items-center">
                 <Zap className="w-4 h-4 mr-2 animate-pulse" /> GET_IN_TOUCH
               </span>
-              <span className="absolute inset-0 bg-retro-orange group-hover:animate-pulse-subtle"></span>
             </button>
             <button 
               ref={secondaryButtonRef}
               onClick={handleScrollToSection("experience")}
-              className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center relative overflow-hidden"
-              onMouseMove={pixelHoverEffect.onMouseMove}
+              className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center"
             >
               <span className="relative z-10">SEE_MY_WORK</span>
             </button>

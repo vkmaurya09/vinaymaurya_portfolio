@@ -1,4 +1,3 @@
-
 // Utility functions for micro-animations
 import { useEffect, useRef } from 'react';
 
@@ -295,37 +294,13 @@ export function usePixelationEffect(
   }, [imageElement, duration, startDelay, steps]);
 }
 
-// Hover pixel background effect - modified to correctly return types for React refs
+// Hover pixel background effect - modified to return a no-op function
 export function usePixelHoverEffect() {
   const pixelRef = useRef<HTMLElement | null>(null);
   
-  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    const element = e.currentTarget;
-    const rect = element.getBoundingClientRect();
-    
-    // Calculate relative position in element
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Create pixel trail effect
-    const pixel = document.createElement('div');
-    pixel.className = 'absolute w-1 h-1 bg-retro-orange opacity-70 pointer-events-none';
-    pixel.style.left = `${x}px`;
-    pixel.style.top = `${y}px`;
-    element.appendChild(pixel);
-    
-    // Animate and remove
-    setTimeout(() => {
-      pixel.style.transition = 'all 500ms ease';
-      pixel.style.opacity = '0';
-      pixel.style.transform = 'scale(3)';
-      
-      setTimeout(() => {
-        if (element.contains(pixel)) {
-          element.removeChild(pixel);
-        }
-      }, 500);
-    }, 10);
+  // This is now a no-op function that doesn't create the pixel trail
+  const handleMouseMove = () => {
+    // No-op function, removing the pixel trail animation
   };
   
   // Effect to initialize the element
@@ -334,7 +309,6 @@ export function usePixelHoverEffect() {
     if (el) {
       if (el.style.position !== 'relative') {
         el.style.position = 'relative';
-        el.style.overflow = 'hidden';
       }
     }
     return () => {};
