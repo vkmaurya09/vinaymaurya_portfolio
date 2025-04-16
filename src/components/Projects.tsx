@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { ExternalLink, Code as CodeIcon, Monitor, Zap } from 'lucide-react';
 import { usePixelHoverEffect } from '@/utils/micro-animations';
@@ -86,6 +85,9 @@ const Projects = () => {
     });
 
     // Add special hover effect for project cards
+    const mouseMoveHandlers: { element: HTMLDivElement, handler: (e: MouseEvent) => void }[] = [];
+    const mouseLeaveHandlers: { element: HTMLDivElement, handler: () => void }[] = [];
+
     projectRefs.current.forEach((projectRef) => {
       if (!projectRef) return;
 
@@ -119,15 +121,21 @@ const Projects = () => {
       
       projectRef.addEventListener('mousemove', handleMouseMove);
       projectRef.addEventListener('mouseleave', handleMouseLeave);
+
+      mouseMoveHandlers.push({ element: projectRef, handler: handleMouseMove });
+      mouseLeaveHandlers.push({ element: projectRef, handler: handleMouseLeave });
     });
 
     return () => {
       observer.disconnect();
       
       // Cleanup event listeners
-      projectRefs.current.forEach((projectRef) => {
-        if (!projectRef) return;
-        projectRef.removeAllListeners?.();
+      mouseMoveHandlers.forEach(({ element, handler }) => {
+        element.removeEventListener('mousemove', handler);
+      });
+      
+      mouseLeaveHandlers.forEach(({ element, handler }) => {
+        element.removeEventListener('mouseleave', handler);
       });
     };
   }, []);
