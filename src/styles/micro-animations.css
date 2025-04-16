@@ -404,6 +404,13 @@ select, .hover-btn, [role="button"] {
   }
 }
 
+/* Font Matching Animation Class */
+.font-match-raj {
+  font-family: 'VT323', monospace;
+  letter-spacing: 0.05em;
+  transition: font-family 0.2s ease-out;
+}
+
 .encryption-effect {
   position: relative;
   display: inline-block;

@@ -158,7 +158,7 @@ const Hero = () => {
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow">
-            <span className={`text-retro-orange ${isEncrypting ? 'encryption-effect' : ''}`}>{encryptedText}</span> Raj.
+            <span className={`${isEncrypting ? 'encryption-effect font-match-raj' : ''} text-retro-orange`} data-text={encryptedText}>{encryptedText}</span> Raj.
           </h1>
           
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8">
