@@ -84,12 +84,20 @@ const Hero = () => {
   return (
     <section 
       id="hero" 
-      className="min-h-screen flex items-center pt-16 pb-16 bg-saas-bgLight"
+      className="min-h-screen flex items-center pt-16 pb-16 bg-saas-bgLight relative overflow-hidden"
     >
+      {/* Background decorative elements */}
+      <div className="absolute top-20 right-10 w-48 h-48 bg-saas-primary/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 left-10 w-64 h-64 bg-saas-accent/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-1/3 left-1/4 w-32 h-32 bg-saas-secondary/10 rounded-full blur-2xl"></div>
+      
+      {/* Decorative grid pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.01)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30"></div>
+      
       <div className="saas-container relative z-10">
         <div className="max-w-3xl">
           <div className="mb-6">
-            <span className="inline-block px-4 py-1 rounded-full bg-saas-primary/10 text-saas-primary font-medium text-sm">
+            <span className="inline-block px-4 py-1 rounded-full bg-saas-primary/10 text-saas-primary font-medium text-sm animated-border">
               Senior Software Engineer
             </span>
           </div>
@@ -114,15 +122,18 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               onClick={handleScrollToSection("contact")}
-              className="bg-saas-primary hover:bg-saas-primary/90 text-white rounded-md px-6 py-3"
+              variant="edgy"
+              size="edgy-md"
+              className="group"
             >
               Get in touch
-              <ArrowRight className="w-4 h-4 ml-2" />
+              <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
               onClick={handleScrollToSection("experience")}
-              variant="outline"
-              className="border border-saas-primary text-saas-primary bg-transparent hover:bg-saas-primary/10 rounded-md px-6 py-3"
+              variant="edgy-light"
+              size="edgy-md"
+              className="relative overflow-hidden"
             >
               See my experience
             </Button>
@@ -130,14 +141,18 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Background elements */}
-      <div className="absolute right-0 top-1/3 w-1/3 h-96 bg-saas-primary/5 rounded-l-full blur-3xl"></div>
-      <div className="absolute left-0 bottom-1/4 w-1/4 h-64 bg-saas-secondary/5 rounded-r-full blur-3xl"></div>
-      
       {/* Only show scroll down on desktop */}
       {!isMobile && (
         <div className="absolute bottom-10 w-full flex justify-center">
-          <a href="#about" aria-label="Scroll down" className="flex flex-col items-center text-saas-muted hover:text-saas-primary transition-colors duration-300">
+          <a 
+            href="#about" 
+            aria-label="Scroll down" 
+            className="flex flex-col items-center text-saas-muted hover:text-saas-primary transition-all duration-300 hover:-translate-y-1"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
             <span className="font-medium text-sm mb-2">Scroll Down</span>
             <ChevronDown className="w-5 h-5 animate-bounce" />
           </a>

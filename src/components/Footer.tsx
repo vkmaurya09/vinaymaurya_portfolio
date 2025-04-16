@@ -5,8 +5,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="bg-white py-16 border-t border-saas-border">
-      <div className="saas-container">
+    <footer className="py-16 border-t border-saas-border relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.01)_1px,transparent_1px)] bg-[size:40px_40px] opacity-30"></div>
+      
+      <div className="saas-container relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-8 md:mb-0 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start mb-2">
@@ -26,17 +29,19 @@ const Footer = () => {
                 href="https://cursor.sh"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-saas-muted hover:text-saas-primary transition-colors text-xs"
+                className="text-saas-muted hover:text-saas-primary transition-colors text-xs relative group"
               >
                 Cursor
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-saas-primary transition-all duration-300 group-hover:w-full"></span>
               </a>
               <a
                 href="https://lovable.dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-saas-muted hover:text-saas-primary transition-colors text-xs"
+                className="text-saas-muted hover:text-saas-primary transition-colors text-xs relative group"
               >
                 Lovable
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-saas-primary transition-all duration-300 group-hover:w-full"></span>
               </a>
             </div>
           </div>
@@ -52,17 +57,21 @@ const Footer = () => {
           </div>
 
           <div className="flex space-x-6">
-            <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-primary">
-              <Github className="w-4 h-4" />
+            <a href="https://github.com/aditya201551" target="_blank" rel="noopener noreferrer" 
+               className="text-saas-muted hover:text-saas-primary transform transition-all hover:-translate-y-1">
+              <Github className="w-5 h-5" />
             </a>
-            <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-primary">
-              <Linkedin className="w-4 h-4" />
+            <a href="https://www.linkedin.com/in/aaditya-raaj/" target="_blank" rel="noopener noreferrer" 
+               className="text-saas-muted hover:text-saas-primary transform transition-all hover:-translate-y-1">
+              <Linkedin className="w-5 h-5" />
             </a>
-            <a href="mailto:ssh@adityaraj.dev" className="text-saas-muted hover:text-saas-primary">
-              <Mail className="w-4 h-4" />
+            <a href="mailto:ssh@adityaraj.dev" 
+               className="text-saas-muted hover:text-saas-primary transform transition-all hover:-translate-y-1">
+              <Mail className="w-5 h-5" />
             </a>
-            <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer" className="text-saas-muted hover:text-saas-primary">
-              <FileText className="w-4 h-4" />
+            <a href="https://flowcv.com/resume/tsc77t6arq" target="_blank" rel="noopener noreferrer" 
+               className="text-saas-muted hover:text-saas-primary transform transition-all hover:-translate-y-1">
+              <FileText className="w-5 h-5" />
             </a>
           </div>
         </div>

@@ -77,6 +77,150 @@ select, .hover-btn, [role="button"] {
   border-color: #FFB74D;
 }
 
+/* Edgy Button Hover Effects */
+.btn-edgy {
+  position: relative;
+  transition: all 0.25s ease;
+  overflow: hidden;
+  transform-origin: center;
+}
+
+.btn-edgy::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: transform 0.4s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.btn-edgy:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-edgy::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.btn-edgy:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Layered Button Effect */
+.btn-layered {
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+.btn-layered::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 100%;
+  height: 100%;
+  background-color: #FF7E5F;
+  z-index: -1;
+  transition: all 0.3s cubic-bezier(0.7, 0, 0.2, 1);
+}
+
+.btn-layered:hover::before {
+  transform: translate(-4px, -4px);
+}
+
+/* Hover Button with Noise Effect */
+.btn-noise {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-noise::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/noise.png');
+  background-size: 150px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+  mix-blend-mode: overlay;
+}
+
+.btn-noise:hover::before {
+  opacity: 0.1;
+}
+
+/* Flash Effect */
+@keyframes flash {
+  0% { opacity: 0.5; }
+  100% { opacity: 0; }
+}
+
+.flash-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.flash-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.7s;
+}
+
+.flash-effect:hover::before {
+  left: 100%;
+}
+
+/* Outline Button Hover Effect */
+.btn-outline {
+  position: relative;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: currentColor;
+  opacity: 0.1;
+  z-index: -1;
+  transition: width 0.3s ease;
+}
+
+.btn-outline:hover::before {
+  width: 100%;
+}
+
 /* Hover effects for buttons and links */
 .hover-btn {
   transition: all 0.25s ease;
@@ -260,6 +404,17 @@ select, .hover-btn, [role="button"] {
   border-color: rgba(255, 126, 95, 0.3);
 }
 
+/* Edgy Card Effect */
+.card-edgy {
+  transition: all 0.3s ease;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.card-edgy:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 6px 6px 0 0 rgba(255, 126, 95, 1);
+}
+
 /* Modern Loading Screen */
 .loading-screen {
   position: fixed;
@@ -348,6 +503,34 @@ select, .hover-btn, [role="button"] {
   font-weight: 500;
 }
 
+/* Edgy Border Animation */
+@keyframes border-dance {
+  0% {
+    background-position: 0 0, 100% 100%, 0 100%, 100% 0;
+  }
+  100% {
+    background-position: 100% 0, 0 100%, 0 0, 100% 100%;
+  }
+}
+
+.animated-border {
+  --border-size: 2px;
+  --border-angle: 0deg;
+  background-image:
+    linear-gradient(var(--border-angle), #FF7E5F 0%, #FFB74D 30%, #FF7E5F 100%),
+    linear-gradient(var(--border-angle), #FF7E5F 0%, #FFB74D 30%, #FF7E5F 100%),
+    linear-gradient(var(--border-angle), #FF7E5F 0%, #FFB74D 30%, #FF7E5F 100%),
+    linear-gradient(var(--border-angle), #FF7E5F 0%, #FFB74D 30%, #FF7E5F 100%);
+  background-size:
+    calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)),
+    cover,
+    cover,
+    cover;
+  background-position: center center, 0 0, 100% 100%, 0 100%, 100% 0;
+  background-repeat: no-repeat;
+  animation: border-dance 8s linear infinite;
+}
+
 /* Progress dots animation */
 @keyframes pulse-dot {
   0% {
@@ -373,3 +556,73 @@ select, .hover-btn, [role="button"] {
 .progress-dot:nth-child(3) { animation-delay: 0.3s; }
 .progress-dot:nth-child(4) { animation-delay: 0.4s; }
 .progress-dot:nth-child(5) { animation-delay: 0.5s; }
+
+/* Text glitch effect */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -1px 0 #ff7e5f;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: 1px 0 #ffb74d;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(10% 0 70% 0);
+  }
+  20% {
+    clip-path: inset(60% 0 1% 0);
+  }
+  40% {
+    clip-path: inset(40% 0 50% 0);
+  }
+  60% {
+    clip-path: inset(80% 0 5% 0);
+  }
+  80% {
+    clip-path: inset(20% 0 60% 0);
+  }
+  100% {
+    clip-path: inset(50% 0 30% 0);
+  }
+}
+
+@keyframes glitch-anim-2 {
+  0% {
+    clip-path: inset(20% 0 60% 0);
+  }
+  20% {
+    clip-path: inset(30% 0 40% 0);
+  }
+  40% {
+    clip-path: inset(70% 0 20% 0);
+  }
+  60% {
+    clip-path: inset(10% 0 80% 0);
+  }
+  80% {
+    clip-path: inset(50% 0 10% 0);
+  }
+  100% {
+    clip-path: inset(0% 0 90% 0);
+  }
+}

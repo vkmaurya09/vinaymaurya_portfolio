@@ -130,13 +130,28 @@
   .saas-card {
     @apply bg-white rounded-lg border border-saas-border shadow-saas transition-all duration-200;
   }
+  
+  /* Edgy card style */
+  .saas-card-edgy {
+    @apply bg-white border-2 border-saas-dark transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[4px_4px_0_0_theme(colors.saas.primary)];
+  }
 
+  /* Original button styles */
   .saas-btn-primary {
     @apply bg-saas-primary text-white font-medium rounded-md px-4 py-2 hover:bg-opacity-90 transition-all;
   }
 
   .saas-btn-secondary {
     @apply bg-white text-saas-primary border border-saas-primary font-medium rounded-md px-4 py-2 hover:bg-saas-primary/5 transition-all;
+  }
+  
+  /* New edgy button styles */
+  .saas-btn-edgy {
+    @apply bg-saas-dark text-white px-5 py-3 border-none shadow-none hover:translate-y-[-2px] hover:shadow-[4px_4px_0_0_theme(colors.saas.primary)] transition-all duration-200 relative overflow-hidden after:content-[''] after:absolute after:h-full after:w-0 after:top-0 after:right-0 after:bg-saas-primary/20 after:transition-all after:duration-300 hover:after:w-full hover:after:left-0 hover:after:right-auto;
+  }
+  
+  .saas-btn-edgy-outline {
+    @apply bg-white text-saas-dark border-2 border-saas-dark px-5 py-3 hover:translate-y-[-2px] hover:shadow-[4px_4px_0_0_theme(colors.saas.primary)] transition-all duration-200;
   }
 
   .saas-heading {
@@ -150,4 +165,45 @@
   .saas-section {
     @apply py-16 md:py-24;
   }
+  
+  /* Glitch effect for text elements */
+  .text-glitch {
+    position: relative;
+  }
+  
+  .text-glitch::before,
+  .text-glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .text-glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 theme(colors.saas.primary);
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+  
+  .text-glitch::after {
+    left: -2px;
+    text-shadow: 1px 0 theme(colors.saas.accent);
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  }
+}
+
+/* Stripe border animation */
+.border-stripe {
+  --stripe-size: 6px;
+  --stripe-color: rgba(255, 126, 95, 0.5);
+  
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--stripe-color) 0,
+    var(--stripe-color) var(--stripe-size),
+    transparent var(--stripe-size),
+    transparent calc(2 * var(--stripe-size))
+  );
 }
