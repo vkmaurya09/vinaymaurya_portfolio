@@ -1,5 +1,6 @@
+
 import { ChevronDown, Terminal, Zap } from "lucide-react";
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 // Define the possible states for our typing animation
 type TypingState = "typing" | "pausing" | "deleting";
@@ -77,6 +78,15 @@ const Hero = () => {
     pauseDuration
   ]);
 
+  // Handle smooth scroll to sections
+  const handleScrollToSection = (sectionId: string) => (event: React.MouseEvent) => {
+    event.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center relative px-4 retro-container scanlines">
       <div className="container mx-auto max-w-5xl">
@@ -106,18 +116,18 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
-            <a 
-              href="#contact"
+            <button 
+              onClick={handleScrollToSection("contact")}
               className="px-6 py-3 bg-retro-orange text-retro-bg rounded-none font-mono hover:translate-x-1 hover:-translate-y-1 transition-transform duration-300 pixel-shadow flex items-center justify-center"
             >
               <Zap className="w-4 h-4 mr-2" /> GET_IN_TOUCH
-            </a>
-            <a 
-              href="#experience"
+            </button>
+            <button 
+              onClick={handleScrollToSection("experience")}
               className="px-6 py-3 border-2 border-retro-orange/70 text-retro-orange font-mono rounded-none hover:bg-retro-orange/10 transition-colors duration-300 flex items-center justify-center"
             >
               SEE_MY_WORK
-            </a>
+            </button>
           </div>
         </div>
         
