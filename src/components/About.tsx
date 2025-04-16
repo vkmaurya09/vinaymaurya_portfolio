@@ -1,26 +1,30 @@
+
 import { useEffect } from 'react';
 import { Code, BookOpen } from 'lucide-react';
+
 const About = () => {
   useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate-fade-in');
         }
       });
-    }, {
-      threshold: 0.1
-    });
+    }, { threshold: 0.1 });
+
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
       observer.observe(el);
     });
+
     return () => {
       document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.unobserve(el);
       });
     };
   }, []);
-  return <section id="about" className="py-24 px-4 retro-container">
+
+  return (
+    <section id="about" className="py-24 px-4 retro-container">
       <div className="container mx-auto max-w-5xl">
         <h2 className="text-3xl font-display mb-12 flex items-center animate-on-scroll">
           <span className="text-retro-orange font-mono mr-2">01.</span>
@@ -71,7 +75,11 @@ const About = () => {
             <div className="relative max-w-xs mx-auto">
               <div className="border-4 border-retro-orange p-2 bg-retro-bg relative z-10">
                 <div className="overflow-hidden">
-                  <img src="/images/profile.png" alt="Aditya Raj" className="w-full grayscale hover:grayscale-0 transition-all duration-500 mix-blend-luminosity hover:mix-blend-normal" />
+                  <img 
+                    src="/images/profile.png"
+                    alt="Aditya Raj" 
+                    className="w-full grayscale hover:grayscale-0 transition-all duration-500 mix-blend-luminosity hover:mix-blend-normal"
+                  />
                 </div>
               </div>
               <div className="absolute inset-0 bg-retro-purple/20 -translate-x-4 translate-y-4 -z-10"></div>
@@ -86,6 +94,8 @@ const About = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default About;
