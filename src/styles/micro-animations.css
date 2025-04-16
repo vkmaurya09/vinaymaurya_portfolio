@@ -1,3 +1,4 @@
+
 /* Retro cursor */
 body {
   cursor: none !important; /* Hide default cursor */
@@ -128,6 +129,41 @@ select, .hover-btn, [role="button"] {
 
 .skill-bar-fill {
   animation: fill-bar 1.5s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+}
+
+/* Experience card transition animations */
+.perspective-500 {
+  perspective: 500px;
+}
+
+@keyframes card-exit {
+  0% {
+    opacity: 1;
+    transform: translateX(0) rotateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-20px) rotateY(-5deg);
+  }
+}
+
+@keyframes card-enter {
+  0% {
+    opacity: 0;
+    transform: translateX(20px) rotateY(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) rotateY(0);
+  }
+}
+
+.animate-card-exit {
+  animation: card-exit 0.3s ease forwards;
+}
+
+.animate-card-enter {
+  animation: card-enter 0.3s ease forwards;
 }
 
 /* CRT flickering effect */

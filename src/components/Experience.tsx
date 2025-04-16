@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Briefcase, Calendar, MapPin, ChevronRight } from "lucide-react";
 
 type Experience = {
@@ -157,6 +157,8 @@ const Experience = () => {
   const [currentExperience, setCurrentExperience] = useState(
     experiences.find((exp) => exp.id === 1)
   );
+  const [isAnimating, setIsAnimating] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -181,12 +183,36 @@ const Experience = () => {
     };
   }, []);
 
-  // Update current experience when tab changes
+  // Update current experience when tab changes with animation
   const handleTabChange = (tabId: number) => {
-    const newExperience = experiences.find((exp) => exp.id === tabId);
-    if (newExperience) {
-      setSelectedTab(tabId);
-      setCurrentExperience(newExperience);
+    if (tabId === selectedTab || isAnimating) return;
+    
+    setIsAnimating(true);
+    
+    // Slide out animation
+    if (cardRef.current) {
+      cardRef.current.classList.add('animate-card-exit');
+      
+      setTimeout(() => {
+        const newExperience = experiences.find((exp) => exp.id === tabId);
+        if (newExperience) {
+          setSelectedTab(tabId);
+          setCurrentExperience(newExperience);
+        }
+        
+        // Slide in animation
+        if (cardRef.current) {
+          cardRef.current.classList.remove('animate-card-exit');
+          cardRef.current.classList.add('animate-card-enter');
+          
+          setTimeout(() => {
+            if (cardRef.current) {
+              cardRef.current.classList.remove('animate-card-enter');
+              setIsAnimating(false);
+            }
+          }, 300);
+        }
+      }, 300);
     }
   };
 
@@ -205,14 +231,17 @@ const Experience = () => {
               {experiences.map((exp) => (
                 <button
                   key={exp.id}
-                  className={`px-4 py-3 text-left border transition-colors whitespace-nowrap ${
+                  className={`px-4 py-3 text-left border transition-all duration-300 whitespace-nowrap ${
                     selectedTab === exp.id
                       ? "border-retro-orange text-retro-orange bg-retro-orange/5"
                       : "border-white/10 text-retro-muted hover:text-retro-orange hover:border-retro-orange/50"
                   }`}
                   onClick={() => handleTabChange(exp.id)}
+                  disabled={isAnimating}
                 >
-                  <Briefcase className="w-4 h-4 inline-block mr-2" />
+                  <Briefcase className={`w-4 h-4 inline-block mr-2 transition-transform duration-300 ${
+                    selectedTab === exp.id ? "rotate-12" : ""
+                  }`} />
                   {exp.company}
                 </button>
               ))}
@@ -221,7 +250,7 @@ const Experience = () => {
 
           <div className="lg:w-3/4 min-h-[300px] flex items-start animate-on-scroll delay-100">
             {currentExperience && (
-              <div className="w-full">
+              <div className="w-full relative perspective-500" ref={cardRef}>
                 <ExperienceCard experience={currentExperience} />
               </div>
             )}
