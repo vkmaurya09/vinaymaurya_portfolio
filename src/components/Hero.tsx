@@ -1,4 +1,3 @@
-
 import { ChevronDown, Terminal, Zap } from "lucide-react";
 import { useEffect, useState, useMemo } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
