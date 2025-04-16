@@ -1,4 +1,3 @@
-
 import { ChevronDown, Terminal, Zap } from "lucide-react";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -13,66 +12,12 @@ const Hero = () => {
   const [displayText, setDisplayText] = useState("");
   const [typingState, setTypingState] = useState<TypingState>("typing");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [encryptedText, setEncryptedText] = useState("Aditya");
-  const [isEncrypting, setIsEncrypting] = useState(false);
-  const encryptionTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const originalName = "Aditya";
+  const isMobile = useIsMobile();
   
   const typingTexts = useMemo(() => ["web", "future", "cloud", "systems", "experiences"], []);
   const typingSpeed = 100; // ms per character
   const deletingSpeed = 75; // slightly faster deletion
   const pauseDuration = 800; // pause before deleting
-  const isMobile = useIsMobile();
-  
-  // Handle the encryption effect
-  useEffect(() => {
-    // Wait 2 seconds before starting the effect
-    const initialDelay = setTimeout(() => {
-      startEncryptionEffect();
-    }, 2000);
-    
-    return () => {
-      clearTimeout(initialDelay);
-      if (encryptionTimerRef.current) {
-        clearTimeout(encryptionTimerRef.current);
-      }
-    };
-  }, []);
-  
-  // Function to start the encryption animation cycle
-  const startEncryptionEffect = () => {
-    setIsEncrypting(true);
-    
-    // Encryption effect (scramble text)
-    let iterations = 0;
-    const maxIterations = 10;
-    const iterationSpeed = 50;
-    
-    const encryptInterval = setInterval(() => {
-      if (iterations < maxIterations) {
-        setEncryptedText(prevText => {
-          return originalName.split('').map((char, idx) => {
-            // As iterations progress, lock in more characters from left to right
-            if (idx < (iterations / maxIterations) * originalName.length) {
-              return originalName[idx];
-            }
-            // Replace with random character
-            return encryptionChars[Math.floor(Math.random() * encryptionChars.length)];
-          }).join('');
-        });
-        iterations++;
-      } else {
-        clearInterval(encryptInterval);
-        setEncryptedText(originalName);
-        setIsEncrypting(false);
-        
-        // Schedule the next animation after 3 seconds
-        encryptionTimerRef.current = setTimeout(() => {
-          startEncryptionEffect();
-        }, 3000);
-      }
-    }, iterationSpeed);
-  };
   
   // Manage the typing animation with a clean state machine approach
   useEffect(() => {
@@ -158,7 +103,7 @@ const Hero = () => {
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-display mb-4 text-retro-text retro-text-shadow">
-            <span className={`${isEncrypting ? 'encryption-effect font-match-raj' : ''} text-retro-orange`} data-text={encryptedText}>{encryptedText}</span> Raj.
+            <span className="text-retro-orange">Aditya</span> Raj.
           </h1>
           
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-display text-retro-text/70 mb-8">
